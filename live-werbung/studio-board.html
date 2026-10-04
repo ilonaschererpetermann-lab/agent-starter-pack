@@ -124,6 +124,28 @@ tr:nth-child(3) .rank{background:#B7834A;color:var(--night)}
 .role{border-left:3px solid var(--gold);padding:4px 0 4px 12px}
 .role b{display:block;color:var(--cream)}
 .role span{font-size:13px;color:var(--muted)}
+/* Teleprompter & Vorlesen */
+.tp-start{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;background:linear-gradient(135deg,#1B3A63,var(--panel));border:1px solid var(--gold)}
+.tp-start p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.btn.big{font-size:18px;padding:14px 22px;border-radius:14px}
+.say{background:transparent;border:1px solid var(--line);color:var(--cream);border-radius:10px;padding:6px 12px;font-weight:700;font-size:14px;justify-self:start}
+.say[aria-pressed="true"]{background:var(--teal);color:var(--night);border-color:var(--teal)}
+.kid{display:grid;gap:10px}
+.kid p{margin:0;font-size:17px;line-height:1.6;max-width:70ch}
+.kid b{color:var(--cream)}
+.tp{position:fixed;inset:0;z-index:30;background:var(--night);display:grid;grid-template-rows:auto 1fr auto;
+  padding:calc(16px + env(safe-area-inset-top,0px)) 20px calc(16px + env(safe-area-inset-bottom,0px));gap:12px}
+.tp-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.tp-time{font-size:22px;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums}
+.tp-step{font-size:15px;color:var(--teal);font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.tp-main{display:grid;align-content:center;gap:24px;text-align:center;max-width:1100px;margin:0 auto;width:100%}
+.tp-title{font-family:var(--display);color:var(--gold);font-size:clamp(24px,4vw,44px)}
+.tp-text{font-size:clamp(30px,5.5vw,64px);font-weight:800;line-height:1.25;color:var(--text);text-wrap:balance}
+.tp-do{font-size:clamp(18px,2.4vw,26px);color:var(--cream);background:var(--panel);border:1px dashed var(--gold);border-radius:14px;padding:12px 18px;justify-self:center}
+.tp-next{color:var(--muted);font-size:16px}
+.tp-nav{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.tp-nav button{font-size:20px;font-weight:800;border-radius:14px;padding:16px;border:1px solid var(--line);background:var(--panel);color:var(--cream)}
+.tp-nav .go{background:var(--gold);color:var(--night);border-color:var(--gold)}
 footer{text-align:center;color:var(--muted);font-size:12px;letter-spacing:.12em}
 </style>
 
@@ -153,6 +175,29 @@ footer{text-align:center;color:var(--muted);font-size:12px;letter-spacing:.12em}
   </header>
 
   <section class="grid">
+    <article class="card span-12 tp-start" aria-labelledby="h-tp">
+      <div>
+        <h2 id="h-tp">Teleprompter für die Show</h2>
+        <p>Zeigt dir groß, was du gerade sagen sollst. Springt nach der Uhr weiter. Auf Wunsch liest er dir alles ins Ohr vor.</p>
+      </div>
+      <button class="btn big" id="tpOpen" type="button">Teleprompter starten</button>
+    </article>
+
+    <article class="card span-12" aria-labelledby="h-kid">
+      <div class="card-head">
+        <h2 id="h-kid">Die Liga, ganz einfach erklärt</h2>
+        <button class="say" type="button" data-say="kid">🔊 Vorlesen</button>
+      </div>
+      <div class="kid" id="kidText">
+        <p>Stell dir die Liga vor wie eine <b>Treppe mit vielen Stufen</b>. Ganz unten ist D, ganz oben ist A1. <b>Du stehst auf A3.</b> Die nächste Stufe ist A2.</p>
+        <p>Jeden Tag schaut TikTok: <b>Wer hat heute die meisten Diamanten bekommen?</b> Das wird nur mit den anderen auf deiner Stufe verglichen.</p>
+        <p>Bist du heute <b>weit vorne</b>, bekommst du <b>Puzzleteile</b>. Die heißen Fragmente. Bist du weit hinten, verlierst du eins.</p>
+        <p>Hast du <b>genug Puzzleteile</b> gesammelt, gehst du <b>eine Stufe hoch</b>. Heute wollen wir <b>zwei Puzzleteile</b>.</p>
+        <p><b>Wächter</b> sind deine besten Freunde im Live. Sie können eine Aufgabe machen und dir damit <b>extra Puzzleteile schenken</b>. Darum fragst du heute: Wer wird mein Wächter?</p>
+        <p>Wenn du eine Stufe hochgehst, bekommst du ein <b>Schild</b>. Das passt auf dich auf, damit du nach einem schlechten Tag nicht gleich wieder runterfällst.</p>
+      </div>
+    </article>
+
     <article class="card span-12" aria-labelledby="h-cues">
       <div class="card-head">
         <h2 id="h-cues">Abruf-Tafel</h2>
@@ -249,7 +294,32 @@ footer{text-align:center;color:var(--muted);font-size:12px;letter-spacing:.12em}
   <div class="inner">
     <div class="t" id="pT"></div>
     <div class="s" id="pS"></div>
-    <button class="close" id="pClose" type="button">Schließen</button>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <button class="close" id="pSay" type="button" style="background:var(--teal)">🔊 Vorlesen</button>
+      <button class="close" id="pClose" type="button">Schließen</button>
+    </div>
+  </div>
+</div>
+
+<div class="tp" id="tp" hidden role="dialog" aria-modal="true" aria-labelledby="tpTitle">
+  <div class="tp-top">
+    <div><div class="tp-step" id="tpStep"></div><div class="tp-time" id="tpTime"></div></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="say" id="tpVoice" type="button" aria-pressed="false">🔊 Ins Ohr vorlesen: aus</button>
+      <button class="say" id="tpAuto" type="button" aria-pressed="true">⏱ Nach Uhrzeit: an</button>
+      <button class="say" id="tpClose" type="button">Schließen</button>
+    </div>
+  </div>
+  <div class="tp-main">
+    <div class="tp-title" id="tpTitle"></div>
+    <div class="tp-text" id="tpText"></div>
+    <div class="tp-do" id="tpDo"></div>
+    <div class="tp-next" id="tpNext"></div>
+  </div>
+  <div class="tp-nav">
+    <button type="button" id="tpBack">◀ Zurück</button>
+    <button type="button" id="tpRead">🔊 Nochmal</button>
+    <button type="button" class="go" id="tpFwd">Weiter ▶</button>
   </div>
 </div>
 
@@ -500,6 +570,97 @@ $("goalSave").onclick = async () => {
 };
 
 renderChecks(); renderSupporters();
+
+// ---------- Vorlesen ----------
+function speak(text) {
+  try {
+    const synth = window.speechSynthesis;
+    if (!synth) return false;
+    synth.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "de-DE"; u.rate = 0.92;
+    const v = synth.getVoices().find((x) => x.lang && x.lang.startsWith("de"));
+    if (v) u.voice = v;
+    synth.speak(u);
+    return true;
+  } catch { return false; }
+}
+try { window.speechSynthesis && window.speechSynthesis.getVoices(); } catch {}
+document.querySelectorAll('[data-say="kid"]').forEach((b) => { b.onclick = () => speak($("kidText").innerText); });
+$("pSay").onclick = () => speak($("pT").textContent + ". " + $("pS").textContent);
+
+// ---------- Teleprompter ----------
+const SHOW = [
+  { t: "18:45", title: "Gleich geht's los", text: "Atme tief durch. Du bist gut vorbereitet.", do: "Technik-Check im Board abhaken. Wasser hinstellen. Lächeln." },
+  { t: "19:00", title: "Begrüßung", text: "Hallo ihr Herzlöwen! Schön, dass ihr da seid. Heute wird's ehrlich, laut und ohne Filter!", do: "Stream Deck: Taste LIVE Intro drücken." },
+  { t: "19:05", title: "Der Plan für heute", text: "Heute haben wir zwei große Ziele: Wir holen uns zwei Puzzleteile für die Liga A2. Und um 20 Uhr steigt das BIG MATCH. Alles erlaubt!", do: "Ziel laut und langsam sagen." },
+  { t: "19:12", title: "Folgen", text: "Wer mir noch nicht folgt: Jetzt auf Folgen drücken. Dann verpasst du kein Live mehr.", do: "Stream Deck: Taste FOLGEN drücken." },
+  { t: "19:20", title: "Wächter gewinnen", text: "Ich brauche euch heute ganz besonders. Wer wird heute mein Wächter? Mit eurer Wächter-Aufgabe bringt ihr uns direkt nach oben!", do: "Birgit, Ines und die Top-Schenker beim Namen ansprechen." },
+  { t: "19:30", title: "Ehrlicher Moment", text: "Demenz nimmt mir manches. Aber nicht mein Lachen und nicht euch. Darum bin ich jeden Tag hier.", do: "Ruhig sprechen. Kurze Pause machen." },
+  { t: "19:40", title: "Zwischenstand", text: "Schaut mal, wie weit wir schon sind! Jede Rose bringt uns näher an unser Ziel.", do: "Diamanten-Stand aus dem Board vorlesen." },
+  { t: "19:50", title: "Match ankündigen", text: "In zehn Minuten geht's los: BIG MATCH! Holt eure Rosen raus, Herzlöwen. Heute zeigen wir, wer wir sind!", do: "Freunde zum Teilen auffordern." },
+  { t: "20:00", title: "BIG MATCH startet", text: "BIG MATCH läuft! Alles erlaubt. Herzlöwen, jetzt geht's los!", do: "Stream Deck: Taste MATCH Start. Ab jetzt mit Weiter tippen." },
+  { title: "Doppelte Punkte", text: "Jetzt zählt alles DOPPELT! Das ist euer Moment!", do: "Stream Deck: Taste x2 drücken." },
+  { title: "Handschuh – direkt danach", text: "Der Handschuh ist an! 30 Sekunden mit Chance auf FÜNFFACH!", do: "Handschuh erst NACH den doppelten Punkten. Taste x5 drücken." },
+  { title: "Letzte 60 Sekunden", text: "Letzte Minute! Alles reinwerfen, was geht. JETZT entscheidet es sich!", do: "Stream Deck: Taste 60s drücken." },
+  { title: "Nebel – letzte 30 Sekunden", text: "Nebel ist drin. Die anderen sehen nichts mehr. Jetzt still und heimlich alles geben!", do: "Nebel nur in den letzten 30 Sekunden." },
+  { title: "Gewonnen", text: "GEWONNEN! Das wart IHR! Ich bin so stolz auf euch!", do: "Stream Deck: Taste SIEG. Bei Niederlage: nächster Schritt." },
+  { title: "Knapp verloren", text: "Knapp daneben. Aber mit so einer Familie bin ich trotzdem Gewinnerin. Danke euch!", do: "Nur sagen, wenn verloren. Sonst Weiter." },
+  { t: "21:00", title: "Danke an die Top 3", text: "Meine Top 3 heute bekommen einen riesigen Applaus! Danke für euer Herz!", do: "Namen aus der Rangliste im Board vorlesen. Taste DANKE." },
+  { t: "21:05", title: "Abschied", text: "Danke für diesen Abend. Morgen um halb elf bin ich wieder da. Ehrlich, menschlich, ohne Filter. Bis bald, ihr Herzlöwen!", do: "Stream Deck: Taste DANKE. Dann Live beenden." },
+];
+let tpIdx = 0, tpVoice = false, tpAuto = true, wake = null;
+
+function stepForTime(now) {
+  const hm = pad(now.getHours()) + ":" + pad(now.getMinutes());
+  let idx = 0;
+  SHOW.forEach((s, i) => { if (s.t && s.t <= hm) idx = i; });
+  return idx;
+}
+function renderTp(say) {
+  const s = SHOW[tpIdx];
+  $("tpStep").textContent = "Schritt " + (tpIdx + 1) + " von " + SHOW.length + (s.t ? " · " + s.t + " Uhr" : " · im Match");
+  $("tpTitle").textContent = s.title;
+  $("tpText").textContent = s.text;
+  $("tpDo").textContent = "👉 " + s.do;
+  const n = SHOW[tpIdx + 1];
+  $("tpNext").textContent = n ? "Danach: " + n.title + (n.t ? " (" + n.t + " Uhr)" : "") : "Das war der letzte Schritt.";
+  $("tpBack").disabled = tpIdx === 0; $("tpFwd").disabled = tpIdx === SHOW.length - 1;
+  if (say && tpVoice) speak(s.title + ". " + s.text + ". " + s.do);
+}
+function goTp(i, say = true) { tpIdx = Math.max(0, Math.min(SHOW.length - 1, i)); renderTp(say); }
+$("tpOpen").onclick = async () => {
+  $("tp").hidden = false;
+  goTp(stepForTime(new Date()), false);
+  try { await document.documentElement.requestFullscreen?.(); } catch {}
+  try { wake = await navigator.wakeLock?.request("screen"); } catch {}
+};
+$("tpClose").onclick = () => { $("tp").hidden = true; try { window.speechSynthesis?.cancel(); } catch {} try { document.exitFullscreen?.(); } catch {} try { wake?.release(); } catch {} };
+$("tpBack").onclick = () => { tpAuto = false; syncTpButtons(); goTp(tpIdx - 1); };
+$("tpFwd").onclick = () => { tpAuto = false; syncTpButtons(); goTp(tpIdx + 1); };
+$("tpRead").onclick = () => { const s = SHOW[tpIdx]; speak(s.title + ". " + s.text + ". " + s.do); };
+function syncTpButtons() {
+  $("tpVoice").setAttribute("aria-pressed", String(tpVoice));
+  $("tpVoice").textContent = "🔊 Ins Ohr vorlesen: " + (tpVoice ? "an" : "aus");
+  $("tpAuto").setAttribute("aria-pressed", String(tpAuto));
+  $("tpAuto").textContent = "⏱ Nach Uhrzeit: " + (tpAuto ? "an" : "aus");
+}
+$("tpVoice").onclick = () => { tpVoice = !tpVoice; syncTpButtons(); if (tpVoice) renderTp(true); };
+$("tpAuto").onclick = () => { tpAuto = !tpAuto; syncTpButtons(); if (tpAuto) goTp(stepForTime(new Date())); };
+setInterval(() => {
+  const now = new Date();
+  $("tpTime").textContent = pad(now.getHours()) + ":" + pad(now.getMinutes()) + ":" + pad(now.getSeconds());
+  if (!$("tp").hidden && tpAuto) {
+    const want = stepForTime(now);
+    if (want > tpIdx && SHOW[want].t) goTp(want);
+  }
+}, 1000);
+document.addEventListener("keydown", (e) => {
+  if ($("tp").hidden) return;
+  if (e.key === "ArrowRight" || e.key === " ") { e.preventDefault(); $("tpFwd").click(); }
+  if (e.key === "ArrowLeft") $("tpBack").click();
+  if (e.key === "Escape") $("tpClose").click();
+});
 
 (async () => {
   try { db = await window.claude?.use?.("db"); } catch { db = null; }
