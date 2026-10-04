@@ -696,25 +696,33 @@ document.addEventListener("keydown", (e) => {
     if (document.activeElement !== $("goalInput")) $("goalInput").value = goal || "";
     renderSupporters();
   });
-  db.doc("kampagne/aktuell").onSnapshot((snap) => {
-    if (!snap.exists) return;
-    const k = snap.data();
-    $("campEnd").textContent = (k.name || "Kampagne") + (k.endet ? " · endet " + k.endet : "");
-    const wrap = document.createElement("div"); wrap.className = "kid";
-    if (k.einfach) { const p = document.createElement("p"); p.textContent = k.einfach; wrap.append(p); }
-    if (Array.isArray(k.geschenke) && k.geschenke.length) {
-      const g = document.createElement("div"); g.className = "gifts";
-      k.geschenke.forEach((x) => { const d = document.createElement("div"); d.className = "gift";
-        const b = document.createElement("b"); b.textContent = x.name || ""; const sp = document.createElement("span"); sp.textContent = x.warum || "";
-        d.append(b, sp); g.append(d); });
-      wrap.append(g);
-    }
-    if (Array.isArray(k.schritte) && k.schritte.length) {
-      const ol = document.createElement("ol"); ol.className = "steps";
-      k.schritte.forEach((t) => { const li = document.createElement("li"); li.textContent = t; ol.append(li); });
-      wrap.append(ol);
-    }
-    $("campBody").replaceChildren(wrap);
+  db.collection("kampagne").onSnapshot((q) => {
+    const docs = q.docs.map((d) => d.data()).sort((a, b) => (a.reihenfolge || 0) - (b.reihenfolge || 0));
+    if (!docs.length) return;
+    $("campEnd").textContent = docs.length + (docs.length === 1 ? " Kampagne läuft" : " Kampagnen laufen");
+    const all = docs.map((k) => {
+      const wrap = document.createElement("div"); wrap.className = "kid";
+      const h = document.createElement("h3"); h.style.cssText = "margin:0;font-family:var(--display);color:var(--cream);font-size:18px";
+      h.textContent = (k.name || "Kampagne") + (k.endet ? " · endet " + k.endet : "");
+      wrap.append(h);
+      if (k.einfach) { const p = document.createElement("p"); p.textContent = k.einfach; wrap.append(p); }
+      if (Array.isArray(k.geschenke) && k.geschenke.length) {
+        const g = document.createElement("div"); g.className = "gifts";
+        k.geschenke.forEach((x) => { const d = document.createElement("div"); d.className = "gift";
+          const b = document.createElement("b"); b.textContent = x.name || ""; const sp = document.createElement("span"); sp.textContent = x.warum || "";
+          d.append(b, sp); g.append(d); });
+        wrap.append(g);
+      }
+      if (Array.isArray(k.schritte) && k.schritte.length) {
+        const ol = document.createElement("ol"); ol.className = "steps";
+        k.schritte.forEach((t) => { const li = document.createElement("li"); li.textContent = t; ol.append(li); });
+        wrap.append(ol);
+      }
+      return wrap;
+    });
+    const box = document.createElement("div"); box.style.cssText = "display:grid;gap:22px";
+    all.forEach((w, i) => { if (i) { const hr = document.createElement("hr"); hr.style.cssText = "border:0;border-top:1px dashed var(--line);margin:0"; box.append(hr); } box.append(w); });
+    $("campBody").replaceChildren(box);
   });
   db.collection("unterstuetzer").onSnapshot((q) => {
     supporters = q.docs.map((d) => ({ id: d.id, ...d.data() }));
