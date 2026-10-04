@@ -131,6 +131,11 @@ tr:nth-child(3) .rank{background:#B7834A;color:var(--night)}
 .say{background:transparent;border:1px solid var(--line);color:var(--cream);border-radius:10px;padding:6px 12px;font-weight:700;font-size:14px;justify-self:start}
 .say[aria-pressed="true"]{background:var(--teal);color:var(--night);border-color:var(--teal)}
 .kid{display:grid;gap:10px}
+.gifts{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+.gift{background:var(--petrol);border:1px solid var(--gold);border-radius:12px;padding:12px 14px;display:grid;gap:4px}
+.gift b{color:var(--gold);font-size:18px}
+.gift span{color:var(--muted);font-size:14px}
+.steps{margin:0;padding-left:22px;display:grid;gap:6px;font-size:16px}
 .kid p{margin:0;font-size:17px;line-height:1.6;max-width:70ch}
 .kid b{color:var(--cream)}
 .tp{position:fixed;inset:0;z-index:30;background:var(--night);display:grid;grid-template-rows:auto 1fr auto;
@@ -181,6 +186,17 @@ footer{text-align:center;color:var(--muted);font-size:12px;letter-spacing:.12em}
         <p>Zeigt dir groß, was du gerade sagen sollst. Springt nach der Uhr weiter. Auf Wunsch liest er dir alles ins Ohr vor.</p>
       </div>
       <button class="btn big" id="tpOpen" type="button">Teleprompter starten</button>
+    </article>
+
+    <article class="card span-12" aria-labelledby="h-camp">
+      <div class="card-head">
+        <div>
+          <div class="eyebrow" id="campEnd">Kampagne</div>
+          <h2 id="h-camp">Kampagne &amp; Wunsch-Geschenke</h2>
+        </div>
+        <button class="say" type="button" id="campSay">🔊 Vorlesen</button>
+      </div>
+      <div id="campBody"><div class="empty">Hier steht bald die aktuelle TikTok-Kampagne in einfachen Worten: was zu tun ist und welche Geschenke wir brauchen. Schick Claude dafür einen Screenshot der Kampagne.</div></div>
     </article>
 
     <article class="card span-12" aria-labelledby="h-kid">
@@ -587,6 +603,7 @@ function speak(text) {
 }
 try { window.speechSynthesis && window.speechSynthesis.getVoices(); } catch {}
 document.querySelectorAll('[data-say="kid"]').forEach((b) => { b.onclick = () => speak($("kidText").innerText); });
+$("campSay").onclick = () => speak($("campEnd").textContent + ". " + $("campBody").innerText);
 $("pSay").onclick = () => speak($("pT").textContent + ". " + $("pS").textContent);
 
 // ---------- Teleprompter ----------
@@ -671,6 +688,26 @@ document.addEventListener("keydown", (e) => {
     goal = s.exists ? Number(s.data().diamanten) || 0 : 0;
     if (document.activeElement !== $("goalInput")) $("goalInput").value = goal || "";
     renderSupporters();
+  });
+  db.doc("kampagne/aktuell").onSnapshot((snap) => {
+    if (!snap.exists) return;
+    const k = snap.data();
+    $("campEnd").textContent = (k.name || "Kampagne") + (k.endet ? " · endet " + k.endet : "");
+    const wrap = document.createElement("div"); wrap.className = "kid";
+    if (k.einfach) { const p = document.createElement("p"); p.textContent = k.einfach; wrap.append(p); }
+    if (Array.isArray(k.geschenke) && k.geschenke.length) {
+      const g = document.createElement("div"); g.className = "gifts";
+      k.geschenke.forEach((x) => { const d = document.createElement("div"); d.className = "gift";
+        const b = document.createElement("b"); b.textContent = x.name || ""; const sp = document.createElement("span"); sp.textContent = x.warum || "";
+        d.append(b, sp); g.append(d); });
+      wrap.append(g);
+    }
+    if (Array.isArray(k.schritte) && k.schritte.length) {
+      const ol = document.createElement("ol"); ol.className = "steps";
+      k.schritte.forEach((t) => { const li = document.createElement("li"); li.textContent = t; ol.append(li); });
+      wrap.append(ol);
+    }
+    $("campBody").replaceChildren(wrap);
   });
   db.collection("unterstuetzer").onSnapshot((q) => {
     supporters = q.docs.map((d) => ({ id: d.id, ...d.data() }));
