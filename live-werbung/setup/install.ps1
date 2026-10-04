@@ -22,8 +22,8 @@ try {
   $lnk2.Save()
   Write-Host "Desktop-Verknuepfungen angelegt" -ForegroundColor Green
 
-  Start-Process (Join-Path $dest "StreamDeck\Belegung-StreamDeck.png")
-  Start-Process (Join-Path $dest "StreamDeck")
+  if (Test-Path (Join-Path $dest "StreamDeck\Belegung-StreamDeck.png")) { Start-Process (Join-Path $dest "StreamDeck\Belegung-StreamDeck.png") }
+  if (Test-Path (Join-Path $dest "StreamDeck")) { Start-Process (Join-Path $dest "StreamDeck") }
   Write-Host ""
   Write-Host "=== FERTIG! ===" -ForegroundColor Green
   Write-Host "Auf dem Desktop: 'Herzloewen Studio starten' und 'Herzloewen Dateien'."
