@@ -28,3 +28,16 @@
 ## Stream Deck
 - Taste → Aktion **Soundboard → Audio abspielen** → MP3 aus `sounds/` → Tastenbild aus `icons/`
 - Für Einspieler im Bild: In TikFinity jede Action auch per **Stream Deck / Hotkey** auslösbar machen, dann die Taste darauf legen.
+
+## Kampagnen-Overlays (Banner unten im Bild, 6 Sekunden)
+| Datei | Wann drücken |
+|---|---|
+| `20-gipfelzeit_alpha.webm` | 20:00 und jede halbe Stunde bis 22:00 |
+| `21-100-preise_alpha.webm` | bis 6. Oktober, 2–3 Mal pro Live |
+| `22-fanclub_alpha.webm` | alle 20 Minuten (Gipfelstürmer-Punkte) |
+| `23-waechter_alpha.webm` | am Anfang und zur Halbzeit |
+| `24-wunsch-geschenke_alpha.webm` | wenn es ruhig wird |
+
+## Welche App wofür
+- **TikFinity (PRO)**: alle Einspieler und Banner abspielen, Alerts bei Follow und Geschenken. Diese App für alles im Bild nutzen.
+- **TIKTORY**: nur für die Auswertung nach dem Stream (Zuschauer, Diamanten, Dauer). Alerts dort ausschalten, sonst kommt alles doppelt.
