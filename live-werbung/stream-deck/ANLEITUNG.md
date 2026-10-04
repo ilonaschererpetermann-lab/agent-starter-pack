@@ -41,3 +41,8 @@
 ## Welche App wofür
 - **TikFinity (PRO)**: alle Einspieler und Banner abspielen, Alerts bei Follow und Geschenken. Diese App für alles im Bild nutzen.
 - **TIKTORY**: nur für die Auswertung nach dem Stream (Zuschauer, Diamanten, Dauer). Alerts dort ausschalten, sonst kommt alles doppelt.
+
+## Show-Intro Top 100
+- `top100/show-intro-top100.mp4` – 6 Sekunden, Vollbild mit Ton: Zoom vom Diamanten auf das Plakat, Blitz, „JETZT LIVE!“.
+  Abspielen um 19:00 beim Start und um 20:00 vor dem BIG MATCH.
+- `top100/top100-werbung.mp4` – 10 Sekunden Werbevideo ohne Musik (Trend-Sound in TikTok wählen).

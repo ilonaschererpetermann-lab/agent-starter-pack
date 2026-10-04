@@ -62,7 +62,7 @@ const AUDIO = {
   const b = await chromium.launch();
   const p = await b.newPage({ viewport: { width: 1080, height: 1920 } });
   for (const c of CLIPS) {
-    const dir = fs.mkdtempSync('/tmp/kamp-');
+    const dir = fs.mkdtempSync('/tmp/kamp-'); await p.goto('about:blank');
     await p.setContent(page(c));
     for (let i = 0; i < SEC * FPS; i++) {
       await p.evaluate((t) => window.frame(t), i / FPS);

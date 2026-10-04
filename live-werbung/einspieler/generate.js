@@ -27,7 +27,7 @@ body{width:1080px;height:1920px;overflow:hidden;font-family:'DejaVu Sans',sans-s
 #stack{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 70px;gap:40px}
 #kicker{font-size:58px;letter-spacing:12px;text-transform:uppercase;color:#20B2AA;font-weight:bold}
 #big{font-family:Georgia,'DejaVu Serif',serif;font-weight:bold;color:${c.accent};line-height:.95;
-  font-size:${c.big.length <= 2 ? 520 : c.big.length <= 4 ? 300 : c.big.length <= 6 ? 200 : 170}px;
+  font-size:${c.big.length <= 2 ? 520 : c.big.length <= 4 ? 300 : c.big.length <= 6 ? 200 : 140}px;
   text-shadow:0 0 60px ${c.accent}AA,0 0 6px #000}
 #line{font-family:Georgia,'DejaVu Serif',serif;font-size:72px;color:#F3E5AB;line-height:1.2}
 #crown{width:200px;height:200px}
@@ -85,7 +85,7 @@ const AUDIO = {
     const outName = alpha ? `${c.file}_alpha.webm` : `${c.file}.mp4`;
     if (process.env.SKIP_EXISTING && fs.existsSync(path.join(__dirname, outName))) continue;
     const dir = fs.mkdtempSync('/tmp/einsp-');
-    await p.setContent(page(c, alpha));
+    await p.goto('about:blank'); await p.setContent(page(c, alpha));
     const n = c.sec * FPS;
     for (let i = 0; i < n; i++) {
       await p.evaluate((t) => window.frame(t), i / FPS);
