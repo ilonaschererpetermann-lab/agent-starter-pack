@@ -1,0 +1,7 @@
+HERZLOEWEN STUDIO - INSTALLATION
+
+1. Diese ZIP-Datei mit Rechtsklick > "Alle extrahieren" auspacken.
+2. Im ausgepackten Ordner doppelt auf INSTALLIEREN.bat klicken.
+3. Falls Windows warnt: "Weitere Informationen" > "Trotzdem ausfuehren".
+
+Danach liegt alles in C:\Herzloewen und auf dem Desktop sind zwei neue Symbole.
