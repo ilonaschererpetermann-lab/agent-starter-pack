@@ -14,6 +14,7 @@ const CLIPS = [
   { file: '05-boost-x5', sec: 3, kicker: 'Mega-Boost', big: 'x5', line: 'Fünffach! Alles rein!', accent: '#E5484D', tone: 'hit' },
   { file: '06-letzte-60-sekunden', sec: 4, kicker: 'Letzte Chance', big: '60', line: 'Sekunden – JETZT entscheidet es sich!', accent: '#E5484D', tone: 'tick' },
   { file: '07-gewonnen', sec: 5, kicker: 'Herzlöwen', big: 'GEWONNEN', line: 'Das wart IHR!', accent: '#D4AF37', tone: 'win' },
+  { file: '25-attacke', sec: 3, kicker: 'Herzlöwen', big: 'ATTACKE!', line: 'Jetzt alles rein – wir holen uns das!', accent: '#FF3B3B', tone: 'hit' },
   { file: '08-danke', sec: 5, kicker: 'Von Herzen', big: 'DANKE', line: 'Ihr seid meine Familie, Herzlöwen.', accent: '#F3E5AB', tone: 'soft' },
 ];
 
