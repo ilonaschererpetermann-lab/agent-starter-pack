@@ -1,5 +1,5 @@
 # Baut ein Stream-Deck-Profil (Format 3.0, Stream Deck MK.2 / 15 Tasten) mit allen Herzloewen-Tasten.
-# Die Sounds werden aus C:\Herzloewen\StreamDeck abgespielt (dort legt INSTALLIEREN.bat sie ab).
+# Die Sounds sind direkt im Profil eingebettet (Resources/<id>/datei.mp3), keine Installation noetig.
 import json, os, random, shutil, string, uuid, zipfile
 HERE = os.path.dirname(os.path.abspath(__file__))
 SD = os.path.dirname(HERE)
@@ -12,7 +12,14 @@ def action(uuid_, name, settings, image_src, images_dir):
     n = img_name(); shutil.copy(image_src, os.path.join(images_dir, n))
     return {"ActionID": str(uuid.uuid4()), "LinkedTitle": True, "Name": name, "Resources": None,
             "Settings": settings, "State": 0, "States": [{"Image": f"Images/{n}"}], "UUID": uuid_}
-def sound(mp3, png, d): return action("com.elgato.streamdeck.soundboard.playaudio", "Play Audio", {"path": mp3}, png, d)
+RES = []  # (resource_id, quelldatei)
+def sound(mp3_src, png, d, volume=80):
+    rid = str(uuid.uuid4()); RES.append((rid, mp3_src))
+    a = action("com.elgato.streamdeck.soundboard.playaudio", "Play Audio",
+               {"actionType": 0, "fadeLen": 1, "fadeType": 0, "outputType": "", "path": os.path.basename(mp3_src), "volume": volume}, png, d)
+    a["LinkedTitle"] = False; a["Resources"] = {"file": rid}
+    a["Plugin"] = {"Name": "Soundboard", "UUID": "com.elgato.streamdeck.soundboard", "Version": "1.0"}
+    a["States"][0].update({"ShowTitle": False, "Title": ""}); return a
 def nav(kind, png, d):
     a = action(f"com.elgato.streamdeck.page.{kind}", "Next Page" if kind == "next" else "Previous Page", {}, png, d)
     a["Plugin"] = {"Name": "Pages", "UUID": "com.elgato.streamdeck.page", "Version": "1.0"}; return a
@@ -30,7 +37,7 @@ p3 = ["31-attacke","32-kriegstrommeln","33-alarm","34-countdown","35-boom","36-p
 out = "/tmp/sdbuild"; shutil.rmtree(out, ignore_errors=True)
 prof_id = str(uuid.uuid4()).upper()
 root = f"{out}/Profiles/{prof_id}.sdProfile"
-pages = [str(uuid.uuid4()) for _ in range(3)]; default_page = str(uuid.uuid4())
+pages = [str(uuid.uuid4()) for _ in range(4)]; default_page = str(uuid.uuid4())
 def page_dir(pid):
     d = f"{root}/Profiles/{pid.upper()}"; os.makedirs(f"{d}/Images", exist_ok=True); return d
 def write(d, actions): json.dump({"Controllers": [{"Actions": actions or None, "Type": "Keypad"}], "Icon": "", "Name": ""}, open(f"{d}/manifest.json", "w"), indent=1)
@@ -39,18 +46,25 @@ pk = "/tmp/Herzloewen-StreamDeck"
 # Seite 1
 d = page_dir(pages[0]); I = f"{d}/Images"; acts = {}
 for i, (nr, name) in enumerate(p1):
-    acts[pos[i]] = sound(rf"{BASE}\Taste-{nr}-{name}.mp3", f"{pk}/Taste-{nr}-{name}.png", I)
+    acts[pos[i]] = sound(f"{pk}/Taste-{nr}-{name}.mp3", f"{pk}/Taste-{nr}-{name}.png", I)
 acts["3,2"] = action("com.elgato.streamdeck.system.website", "Website", {"openInBrowser": True, "path": BOARD}, f"{HERE}/nav-board.png", I)
 acts["4,2"] = nav("next", f"{HERE}/nav-next.png", I); write(d, acts)
 # Seite 2
 d = page_dir(pages[1]); I = f"{d}/Images"; acts = {}
 for i, n in enumerate(p2):
-    acts[pos[i]] = sound(rf"{BASE}\Seite-2-Sounds\Taste-{n}.mp3", f"{pk}/Seite-2-Sounds/Taste-{n}.png", I)
+    acts[pos[i]] = sound(f"{pk}/Seite-2-Sounds/Taste-{n}.mp3", f"{pk}/Seite-2-Sounds/Taste-{n}.png", I)
 acts["3,2"] = nav("previous", f"{HERE}/nav-prev.png", I); acts["4,2"] = nav("next", f"{HERE}/nav-next.png", I); write(d, acts)
 # Seite 3
 d = page_dir(pages[2]); I = f"{d}/Images"; acts = {}
 for i, n in enumerate(p3):
-    acts[pos[i]] = sound(rf"{BASE}\Seite-3-Battle\Taste-{n}.mp3", f"{pk}/Seite-3-Battle/Taste-{n}.png", I)
+    acts[pos[i]] = sound(f"{pk}/Seite-3-Battle/Taste-{n}.mp3", f"{pk}/Seite-3-Battle/Taste-{n}.png", I)
+acts["3,2"] = nav("previous", f"{HERE}/nav-prev.png", I)
+acts["4,2"] = nav("next", f"{HERE}/nav-next.png", I)
+write(d, acts)
+# Seite 4: Das sind wir (eigene Songs, Stimmen, Lachen)
+d = page_dir(pages[3]); I = f"{d}/Images"; acts = {}; W = f"{HERE}/wir"
+for i, k in enumerate(["kein-mitgefuehl", "ich-bin-noch-hier", "audio-mai", "audio-juni", "maya", "odin", "lachen"]):
+    acts[pos[i]] = sound(f"{W}/{k}.mp3", f"{W}/icon-{k}.png", I, volume=90 if k in ("maya", "odin", "lachen") else 70)
 acts["3,2"] = nav("previous", f"{HERE}/nav-prev.png", I)
 acts["4,2"] = action("com.elgato.streamdeck.system.website", "Website", {"openInBrowser": True, "path": BOARD}, f"{HERE}/nav-board.png", I)
 write(d, acts)
@@ -60,8 +74,10 @@ d = page_dir(default_page); write(d, None)
 json.dump({"Device": {"Model": "20GBA9901", "UUID": DEVICE_UUID}, "Name": "Herzloewen Show",
            "Pages": {"Current": pages[0], "Default": default_page, "Pages": pages}, "Version": "3.0"}, open(f"{root}/manifest.json", "w"), indent=1)
 json.dump({"AppVersion": "7.6.0.23012", "DeviceModel": "20GBA9901", "DeviceSettings": None, "FormatVersion": 1, "OSType": "Windows",
-           "OSVersion": "10.0.26300", "RequiredPlugins": ["com.elgato.streamdeck.page", "com.elgato.streamdeck.soundboard", "com.elgato.streamdeck.system.website"]},
+           "OSVersion": "10.0.26300", "RequiredPlugins": ["com.elgato.streamdeck.soundboard", "com.elgato.streamdeck.page"]},
           open(f"{out}/package.json", "w"))
+for rid, src in RES:
+    os.makedirs(f"{out}/Resources/{rid}", exist_ok=True); shutil.copy(src, f"{out}/Resources/{rid}/{os.path.basename(src)}")
 dest = os.path.join(SD, "Herzloewen-Show.streamDeckProfile")
 with zipfile.ZipFile(dest, "w", zipfile.ZIP_DEFLATED) as z:
     for dp, _, fs in os.walk(out):
