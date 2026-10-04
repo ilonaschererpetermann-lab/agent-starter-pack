@@ -346,7 +346,8 @@ const at = (hm) => new Date(`${DAY}T${hm}:00`);
 const EVENTS = [
   { t: "19:00", what: "LIVE mit Ilona", phase: "live" },
   { t: "20:00", what: "BIG MATCH · Alles erlaubt", phase: "match" },
-  { t: "21:00", what: "Danke-Runde & Abschluss", phase: "nach" },
+  { t: "21:00", what: "Gipfelzeit läuft bis 22:00", phase: "match" },
+  { t: "22:00", what: "Danke-Runde & Abschluss", phase: "nach" },
 ];
 const TIMELINE = [
   ["15:00", "Werbung 1 posten: „Heute 19:00 LIVE“"],
@@ -357,7 +358,9 @@ const TIMELINE = [
   ["19:00", "LIVE starten · Werbung 5 posten"],
   ["19:50", "Match ankündigen, Ziel nennen"],
   ["20:00", "BIG MATCH · Werbung 6 posten"],
-  ["21:00", "Top 3 danken · Abschied"],
+  ["20:30", "Fanclub-Aufruf (Gipfelstürmer-Punkte)"],
+  ["21:00", "Gipfelzeit: Zwischenstand, weiter Fanclub"],
+  ["21:55", "Top 3 danken · Abschied um 22:00"],
 ];
 
 const CUES = {
@@ -371,6 +374,7 @@ const CUES = {
     ["Folgen", "Wer noch nicht folgt: Jetzt auf Folgen drücken, damit du kein Live mehr verpasst."],
     ["Erste Rose", "Eine Rose ist für mich wie eine Umarmung. Wer schenkt mir heute die erste?"],
     ["Danke Geschenk", "DANKE dir! Du bist ein echter Herzlöwe – das vergesse ich nicht!"],
+    ["Fanclub", "Tretet meinem Fanclub bei! Jedes neue Mitglied bringt uns beim Gipfelstürmer nach oben – wir klettern zusammen!"],
     ["Herz-Tippen", "Tippt mal alle auf den Bildschirm! Lasst die Herzen fliegen – zeigt, dass ihr da seid!"],
     ["Tagesziel", "Unser Ziel heute: Wir knacken es gemeinsam. Jede Rose bringt uns ein Stück näher!"],
     ["Ehrlicher Moment", "Demenz nimmt mir manches – aber nicht mein Lachen und nicht euch. Darum bin ich hier."],
@@ -379,6 +383,7 @@ const CUES = {
     ["Match-Start", "BIG MATCH läuft! Alles erlaubt – Herzlöwen, jetzt zeigen wir, wer wir sind!"],
     ["Rückstand", "Wir liegen hinten, aber wir geben nicht auf! Jede Rose zählt – holen wir sie uns!"],
     ["Führung", "WIR FÜHREN! Haltet durch, jetzt nicht nachlassen!"],
+    ["Gipfelzeit", "Jetzt ist Gipfelzeit! Von 20 bis 22 Uhr zählt jedes Geschenk extra. Wir klettern zusammen auf den Gipfel!"],
     ["Doppelte Punkte", "Jetzt zählt alles DOPPELT! Das ist euer Moment – jede Rose zählt zweimal!"],
     ["Handschuh danach", "Handschuh ist an! 30 Sekunden mit Chance auf FÜNFFACH – jetzt schenken lohnt sich wie nie!"],
     ["Song Surge", "Ich sing für euch! 30 Sekunden mit Chance auf x5 – haut rein!"],
@@ -415,7 +420,7 @@ let userPickedPhase = false;
 function currentPhase(now) {
   if (now < at("19:00")) return "vor";
   if (now < at("20:00")) return "live";
-  if (now < at("21:00")) return "match";
+  if (now < at("22:00")) return "match";
   return "nach";
 }
 
@@ -623,8 +628,10 @@ const SHOW = [
   { title: "Nebel – letzte 30 Sekunden", text: "Nebel ist drin. Die anderen sehen nichts mehr. Jetzt still und heimlich alles geben!", do: "Nebel nur in den letzten 30 Sekunden." },
   { title: "Gewonnen", text: "GEWONNEN! Das wart IHR! Ich bin so stolz auf euch!", do: "Stream Deck: Taste SIEG. Bei Niederlage: nächster Schritt." },
   { title: "Knapp verloren", text: "Knapp daneben. Aber mit so einer Familie bin ich trotzdem Gewinnerin. Danke euch!", do: "Nur sagen, wenn verloren. Sonst Weiter." },
-  { t: "21:00", title: "Danke an die Top 3", text: "Meine Top 3 heute bekommen einen riesigen Applaus! Danke für euer Herz!", do: "Namen aus der Rangliste im Board vorlesen. Taste DANKE." },
-  { t: "21:05", title: "Abschied", text: "Danke für diesen Abend. Morgen um halb elf bin ich wieder da. Ehrlich, menschlich, ohne Filter. Bis bald, ihr Herzlöwen!", do: "Stream Deck: Taste DANKE. Dann Live beenden." },
+  { t: "20:30", title: "Fanclub – Gipfelstürmer", text: "Tretet meinem Fanclub bei! Jedes neue Mitglied bringt uns beim Gipfelstürmer nach oben. Wir klettern zusammen!", do: "Auf den Fanclub-Knopf zeigen. Stream Deck: Taste FOLGEN." },
+  { t: "21:00", title: "Gipfelzeit – Halbzeit", text: "Noch eine Stunde Gipfelzeit! Jedes Geschenk zählt jetzt extra. Lasst uns zusammen ganz nach oben!", do: "Zwischenstand aus dem Board vorlesen. Wächter nochmal fragen." },
+  { t: "21:55", title: "Danke an die Top 3", text: "Meine Top 3 heute bekommen einen riesigen Applaus! Danke für euer Herz!", do: "Namen aus der Rangliste im Board vorlesen. Taste DANKE." },
+  { t: "21:58", title: "Abschied", text: "Danke für diesen Abend. Morgen um halb elf bin ich wieder da. Ehrlich, menschlich, ohne Filter. Bis bald, ihr Herzlöwen!", do: "Stream Deck: Taste DANKE. Dann Live beenden." },
 ];
 let tpIdx = 0, tpVoice = false, tpAuto = true, wake = null;
 
