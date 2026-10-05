@@ -341,26 +341,23 @@ footer{text-align:center;color:var(--muted);font-size:12px;letter-spacing:.12em}
 
 <script>
 // Programm heute (Ortszeit des Geräts)
-const DAY = "2026-10-04";
+const _d = new Date(); const DAY = _d.getFullYear() + "-" + String(_d.getMonth() + 1).padStart(2, "0") + "-" + String(_d.getDate()).padStart(2, "0");
 const at = (hm) => new Date(`${DAY}T${hm}:00`);
 const EVENTS = [
-  { t: "19:00", what: "LIVE mit Ilona", phase: "live" },
-  { t: "20:00", what: "BIG MATCH · Alles erlaubt", phase: "match" },
-  { t: "21:00", what: "Gipfelzeit läuft bis 22:00", phase: "match" },
-  { t: "22:00", what: "Danke-Runde & Abschluss", phase: "nach" },
+  { t: "18:00", what: "LIVE mit Ilona", phase: "live" },
+  { t: "20:00", what: "MATCH · Alles erlaubt", phase: "match" },
+  { t: "21:00", what: "Danke-Runde & Abschluss", phase: "nach" },
 ];
 const TIMELINE = [
-  ["15:00", "Werbung 1 posten: „Heute 19:00 LIVE“"],
-  ["16:00", "Werbung 2: Noch 3 Stunden"],
-  ["17:00", "Werbung 3: Noch 2 Stunden"],
-  ["18:00", "Werbung 4: Noch 1 Stunde · Live-Event bei TikTok anlegen"],
-  ["18:40", "Technik-Check durchgehen"],
-  ["19:00", "LIVE starten · Werbung 5 posten"],
-  ["19:50", "Match ankündigen, Ziel nennen"],
-  ["20:00", "BIG MATCH · Werbung 6 posten"],
-  ["20:30", "Fanclub-Aufruf (Gipfelstürmer-Punkte)"],
-  ["21:00", "Gipfelzeit: Zwischenstand, weiter Fanclub"],
-  ["21:55", "Top 3 danken · Abschied um 22:00"],
+  ["10:30", "Morgen-Talk (ca. 1,5 Std.)"],
+  ["16:00", "Werbung posten: Heute 18 Uhr LIVE"],
+  ["17:15", "Briefing von Claude lesen"],
+  ["17:45", "Technik-Check"],
+  ["18:00", "LIVE starten"],
+  ["18:30", "Wächter fragen, Tagesziel ansagen"],
+  ["19:50", "Match ankündigen"],
+  ["20:00", "MATCH"],
+  ["20:55", "Top 3 danken · Abschied um 21:00"],
 ];
 
 const CUES = {
@@ -418,9 +415,9 @@ let activePhase = null;
 let userPickedPhase = false;
 
 function currentPhase(now) {
-  if (now < at("19:00")) return "vor";
+  if (now < at("18:00")) return "vor";
   if (now < at("20:00")) return "live";
-  if (now < at("22:00")) return "match";
+  if (now < at("21:00")) return "match";
   return "nach";
 }
 
@@ -613,13 +610,13 @@ $("pSay").onclick = () => speak($("pT").textContent + ". " + $("pS").textContent
 
 // ---------- Teleprompter ----------
 const SHOW = [
-  { t: "18:45", title: "Gleich geht's los", text: "Atme tief durch. Du bist gut vorbereitet.", do: "Technik-Check im Board abhaken. Wasser hinstellen. Lächeln." },
-  { t: "19:00", title: "Begrüßung", text: "Hallo ihr Herzlöwen! Schön, dass ihr da seid. Heute wird's ehrlich, laut und ohne Filter!", do: "Stream Deck: Taste LIVE Intro drücken." },
-  { t: "19:05", title: "Der Plan für heute", text: "Heute haben wir zwei große Ziele: Wir holen uns zwei Puzzleteile für die Liga A2. Und um 20 Uhr steigt das BIG MATCH. Alles erlaubt!", do: "Ziel laut und langsam sagen." },
-  { t: "19:12", title: "Folgen", text: "Wer mir noch nicht folgt: Jetzt auf Folgen drücken. Dann verpasst du kein Live mehr.", do: "Stream Deck: Taste FOLGEN drücken." },
-  { t: "19:20", title: "Wächter gewinnen", text: "Ich brauche euch heute ganz besonders. Wer wird heute mein Wächter? Mit eurer Wächter-Aufgabe bringt ihr uns direkt nach oben!", do: "Birgit, Ines und die Top-Schenker beim Namen ansprechen." },
-  { t: "19:30", title: "Ehrlicher Moment", text: "Demenz nimmt mir manches. Aber nicht mein Lachen und nicht euch. Darum bin ich jeden Tag hier.", do: "Ruhig sprechen. Kurze Pause machen." },
-  { t: "19:40", title: "Zwischenstand", text: "Schaut mal, wie weit wir schon sind! Jede Rose bringt uns näher an unser Ziel.", do: "Diamanten-Stand aus dem Board vorlesen." },
+  { t: "17:45", title: "Gleich geht's los", text: "Atme tief durch. Du bist gut vorbereitet.", do: "Technik-Check im Board abhaken. Wasser hinstellen. Lächeln." },
+  { t: "18:00", title: "Begrüßung", text: "Hallo ihr Herzlöwen! Schön, dass ihr da seid. Heute wird's ehrlich, laut und ohne Filter!", do: "Stream Deck: Taste LIVE Intro drücken." },
+  { t: "18:05", title: "Der Plan für heute", text: "Heute wollen wir zusammen 40.000 Diamanten schaffen. Das bringt uns ein Puzzleteil näher an die Liga A1. Und um 20 Uhr steigt das Match. Alles erlaubt!", do: "Ziel laut und langsam sagen." },
+  { t: "18:15", title: "Folgen", text: "Wer mir noch nicht folgt: Jetzt auf Folgen drücken. Dann verpasst du kein Live mehr.", do: "Stream Deck: Taste FOLGEN drücken." },
+  { t: "18:30", title: "Wächter gewinnen", text: "Ich brauche euch heute ganz besonders. Wer wird heute mein Wächter? Mit eurer Wächter-Aufgabe bringt ihr uns direkt nach oben!", do: "Birgit, Ines und die Top-Schenker beim Namen ansprechen." },
+  { t: "18:45", title: "Ehrlicher Moment", text: "Demenz nimmt mir manches. Aber nicht mein Lachen und nicht euch. Darum bin ich jeden Tag hier.", do: "Ruhig sprechen. Kurze Pause machen." },
+  { t: "19:15", title: "Zwischenstand", text: "Schaut mal, wie weit wir schon sind! Jede Rose bringt uns näher an unser Ziel.", do: "Diamanten-Stand aus dem Board vorlesen." },
   { t: "19:50", title: "Match ankündigen", text: "In zehn Minuten geht's los: BIG MATCH! Holt eure Rosen raus, Herzlöwen. Heute zeigen wir, wer wir sind!", do: "Freunde zum Teilen auffordern." },
   { t: "20:00", title: "BIG MATCH startet", text: "BIG MATCH läuft! Alles erlaubt. Herzlöwen, jetzt geht's los!", do: "Stream Deck: Taste MATCH Start. Ab jetzt mit Weiter tippen." },
   { title: "Doppelte Punkte", text: "Jetzt zählt alles DOPPELT! Das ist euer Moment!", do: "Stream Deck: Taste x2 drücken." },
@@ -629,9 +626,9 @@ const SHOW = [
   { title: "Gewonnen", text: "GEWONNEN! Das wart IHR! Ich bin so stolz auf euch!", do: "Stream Deck: Taste SIEG. Bei Niederlage: nächster Schritt." },
   { title: "Knapp verloren", text: "Knapp daneben. Aber mit so einer Familie bin ich trotzdem Gewinnerin. Danke euch!", do: "Nur sagen, wenn verloren. Sonst Weiter." },
   { t: "20:30", title: "Fanclub – Gipfelstürmer", text: "Tretet meinem Fanclub bei! Jedes neue Mitglied bringt uns beim Gipfelstürmer nach oben. Wir klettern zusammen!", do: "Auf den Fanclub-Knopf zeigen. Stream Deck: Taste FOLGEN." },
-  { t: "21:00", title: "Gipfelzeit – Halbzeit", text: "Noch eine Stunde Gipfelzeit! Jedes Geschenk zählt jetzt extra. Lasst uns zusammen ganz nach oben!", do: "Zwischenstand aus dem Board vorlesen. Wächter nochmal fragen." },
-  { t: "21:55", title: "Danke an die Top 3", text: "Meine Top 3 heute bekommen einen riesigen Applaus! Danke für euer Herz!", do: "Namen aus der Rangliste im Board vorlesen. Taste DANKE." },
-  { t: "21:58", title: "Abschied", text: "Danke für diesen Abend. Morgen um halb elf bin ich wieder da. Ehrlich, menschlich, ohne Filter. Bis bald, ihr Herzlöwen!", do: "Stream Deck: Taste DANKE. Dann Live beenden." },
+  { t: "20:45", title: "Endspurt", text: "Letzte Viertelstunde! Jedes Geschenk bringt uns näher an A1. Lasst uns zusammen ganz nach oben!", do: "Zwischenstand aus dem Board vorlesen. Wächter nochmal fragen." },
+  { t: "20:55", title: "Danke an die Top 3", text: "Meine Top 3 heute bekommen einen riesigen Applaus! Danke für euer Herz!", do: "Namen aus der Rangliste im Board vorlesen. Taste DANKE." },
+  { t: "20:58", title: "Abschied", text: "Danke für diesen Abend. Morgen bin ich wieder da. Ehrlich, menschlich, ohne Filter. Bis bald, ihr Herzlöwen!", do: "Stream Deck: Taste DANKE. Dann Live beenden." },
 ];
 let tpIdx = 0, tpVoice = false, tpAuto = true, wake = null;
 
