@@ -3,7 +3,7 @@ const { chromium } = require('playwright'); const { execFileSync } = require('ch
 const fs = require('fs'); const path = require('path');
 const FPS = 30, SEC = 20;
 const TOP = [['Ines', '39.800'], ['Birgit', '7.577'], ['Saskia Elisabeth', '5.400']];
-const MORE = ['Tanja', 'ReginaMeyer', 'Lilawolke', 'Snoopy', 'Chris', 'Sisa', 'Rita'];
+const MORE = ['Tanja', 'Snoopy', 'Diane', 'ReginaMeyer', 'Lilawolke', 'Chris', 'Sisa', 'Rita'];
 const b64 = (f) => 'data:image/jpeg;base64,' + fs.readFileSync(path.join(__dirname, f)).toString('base64');
 const html = `<!doctype html><meta charset="utf-8"><style>
 *{margin:0}body{width:1080px;height:1920px;overflow:hidden;position:relative;background:#07020f;font-family:'DejaVu Sans',sans-serif}
