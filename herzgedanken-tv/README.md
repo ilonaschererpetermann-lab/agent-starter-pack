@@ -32,3 +32,9 @@ Für das laufende Wandvideo den Ordner `3d/` über einen kleinen Webserver öffn
 
 Quellcode: `3d/src/studio.js` (Three.js). Neu bauen mit
 `npx esbuild 3d/src/studio.js --bundle --minify --format=iife --outfile=3d/studio.bundle.js` (benötigt `three@0.160.0`).
+
+## Einspieler „Achtung – neue News“ (Ordner `einspieler/`)
+
+- `einspieler/einspieler-achtung-neue-news.mp4`: 8 Sekunden mit Ton (Whoosh, Bass-Schlag, Nachrichten-Gong), im 3D-Studio
+- `einspieler/einspieler.html`: dieselbe Animation als Browserquelle für OBS mit durchsichtigem Hintergrund.
+  Die Schlagzeile lässt sich ändern: `einspieler.html?headline=Deine%20Schlagzeile&sub=Unterzeile`

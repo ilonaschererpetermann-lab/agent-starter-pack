@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HerzGedanken Einspieler</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Josefin+Sans:wght@400;600&family=Montserrat:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root { --pink:#FF4D8D; --pink2:#C2185B; --gold:#D4AF37; --beige:#F3E5AB; --night:#050E1A; --petrol:#0F233D; --text:#E2E8F0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; background: transparent; overflow: hidden; }
+  body { display: grid; place-items: center; }
+  /* Dauer des Einspielers: 8 s. Alle Animationen laufen einmal und sind per Web-Animations-API steuerbar. */
+  #stage { position: relative; width: 1920px; height: 1080px; overflow: hidden; flex: none; transform-origin: center;
+    font-family: 'Montserrat', sans-serif; }
+  .a { animation-duration: 8s; animation-fill-mode: both; animation-timing-function: linear; animation-iteration-count: 1; }
+
+  /* Abdunkeln des Studios während der Einblendung */
+  #dim { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(5,14,26,.35), rgba(5,14,26,.85)); animation-name: dim; }
+  @keyframes dim { 0% { opacity: 0 } 8% { opacity: 1 } 88% { opacity: 1 } 97%, 100% { opacity: 0 } }
+
+  /* Lichtblitz */
+  #flash { position: absolute; inset: 0; background: #fff; mix-blend-mode: screen; animation-name: flash; }
+  @keyframes flash { 0% { opacity: 0 } 2% { opacity: .85 } 7% { opacity: 0 } 100% { opacity: 0 } }
+
+  /* Diagonale Streifen, die durchs Bild schießen */
+  .stripe { position: absolute; left: -40%; width: 180%; height: 90px; transform: rotate(-12deg) translateX(-110%); }
+  .s1 { top: 330px; background: linear-gradient(90deg, transparent, var(--pink) 30%, var(--pink2) 70%, transparent); animation-name: sweep; }
+  .s2 { top: 470px; height: 26px; background: linear-gradient(90deg, transparent, var(--gold) 40%, var(--beige) 60%, transparent); animation-name: sweep2; }
+  .s3 { top: 560px; height: 50px; background: linear-gradient(90deg, transparent, #39B8FF 40%, #7a3cff 60%, transparent); animation-name: sweep3; }
+  @keyframes sweep  { 0% { transform: rotate(-12deg) translateX(-110%) } 9% { transform: rotate(-12deg) translateX(110%) } 100% { transform: rotate(-12deg) translateX(110%) } }
+  @keyframes sweep2 { 0%, 1.5% { transform: rotate(-12deg) translateX(110%) } 10% { transform: rotate(-12deg) translateX(-110%) } 100% { transform: rotate(-12deg) translateX(-110%) } }
+  @keyframes sweep3 { 0%, 3% { transform: rotate(-12deg) translateX(-110%) } 11.5% { transform: rotate(-12deg) translateX(110%) } 100% { transform: rotate(-12deg) translateX(110%) } }
+
+  /* Titelblock */
+  #title { position: absolute; left: 0; right: 0; top: 230px; text-align: center; }
+  #achtung { display: inline-block; font-weight: 900; font-size: 210px; letter-spacing: 6px; color: #fff; line-height: 1;
+    text-shadow: 0 0 10px #fff, 0 0 40px var(--pink), 0 0 90px var(--pink2); animation-name: slam; }
+  @keyframes slam {
+    0%, 9% { opacity: 0; transform: scale(2.6); filter: blur(12px) }
+    13% { opacity: 1; transform: scale(.94); filter: blur(0) }
+    15% { transform: scale(1.03) } 17% { transform: scale(1) }
+    80% { opacity: 1; transform: scale(1) }
+    86%, 100% { opacity: 0; transform: scale(.85) translateY(-60px) }
+  }
+  #neue { margin-top: 18px; display: inline-flex; gap: 26px; align-items: center; font-weight: 800; font-size: 96px; letter-spacing: 22px; color: var(--beige);
+    text-shadow: 0 0 22px rgba(212,175,55,.8); animation-name: neue; }
+  #neue .heart { width: 82px; height: 74px; filter: drop-shadow(0 0 12px var(--pink)) drop-shadow(0 0 28px var(--pink2)); animation: beat 1s ease-in-out infinite; }
+  @keyframes beat { 0%,100% { transform: scale(1) } 15% { transform: scale(1.18) } 30% { transform: scale(.98) } 45% { transform: scale(1.1) } }
+  @keyframes neue {
+    0%, 15% { opacity: 0; letter-spacing: 80px }
+    21% { opacity: 1; letter-spacing: 22px }
+    81% { opacity: 1; transform: translateY(0) }
+    87%, 100% { opacity: 0; transform: translateY(40px) }
+  }
+  /* Rahmenlinien über und unter dem Titel */
+  .line { position: absolute; left: 50%; height: 4px; width: 1100px; margin-left: -550px; transform: scaleX(0); animation-name: line; }
+  .l1 { top: 205px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .l2 { top: 600px; background: linear-gradient(90deg, transparent, var(--pink), transparent); }
+  @keyframes line { 0%, 12% { transform: scaleX(0) } 19% { transform: scaleX(1) } 82% { transform: scaleX(1); opacity: 1 } 88%, 100% { transform: scaleX(1.3); opacity: 0 } }
+
+  /* Eilmeldungs-Balken mit Schlagzeile */
+  #bar { position: absolute; left: 120px; right: 120px; top: 720px; display: flex; height: 120px;
+    filter: drop-shadow(0 16px 40px rgba(0,0,0,.6)); animation-name: bar; }
+  @keyframes bar { 0%, 24% { clip-path: inset(0 100% 0 0) } 31% { clip-path: inset(0 0 0 0) } 84% { clip-path: inset(0 0 0 0); opacity: 1 } 90%, 100% { clip-path: inset(0 0 0 100%); opacity: 1 } }
+  #bar .label { flex: none; display: flex; align-items: center; gap: 16px; padding: 0 56px 0 40px;
+    background: linear-gradient(135deg, var(--pink), var(--pink2)); color: #fff; font-weight: 900; font-size: 40px; letter-spacing: 5px;
+    clip-path: polygon(0 0, 100% 0, calc(100% - 30px) 100%, 0 100%); }
+  #bar .dot { width: 22px; height: 22px; border-radius: 50%; background: #fff; animation: blink .8s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: .15 } }
+  #bar .headline { flex: 1; display: flex; flex-direction: column; justify-content: center; margin-left: -30px; padding: 0 40px 0 64px;
+    background: linear-gradient(90deg, rgba(5,14,26,.95), rgba(15,35,61,.92)); border-top: 3px solid var(--gold); }
+  #bar .h1 { font-weight: 800; font-size: 46px; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #bar .h2 { font-family: 'Josefin Sans', sans-serif; font-weight: 400; font-size: 28px; color: var(--beige); letter-spacing: 1px; margin-top: 4px; }
+
+  /* Senderlogo unten rechts */
+  #logo { position: absolute; right: 120px; top: 872px; font-family: 'Great Vibes', cursive; font-size: 64px; color: #FFE3C8;
+    text-shadow: 0 0 12px rgba(242,138,91,.8); animation-name: logo; }
+  #logo b { font-family: 'Montserrat'; font-weight: 600; font-size: 18px; letter-spacing: 8px; color: var(--beige); text-shadow: none; display: block; text-align: right; margin-top: -8px; }
+  @keyframes logo { 0%, 28% { opacity: 0; transform: translateX(40px) } 34% { opacity: 1; transform: none } 84% { opacity: 1 } 90%, 100% { opacity: 0 } }
+
+  body.capture #stage { transform: none !important; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="dim" class="a"></div>
+  <div class="stripe s1 a"></div><div class="stripe s2 a"></div><div class="stripe s3 a"></div>
+  <div class="line l1 a"></div><div class="line l2 a"></div>
+  <div id="title">
+    <div id="achtung" class="a">ACHTUNG</div><br>
+    <div id="neue" class="a">
+      <svg class="heart" viewBox="0 0 24 22"><path d="M12 21s-9-5.6-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.4-9 12-9 12z" fill="#FF4D8D"/></svg>
+      NEUE NEWS
+      <svg class="heart" viewBox="0 0 24 22"><path d="M12 21s-9-5.6-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.4-9 12-9 12z" fill="#FF4D8D"/></svg>
+    </div>
+  </div>
+  <div id="bar" class="a">
+    <div class="label"><span class="dot"></span>EILMELDUNG</div>
+    <div class="headline"><div class="h1" id="h1">Demenz gestört &amp; geil – heute live im Studio</div>
+      <div class="h2" id="h2">Ehrlich. Menschlich. Ohne Filter.</div></div>
+  </div>
+  <div id="logo" class="a">HerzGedanken<b>RADIO · TV</b></div>
+  <div id="flash" class="a"></div>
+</div>
+<script>
+// ?headline=...&sub=... ändert die Schlagzeile, ?capture=1 für den Video-Export
+const P = new URLSearchParams(location.search);
+if (P.get('headline')) document.getElementById('h1').textContent = P.get('headline');
+if (P.get('sub')) document.getElementById('h2').textContent = P.get('sub');
+if (P.get('capture')) document.body.classList.add('capture');
+function fit() { if (P.get('capture')) return; const s = Math.min(innerWidth / 1920, innerHeight / 1080); document.getElementById('stage').style.transform = `scale(${s})`; }
+addEventListener('resize', fit); fit();
+// Im Browser in Schleife abspielen (alle 9 s neu starten)
+if (!P.get('capture')) setInterval(() => document.getAnimations().forEach(a => { a.currentTime = 0; a.play(); }), 9000);
+</script>
+</body>
+</html>
