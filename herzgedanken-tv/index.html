@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HerzGedanken TV Hintergrund</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Josefin+Sans:wght@300;400;600&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night-1: #050E1A;
+    --night-2: #0F233D;
+    --night-3: #1B2A5C;
+    --violet: #5B2A86;
+    --rose: #E2557A;
+    --sunset: #F28A5B;
+    --gold: #D4AF37;
+    --beige: #F3E5AB;
+    --teal: #20B2AA;
+    --neon-pink: #FF4D8D;
+    --neon-blue: #39B8FF;
+    --text: #E2E8F0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
+  body { display: grid; place-items: center; }
+
+  /* Feste 1920x1080-Bühne, wird per JS auf das Fenster skaliert */
+  #stage {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    transform-origin: center center; flex: none;
+    font-family: 'Josefin Sans', sans-serif; color: var(--text);
+    background: var(--night-1);
+  }
+  .layer { position: absolute; inset: 0; }
+  svg.layer { width: 1920px; height: 1080px; }
+
+  /* ---------- Logo ---------- */
+  #logo {
+    position: absolute; left: 0; right: 0; top: 250px; text-align: center;
+  }
+  .wordmark {
+    display: inline-flex; align-items: baseline; gap: 6px; position: relative;
+    left: -150px;
+  }
+  .herz {
+    font-family: 'Great Vibes', cursive; font-size: 190px; line-height: 1;
+    color: #FFE3C8;
+    text-shadow: 0 0 6px #FFB38A, 0 0 22px var(--sunset), 0 0 48px rgba(242,138,91,.6);
+  }
+  .gedanken {
+    font-family: 'Montserrat', sans-serif; font-weight: 400; font-size: 132px;
+    letter-spacing: -2px; color: #FFFFFF;
+    text-shadow: 0 0 4px #fff, 0 0 18px rgba(200,215,255,.9), 0 0 42px rgba(120,150,255,.55);
+  }
+  .sub {
+    font-family: 'Josefin Sans', sans-serif; font-weight: 400; font-size: 64px;
+    letter-spacing: 46px; color: #F4F2FF; margin-top: 4px; padding-left: 46px;
+    position: relative; left: -120px;
+    text-shadow: 0 0 10px rgba(200,215,255,.8), 0 0 28px rgba(120,150,255,.45);
+  }
+  .claim {
+    font-family: 'Josefin Sans', sans-serif; font-weight: 600; font-size: 46px;
+    letter-spacing: 5px; color: var(--beige); margin-top: 48px;
+    position: relative; left: -60px;
+    text-shadow: 0 0 14px rgba(212,175,55,.65);
+  }
+  #pulse path { stroke-dasharray: 1600; stroke-dashoffset: 1600; animation: draw 4s ease-in-out infinite; }
+  @keyframes draw {
+    0% { stroke-dashoffset: 1600; opacity: 1; }
+    55% { stroke-dashoffset: 0; opacity: 1; }
+    85% { stroke-dashoffset: 0; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 0; }
+  }
+  #heartNeon { animation: beat 1.6s ease-in-out infinite; transform-origin: 1470px 360px; }
+  @keyframes beat { 0%,100% { transform: scale(1); } 12% { transform: scale(1.05); } 24% { transform: scale(.99); } 36% { transform: scale(1.035); } }
+
+  .twinkle { animation: twinkle var(--d, 3s) ease-in-out infinite; animation-delay: var(--delay, 0s); }
+  @keyframes twinkle { 0%,100% { opacity: .25; } 50% { opacity: 1; } }
+  .flicker { animation: flick var(--d, 7s) steps(1) infinite; animation-delay: var(--delay, 0s); }
+  @keyframes flick { 0%, 100% { opacity: 1; } 47% { opacity: .35; } 53% { opacity: 1; } }
+  .shimmer { animation: shimmer var(--d, 2.4s) ease-in-out infinite; animation-delay: var(--delay, 0s); }
+  @keyframes shimmer { 0%,100% { opacity: .9; transform: scaleX(1); } 50% { opacity: .45; transform: scaleX(.6); } }
+
+  /* ---------- TV-Overlay (Senderlook) ---------- */
+  .tv-only { transition: opacity .3s; }
+  body.clean .tv-only { display: none !important; }
+
+  #bug {
+    position: absolute; top: 54px; right: 70px; display: flex; align-items: center; gap: 14px;
+    padding: 12px 22px 12px 18px; border-radius: 14px;
+    background: rgba(5,14,26,.45); border: 1px solid rgba(243,229,171,.25);
+    backdrop-filter: blur(6px);
+  }
+  #bug .t1 { font-family: 'Great Vibes', cursive; font-size: 44px; color: #FFE3C8; line-height: .9;
+    text-shadow: 0 0 10px rgba(242,138,91,.7); }
+  #bug .t2 { font-family: 'Montserrat'; font-weight: 600; font-size: 13px; letter-spacing: 7px; color: var(--beige); }
+
+  #live {
+    position: absolute; top: 60px; left: 70px; display: flex; align-items: stretch; height: 50px;
+    font-family: 'Montserrat'; font-weight: 800; border-radius: 10px; overflow: hidden;
+    box-shadow: 0 6px 30px rgba(0,0,0,.4);
+  }
+  #live .on { background: linear-gradient(135deg, #FF3B5C, #C2185B); color: #fff; padding: 0 20px;
+    display: flex; align-items: center; gap: 12px; font-size: 22px; letter-spacing: 3px; }
+  #live .dot { width: 14px; height: 14px; border-radius: 50%; background: #fff; animation: blink 1.2s infinite; }
+  @keyframes blink { 50% { opacity: .2; } }
+  #live .clock { background: rgba(5,14,26,.75); color: var(--text); padding: 0 20px; display: flex; align-items: center;
+    font-size: 24px; font-weight: 600; letter-spacing: 2px; font-variant-numeric: tabular-nums; }
+
+  #lower {
+    position: absolute; left: 70px; bottom: 132px; display: flex; flex-direction: column; gap: 0;
+    filter: drop-shadow(0 10px 30px rgba(0,0,0,.45));
+  }
+  #lower .name {
+    background: linear-gradient(90deg, #D4AF37, #F3E5AB 60%, #D4AF37);
+    color: #071322; font-family: 'Montserrat'; font-weight: 800; font-size: 34px; letter-spacing: 1px;
+    padding: 12px 34px 10px 26px; clip-path: polygon(0 0, 100% 0, calc(100% - 22px) 100%, 0 100%);
+    border-left: 8px solid var(--neon-pink);
+  }
+  #lower .role {
+    background: rgba(7,19,34,.88); color: var(--text); font-size: 24px; letter-spacing: 1.5px;
+    padding: 10px 34px 8px 34px; align-self: flex-start; border-left: 8px solid var(--teal);
+  }
+
+  #ticker {
+    position: absolute; left: 0; right: 0; bottom: 40px; height: 62px; display: flex;
+    background: rgba(5,14,26,.86); border-top: 2px solid rgba(212,175,55,.6);
+  }
+  #ticker .label {
+    flex: none; display: flex; align-items: center; gap: 12px; padding: 0 30px 0 70px;
+    background: linear-gradient(90deg, #C2185B, #FF4D8D); color: #fff;
+    font-family: 'Montserrat'; font-weight: 800; font-size: 22px; letter-spacing: 3px;
+    clip-path: polygon(0 0, 100% 0, calc(100% - 24px) 100%, 0 100%); padding-right: 50px;
+  }
+  #ticker .track { position: relative; flex: 1; overflow: hidden; }
+  #ticker .run {
+    position: absolute; top: 0; height: 100%; display: flex; align-items: center; white-space: nowrap;
+    font-size: 27px; letter-spacing: .5px; color: var(--text); animation: run 45s linear infinite;
+  }
+  #ticker .run span.sep { color: var(--gold); margin: 0 34px; }
+  @keyframes run { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  #controls {
+    position: fixed; right: 16px; bottom: 16px; z-index: 10; display: flex; gap: 8px;
+    font-family: system-ui, sans-serif;
+  }
+  #controls button {
+    padding: 8px 14px; border-radius: 8px; border: 1px solid #ffffff40; background: #0F233Dcc; color: #fff;
+    cursor: pointer; font-size: 14px;
+  }
+  body.capture #controls { display: none; }
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- Himmel, Sterne, Stadt, Fluss -->
+  <svg class="layer" id="scene" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#050E1A"/>
+        <stop offset=".28" stop-color="#0F233D"/>
+        <stop offset=".48" stop-color="#1B2A5C"/>
+        <stop offset=".60" stop-color="#5B2A86"/>
+        <stop offset=".68" stop-color="#C2477A"/>
+        <stop offset=".735" stop-color="#F28A5B"/>
+        <stop offset=".76" stop-color="#FFC48A"/>
+      </linearGradient>
+      <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#3A1F5E"/>
+        <stop offset=".25" stop-color="#1A1C45"/>
+        <stop offset="1" stop-color="#050E1A"/>
+      </linearGradient>
+      <radialGradient id="sunGlow" cx=".5" cy=".5" r=".5">
+        <stop offset="0" stop-color="#FFC48A" stop-opacity=".75"/>
+        <stop offset="1" stop-color="#FFC48A" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="logoGlow" cx=".5" cy=".5" r=".5">
+        <stop offset="0" stop-color="#5B6BFF" stop-opacity=".28"/>
+        <stop offset="1" stop-color="#5B6BFF" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="vignette" cx=".5" cy=".45" r=".75">
+        <stop offset=".55" stop-color="#000" stop-opacity="0"/>
+        <stop offset="1" stop-color="#000" stop-opacity=".65"/>
+      </radialGradient>
+      <filter id="blur6"><feGaussianBlur stdDeviation="6"/></filter>
+      <filter id="blur2"><feGaussianBlur stdDeviation="2"/></filter>
+    </defs>
+    <rect width="1920" height="1080" fill="url(#sky)"/>
+    <ellipse cx="1400" cy="800" rx="700" ry="160" fill="url(#sunGlow)"/>
+    <ellipse cx="960" cy="380" rx="820" ry="300" fill="url(#logoGlow)"/>
+    <g id="stars"></g>
+    <g id="cityFar" opacity=".55"></g>
+    <g id="city"></g>
+    <rect id="waterRect" x="0" y="822" width="1920" height="258" fill="url(#water)"/>
+    <g id="reflect" filter="url(#blur2)"></g>
+    <rect x="0" y="818" width="1920" height="6" fill="#FFC48A" opacity=".35" filter="url(#blur2)"/>
+  </svg>
+
+  <!-- Neon-Herz & Herzschlaglinie -->
+  <svg class="layer" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="pulseGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#FF4D8D"/>
+        <stop offset=".5" stop-color="#C04DFF"/>
+        <stop offset="1" stop-color="#39B8FF"/>
+      </linearGradient>
+      <filter id="neon" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="7" result="b1"/>
+        <feGaussianBlur in="SourceGraphic" stdDeviation="16" result="b2"/>
+        <feMerge><feMergeNode in="b2"/><feMergeNode in="b1"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+    <g transform="translate(45 10)"><g id="heartNeon" filter="url(#neon)">
+      <!-- Herz, unten offen in die Linie auslaufend -->
+      <path d="M1412 520 C1500 480 1580 400 1600 320 C1618 250 1575 205 1530 205
+               C1490 205 1468 235 1462 262 C1452 232 1425 210 1392 214
+               C1352 220 1330 262 1352 310"
+            fill="none" stroke="#FF6FA0" stroke-width="7" stroke-linecap="round"/>
+      <path d="M1412 520 C1470 500 1500 480 1520 450" fill="none" stroke="#FF6FA0" stroke-width="5" stroke-linecap="round" opacity=".7"/>
+    </g>
+    <g id="pulse" filter="url(#neon)">
+      <path d="M1540 420 L1600 420 L1615 405 L1628 440 L1640 360 L1652 470 L1664 300 L1678 500 L1690 380
+               L1702 445 L1714 330 L1726 455 L1738 395 L1750 430 L1762 350 L1774 440 L1786 400 L1798 425
+               L1810 410 L1830 420 L1840 420"
+            fill="none" stroke="url(#pulseGrad)" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+    </g></g>
+  </svg>
+
+  <div id="logo">
+    <div class="wordmark"><span class="herz">Herz</span><span class="gedanken">Gedanken</span></div>
+    <div class="sub">RADIO</div>
+    <div class="claim">Mut. Wurzeln. Zukunft.</div>
+  </div>
+
+  <!-- leichte Vignette wie Studio-Kamera -->
+  <svg class="layer" viewBox="0 0 1920 1080" style="pointer-events:none"><rect width="1920" height="1080" fill="url(#vignette)"/></svg>
+
+  <!-- ===== TV-Senderelemente ===== -->
+  <div id="live" class="tv-only"><div class="on"><span class="dot"></span>LIVE</div><div class="clock" id="clock">20:15</div></div>
+  <div id="bug" class="tv-only">
+    <svg width="38" height="34" viewBox="0 0 24 22"><path d="M12 21s-9-5.6-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.4-9 12-9 12z" fill="none" stroke="#FF6FA0" stroke-width="2"/></svg>
+    <div><div class="t1">HerzGedanken</div><div class="t2">RADIO · TV</div></div>
+  </div>
+  <div id="lower" class="tv-only">
+    <div class="name" id="lowerName">Ilona · Demenz gestört &amp; geil</div>
+    <div class="role" id="lowerRole">Ehrlich. Menschlich. Ohne Filter.</div>
+  </div>
+  <div id="ticker" class="tv-only">
+    <div class="label">♥ HERZGEDANKEN</div>
+    <div class="track"><div class="run" id="run"></div></div>
+  </div>
+</div>
+
+<div id="controls">
+  <button id="toggle">Overlay an/aus</button>
+</div>
+
+<script>
+// ---- Parameter: ?clean=1 (nur Hintergrund), ?capture=1 (ohne Buttons), ?name=..&role=..
+const P = new URLSearchParams(location.search);
+if (P.get('clean')) document.body.classList.add('clean');
+if (P.get('capture')) document.body.classList.add('capture');
+if (P.get('name')) document.getElementById('lowerName').textContent = P.get('name');
+if (P.get('role')) document.getElementById('lowerRole').textContent = P.get('role');
+document.getElementById('toggle').onclick = () => document.body.classList.toggle('clean');
+
+// ---- Skalierung der 1920x1080-Bühne
+function fit() {
+  const s = Math.min(innerWidth / 1920, innerHeight / 1080);
+  document.getElementById('stage').style.transform = `scale(${s})`;
+}
+addEventListener('resize', fit); fit();
+
+// ---- deterministischer Zufall, damit jedes Rendering gleich aussieht
+let seed = 7;
+const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+const NS = 'http://www.w3.org/2000/svg';
+const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]); parent && parent.appendChild(e); return e; };
+
+// Sterne
+const stars = document.getElementById('stars');
+for (let i = 0; i < 160; i++) {
+  const y = Math.pow(rnd(), 1.6) * 560;
+  const c = el('circle', { cx: rnd() * 1920, cy: y, r: (rnd() * 1.4 + .4).toFixed(2), fill: '#fff', class: 'twinkle' }, stars);
+  c.style.setProperty('--d', (2 + rnd() * 4).toFixed(2) + 's');
+  c.style.setProperty('--delay', (-rnd() * 5).toFixed(2) + 's');
+}
+
+// Skyline (Silhouette mit Kirchturm, Fenster-Lichtern) + Spiegelung im Fluss
+const HORIZON = 822;
+function skyline(group, baseH, var_, color, windows, startSeed) {
+  seed = startSeed;
+  let x = -20;
+  while (x < 1940) {
+    const w = 30 + rnd() * 70, h = baseH + rnd() * var_;
+    el('rect', { x, y: HORIZON - h, width: w + 1, height: h, fill: color }, group);
+    if (rnd() < .25) el('polygon', { points: `${x},${HORIZON - h} ${x + w / 2},${HORIZON - h - 22 - rnd() * 18} ${x + w},${HORIZON - h}`, fill: color }, group);
+    if (windows) {
+      for (let wy = HORIZON - h + 12; wy < HORIZON - 8; wy += 14)
+        for (let wx = x + 6; wx < x + w - 8; wx += 12)
+          if (rnd() < .22) {
+            const warm = rnd() < .8;
+            const r = el('rect', { x: wx, y: wy, width: 5, height: 6, fill: warm ? '#FFC876' : '#BFD9FF', opacity: .55 + rnd() * .45 }, group);
+            if (rnd() < .08) { r.setAttribute('class', 'flicker'); r.style.setProperty('--d', (4 + rnd() * 8) + 's'); r.style.setProperty('--delay', (-rnd() * 8) + 's'); }
+          }
+    }
+    x += w + rnd() * 6;
+  }
+}
+const far = document.getElementById('cityFar');
+skyline(far, 40, 90, '#3B2560', false, 3);
+const city = document.getElementById('city');
+skyline(city, 20, 60, '#140F2A', true, 11);
+
+// Kirchturm (Wahrzeichen rechts) und Turm links
+function tower(cx, h, w, color, parent) {
+  el('rect', { x: cx - w / 2, y: HORIZON - h, width: w, height: h, fill: color }, parent);
+  el('rect', { x: cx - w / 2 - 6, y: HORIZON - h - 6, width: w + 12, height: 10, fill: color }, parent);
+  el('polygon', { points: `${cx - w / 2},${HORIZON - h - 4} ${cx},${HORIZON - h - h * .9} ${cx + w / 2},${HORIZON - h - 4}`, fill: color }, parent);
+  el('rect', { x: cx - 1.5, y: HORIZON - h - h * .9 - 26, width: 3, height: 28, fill: color }, parent);
+  el('circle', { cx, cy: HORIZON - h + 40, r: 9, fill: '#FFD38A', opacity: .9 }, parent);
+}
+tower(1310, 150, 46, '#140F2A', city);
+tower(1085, 95, 30, '#1C1438', city);
+
+// Straßenlichter am Ufer (Bokeh)
+const bokeh = el('g', {}, city);
+seed = 21;
+for (let i = 0; i < 70; i++) {
+  const bx = rnd() * 1920, by = HORIZON - 4 - rnd() * 40;
+  el('circle', { cx: bx, cy: by, r: 3 + rnd() * 7, fill: rnd() < .85 ? '#FFC876' : '#FF8FB4', opacity: .35 + rnd() * .4, filter: 'url(#blur2)' }, bokeh);
+}
+
+// Spiegelung: gestreckte, flackernde Lichtstreifen
+const refl = document.getElementById('reflect');
+seed = 33;
+for (let i = 0; i < 110; i++) {
+  const rx = rnd() * 1920, ry = HORIZON + 10 + rnd() * 200, w = 10 + rnd() * 40;
+  const r = el('rect', { x: rx, y: ry, width: w, height: 3, rx: 1.5, fill: rnd() < .8 ? '#FFB86B' : '#FF7FAE',
+    opacity: (.6 - (ry - HORIZON) / 420).toFixed(2), class: 'shimmer' }, refl);
+  r.style.transformOrigin = `${rx + w / 2}px ${ry}px`;
+  r.style.setProperty('--d', (1.6 + rnd() * 2.4) + 's');
+  r.style.setProperty('--delay', (-rnd() * 3) + 's');
+}
+// gespiegelte, verblasste Silhouette
+const mirror = city.cloneNode(true);
+mirror.removeAttribute('id');
+mirror.setAttribute('transform', `translate(0 ${HORIZON * 2}) scale(1 -1)`);
+mirror.setAttribute('opacity', '.28');
+refl.parentNode.insertBefore(mirror, refl);
+
+// Ticker
+const items = ['Gute Musik für starke Menschen', 'Musik verbindet Herzen', 'Mehr als Radio ♥',
+  'Mut. Wurzeln. Zukunft.', 'Ehrlich. Menschlich. Ohne Filter.', 'Rund um die Uhr für Euch auf Sendung'];
+const once = items.map(t => `<span>${t}</span><span class="sep">◆</span>`).join('');
+document.getElementById('run').innerHTML = once + once;
+
+// Uhr
+const clock = document.getElementById('clock');
+const tick = () => { const d = P.get('time') || new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }); clock.textContent = d; };
+tick(); setInterval(tick, 10000);
+</script>
+</body>
+</html>
