@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HerzGedanken 3D-Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Josefin+Sans:wght@300;400;600&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root { --gold:#D4AF37; --beige:#F3E5AB; --teal:#20B2AA; --neon-pink:#FF4D8D; --text:#E2E8F0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
+  body { display: grid; place-items: center; }
+  #stage { position: relative; width: 1920px; height: 1080px; overflow: hidden; flex: none;
+    transform-origin: center center; font-family: 'Josefin Sans', sans-serif; color: var(--text); }
+  #gl { position: absolute; inset: 0; width: 1920px; height: 1080px; display: block; }
+  /* ---------- TV-Overlay (Senderlook) ---------- */
+  .tv-only { transition: opacity .3s; }
+  body.clean .tv-only { display: none !important; }
+
+  #bug {
+    position: absolute; top: 54px; right: 70px; display: flex; align-items: center; gap: 14px;
+    padding: 12px 22px 12px 18px; border-radius: 14px;
+    background: rgba(5,14,26,.45); border: 1px solid rgba(243,229,171,.25);
+    backdrop-filter: blur(6px);
+  }
+  #bug .t1 { font-family: 'Great Vibes', cursive; font-size: 44px; color: #FFE3C8; line-height: .9;
+    text-shadow: 0 0 10px rgba(242,138,91,.7); }
+  #bug .t2 { font-family: 'Montserrat'; font-weight: 600; font-size: 13px; letter-spacing: 7px; color: var(--beige); }
+
+  #live {
+    position: absolute; top: 60px; left: 70px; display: flex; align-items: stretch; height: 50px;
+    font-family: 'Montserrat'; font-weight: 800; border-radius: 10px; overflow: hidden;
+    box-shadow: 0 6px 30px rgba(0,0,0,.4);
+  }
+  #live .on { background: linear-gradient(135deg, #FF3B5C, #C2185B); color: #fff; padding: 0 20px;
+    display: flex; align-items: center; gap: 12px; font-size: 22px; letter-spacing: 3px; }
+  #live .dot { width: 14px; height: 14px; border-radius: 50%; background: #fff; animation: blink 1.2s infinite; }
+  @keyframes blink { 50% { opacity: .2; } }
+  #live .clock { background: rgba(5,14,26,.75); color: var(--text); padding: 0 20px; display: flex; align-items: center;
+    font-size: 24px; font-weight: 600; letter-spacing: 2px; font-variant-numeric: tabular-nums; }
+
+  #lower {
+    position: absolute; left: 70px; bottom: 132px; display: flex; flex-direction: column; gap: 0;
+    filter: drop-shadow(0 10px 30px rgba(0,0,0,.45));
+  }
+  #lower .name {
+    background: linear-gradient(90deg, #D4AF37, #F3E5AB 60%, #D4AF37);
+    color: #071322; font-family: 'Montserrat'; font-weight: 800; font-size: 34px; letter-spacing: 1px;
+    padding: 12px 34px 10px 26px; clip-path: polygon(0 0, 100% 0, calc(100% - 22px) 100%, 0 100%);
+    border-left: 8px solid var(--neon-pink);
+  }
+  #lower .role {
+    background: rgba(7,19,34,.88); color: var(--text); font-size: 24px; letter-spacing: 1.5px;
+    padding: 10px 34px 8px 34px; align-self: flex-start; border-left: 8px solid var(--teal);
+  }
+
+  #ticker {
+    position: absolute; left: 0; right: 0; bottom: 40px; height: 62px; display: flex;
+    background: rgba(5,14,26,.86); border-top: 2px solid rgba(212,175,55,.6);
+  }
+  #ticker .label {
+    flex: none; display: flex; align-items: center; gap: 12px; padding: 0 30px 0 70px;
+    background: linear-gradient(90deg, #C2185B, #FF4D8D); color: #fff;
+    font-family: 'Montserrat'; font-weight: 800; font-size: 22px; letter-spacing: 3px;
+    clip-path: polygon(0 0, 100% 0, calc(100% - 24px) 100%, 0 100%); padding-right: 50px;
+  }
+  #ticker .track { position: relative; flex: 1; overflow: hidden; }
+  #ticker .run {
+    position: absolute; top: 0; height: 100%; display: flex; align-items: center; white-space: nowrap;
+    font-size: 27px; letter-spacing: .5px; color: var(--text); animation: run 45s linear infinite;
+  }
+  #ticker .run span.sep { color: var(--gold); margin: 0 34px; }
+  @keyframes run { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  #controls {
+    position: fixed; right: 16px; bottom: 16px; z-index: 10; display: flex; gap: 8px;
+    font-family: system-ui, sans-serif;
+  }
+  #controls button {
+    padding: 8px 14px; border-radius: 8px; border: 1px solid #ffffff40; background: #0F233Dcc; color: #fff;
+    cursor: pointer; font-size: 14px;
+  }
+  body.capture #controls { display: none; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="gl" width="1920" height="1080"></canvas>
+  <!-- ===== TV-Senderelemente ===== -->
+  <div id="live" class="tv-only"><div class="on"><span class="dot"></span>LIVE</div><div class="clock" id="clock">20:15</div></div>
+  <div id="bug" class="tv-only">
+    <svg width="38" height="34" viewBox="0 0 24 22"><path d="M12 21s-9-5.6-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.4-9 12-9 12z" fill="none" stroke="#FF6FA0" stroke-width="2"/></svg>
+    <div><div class="t1">HerzGedanken</div><div class="t2">RADIO · TV</div></div>
+  </div>
+  <div id="lower" class="tv-only">
+    <div class="name" id="lowerName">Ilona · Demenz gestört &amp; geil</div>
+    <div class="role" id="lowerRole">Ehrlich. Menschlich. Ohne Filter.</div>
+  </div>
+  <div id="ticker" class="tv-only">
+    <div class="label">♥ HERZGEDANKEN</div>
+    <div class="track"><div class="run" id="run"></div></div>
+  </div>
+</div>
+<div id="controls"><button id="toggle">Overlay an/aus</button></div>
+<script src="assets/wall-data.js"></script>
+<script>
+const P = new URLSearchParams(location.search);
+if (P.get('clean')) document.body.classList.add('clean');
+if (P.get('capture')) document.body.classList.add('capture');
+if (P.get('name')) document.getElementById('lowerName').textContent = P.get('name');
+if (P.get('role')) document.getElementById('lowerRole').textContent = P.get('role');
+document.getElementById('toggle').onclick = () => document.body.classList.toggle('clean');
+function fit() { const s = Math.min(innerWidth / 1920, innerHeight / 1080); document.getElementById('stage').style.transform = `scale(${s})`; }
+addEventListener('resize', fit); fit();
+const items = ['Gute Musik für starke Menschen', 'Musik verbindet Herzen', 'Mehr als Radio ♥',
+  'Mut. Wurzeln. Zukunft.', 'Ehrlich. Menschlich. Ohne Filter.', 'Rund um die Uhr für Euch auf Sendung'];
+const once = items.map(t => `<span>${t}</span><span class="sep">◆</span>`).join('');
+document.getElementById('run').innerHTML = once + once;
+const clock = document.getElementById('clock');
+const tick = () => { clock.textContent = P.get('time') || new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }); };
+tick(); setInterval(tick, 10000);
+</script>
+<script src="studio.bundle.js"></script>
+</body>
+</html>
