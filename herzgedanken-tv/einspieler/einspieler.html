@@ -68,7 +68,7 @@
     clip-path: polygon(0 0, 100% 0, calc(100% - 30px) 100%, 0 100%); }
   #bar .dot { width: 22px; height: 22px; border-radius: 50%; background: #fff; animation: blink .8s steps(1) infinite; }
   @keyframes blink { 50% { opacity: .15 } }
-  #bar .headline { flex: 1; display: flex; flex-direction: column; justify-content: center; margin-left: -30px; padding: 0 40px 0 64px;
+  #bar .headline { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; margin-left: -30px; padding: 0 40px 0 64px;
     background: linear-gradient(90deg, rgba(5,14,26,.95), rgba(15,35,61,.92)); border-top: 3px solid var(--gold); }
   #bar .h1 { font-weight: 800; font-size: 46px; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   #bar .h2 { font-family: 'Josefin Sans', sans-serif; font-weight: 400; font-size: 28px; color: var(--beige); letter-spacing: 1px; margin-top: 4px; }
@@ -109,6 +109,11 @@ const P = new URLSearchParams(location.search);
 if (P.get('headline')) document.getElementById('h1').textContent = P.get('headline');
 if (P.get('sub')) document.getElementById('h2').textContent = P.get('sub');
 if (P.get('capture')) document.body.classList.add('capture');
+// lange Schlagzeilen automatisch verkleinern, damit nichts abgeschnitten wird
+document.fonts.ready.then(() => {
+  const h = document.getElementById('h1'); let size = 46;
+  while (h.scrollWidth > h.clientWidth && size > 26) h.style.fontSize = (--size) + 'px';
+});
 function fit() { if (P.get('capture')) return; const s = Math.min(innerWidth / 1920, innerHeight / 1080); document.getElementById('stage').style.transform = `scale(${s})`; }
 addEventListener('resize', fit); fit();
 // Im Browser in Schleife abspielen (alle 9 s neu starten)
