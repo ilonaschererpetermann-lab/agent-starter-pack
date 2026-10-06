@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HerzGedanken Abspann</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Josefin+Sans:wght@400;600&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root { --pink:#FF4D8D; --pink2:#C2185B; --gold:#D4AF37; --beige:#F3E5AB; --text:#E2E8F0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; background: transparent; overflow: hidden; }
+  body { display: grid; place-items: center; }
+  /* Dauer des Abspanns: 8 s */
+  #stage { position: relative; width: 1920px; height: 1080px; overflow: hidden; flex: none; transform-origin: center; font-family: 'Montserrat', sans-serif; }
+  .a { animation-duration: 8s; animation-fill-mode: both; animation-timing-function: ease-out; animation-iteration-count: 1; }
+
+  #dim { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(5,14,26,.86), rgba(5,14,26,.95)); animation-name: dim; }
+  @keyframes dim { 0% { opacity: 0 } 10% { opacity: 1 } 100% { opacity: 1 } }
+  #black { position: absolute; inset: 0; background: #000; animation-name: black; }
+  @keyframes black { 0%, 88% { opacity: 0 } 100% { opacity: 1 } }
+
+  #box { position: absolute; left: 0; right: 0; top: 250px; text-align: center; }
+  #dw { font-family: 'Josefin Sans'; font-weight: 600; font-size: 54px; letter-spacing: 18px; color: var(--beige); text-shadow: 0 0 18px rgba(212,175,55,.6); animation-name: up1; }
+  #logo { margin-top: 10px; animation-name: up2; }
+  #logo .herz { font-family: 'Great Vibes', cursive; font-size: 200px; color: #FFE3C8; text-shadow: 0 0 8px #FFB38A, 0 0 30px #F28A5B, 0 0 60px rgba(242,138,91,.6); }
+  #logo .ged { font-weight: 400; font-size: 140px; color: #fff; letter-spacing: -2px; text-shadow: 0 0 6px #fff, 0 0 24px rgba(200,215,255,.9), 0 0 50px rgba(120,150,255,.55); }
+  #danke { margin-top: 28px; font-weight: 600; font-size: 52px; color: #fff; animation-name: up3; }
+  #bis { margin-top: 14px; font-family: 'Great Vibes', cursive; font-size: 92px; color: #FF8FB4; text-shadow: 0 0 22px var(--pink); animation-name: up4; }
+  #claim { position: absolute; left: 0; right: 0; bottom: 120px; text-align: center; font-family: 'Josefin Sans'; font-size: 34px; letter-spacing: 8px; color: var(--beige); animation-name: up5; }
+  .line { position: absolute; left: 50%; width: 1000px; margin-left: -500px; height: 3px; transform: scaleX(0); animation-name: line; }
+  .l1 { top: 230px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .l2 { bottom: 190px; background: linear-gradient(90deg, transparent, var(--pink), transparent); }
+  @keyframes line { 0%, 6% { transform: scaleX(0) } 16%, 100% { transform: scaleX(1) } }
+  @keyframes up1 { 0%, 5% { opacity: 0; transform: translateY(40px) } 13%, 100% { opacity: 1; transform: none } }
+  @keyframes up2 { 0%, 10% { opacity: 0; transform: scale(.9); filter: blur(10px) } 20%, 100% { opacity: 1; transform: none; filter: blur(0) } }
+  @keyframes up3 { 0%, 25% { opacity: 0; transform: translateY(40px) } 33%, 100% { opacity: 1; transform: none } }
+  @keyframes up4 { 0%, 34% { opacity: 0; transform: translateY(40px) } 43%, 100% { opacity: 1; transform: none } }
+  @keyframes up5 { 0%, 42% { opacity: 0; letter-spacing: 30px } 52%, 100% { opacity: 1; letter-spacing: 8px } }
+
+  /* aufsteigende Herzen */
+  .h { position: absolute; bottom: -80px; width: 44px; height: 40px; opacity: 0; animation-name: rise; animation-timing-function: linear;
+    filter: drop-shadow(0 0 10px var(--pink)); }
+  @keyframes rise { 0% { opacity: 0; transform: translateY(0) scale(.6) } 10% { opacity: .9 } 80% { opacity: .7 } 100% { opacity: 0; transform: translateY(-1150px) scale(1.1) } }
+  body.capture #stage { transform: none !important; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="dim" class="a"></div>
+  <div id="hearts"></div>
+  <div class="line l1 a"></div><div class="line l2 a"></div>
+  <div id="box">
+    <div id="dw" class="a">DAS WAR</div>
+    <div id="logo" class="a"><span class="herz">Herz</span><span class="ged">Gedanken</span></div>
+    <div id="danke" class="a">Danke, dass ihr dabei wart!</div>
+    <div id="bis" class="a">Bis zum nächsten Mal ♥</div>
+  </div>
+  <div id="claim" class="a">EHRLICH · MENSCHLICH · OHNE FILTER</div>
+  <div id="black" class="a"></div>
+</div>
+<script>
+const P = new URLSearchParams(location.search);
+if (P.get('capture')) document.body.classList.add('capture');
+function fit() { if (P.get('capture')) return; const s = Math.min(innerWidth / 1920, innerHeight / 1080); document.getElementById('stage').style.transform = `scale(${s})`; }
+addEventListener('resize', fit); fit();
+// feste Positionen, damit jedes Rendering gleich aussieht
+const hearts = document.getElementById('hearts');
+const svg = '<svg viewBox="0 0 24 22" width="100%" height="100%"><path d="M12 21s-9-5.6-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.4-9 12-9 12z" fill="#FF4D8D"/></svg>';
+let seed = 5; const rnd = () => (seed = seed * 16807 % 2147483647) / 2147483647;
+for (let i = 0; i < 26; i++) {
+  const d = document.createElement('div'); d.className = 'h'; d.innerHTML = svg;
+  const s = .5 + rnd() * .9;
+  Object.assign(d.style, { left: (rnd() * 1880) + 'px', width: 44 * s + 'px', height: 40 * s + 'px',
+    animationDuration: (4 + rnd() * 3) + 's', animationDelay: (rnd() * 4) + 's', animationFillMode: 'both' });
+  hearts.appendChild(d);
+}
+if (!P.get('capture')) setInterval(() => document.getAnimations().forEach(a => { a.currentTime = 0; a.play(); }), 9000);
+</script>
+</body>
+</html>

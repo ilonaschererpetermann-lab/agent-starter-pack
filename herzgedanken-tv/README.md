@@ -38,3 +38,8 @@ Quellcode: `3d/src/studio.js` (Three.js). Neu bauen mit
 - `einspieler/einspieler-achtung-neue-news.mp4`: 8 Sekunden mit Ton (Whoosh, Bass-Schlag, Nachrichten-Gong), im 3D-Studio
 - `einspieler/einspieler.html`: dieselbe Animation als Browserquelle für OBS mit durchsichtigem Hintergrund.
   Die Schlagzeile lässt sich ändern: `einspieler.html?headline=Deine%20Schlagzeile&sub=Unterzeile`
+
+## Fertige Sendung
+
+`HerzGedanken-Sendung.mp4` (40 s, mit Ton): Einspieler „Achtung – neue News“ → Einspieler „Heute gehört“ →
+16 s Studio mit Einblendungen (hier kommt die Moderation hin) → Abspann (`einspieler/abspann.mp4`, Vorlage `einspieler/abspann.html`).
