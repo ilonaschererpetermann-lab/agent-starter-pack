@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HerzGedanken – Meine Ansicht</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+<style>
+  /*
+    Ilonas eigene Studio-Ansicht: Webcam (freigestellt) zwischen News-Studio und Tisch, darüber alle Einblendungen.
+    Im Browser (Chrome/Edge) öffnen, Kamera erlauben. Regler rechts: Größe, Höhe, Seite. Einstellungen werden gemerkt.
+    ?quer=1 für Querformat.
+  */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; background: #05080f; overflow: hidden; font-family: 'Montserrat', sans-serif; color: #fff; }
+  #wrap { position: absolute; inset: 0; right: 300px; display: grid; place-items: center; }
+  #stage { position: absolute; left: 50%; top: 50%; width: 1080px; height: 1920px; transform-origin: center; overflow: hidden; background: #000; }
+  body.quer #stage { width: 1920px; height: 1080px; }
+  #stage > * { position: absolute; inset: 0; width: 100%; height: 100%; }
+  #bg { object-fit: cover; }
+  #me { pointer-events: none; }
+  #desk { object-fit: cover; pointer-events: none; }
+  #ov { border: 0; pointer-events: none; }
+  #panel { position: absolute; top: 0; right: 0; bottom: 0; width: 300px; background: #0e1726; border-left: 3px solid #D50F25; padding: 22px 20px; overflow: auto; }
+  #panel h1 { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+  #panel h1 span { color: #D50F25; }
+  #panel p { font-size: 13px; color: #9fb0c8; margin-bottom: 18px; line-height: 1.4; }
+  label { display: block; font-size: 14px; font-weight: 600; margin: 16px 0 6px; }
+  input[type=range] { width: 100%; accent-color: #D50F25; }
+  .row { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+  button { flex: 1; padding: 10px 8px; border-radius: 8px; border: 0; background: #1d2a40; color: #fff; font: 600 14px Montserrat; cursor: pointer; }
+  button.on { background: #D50F25; }
+  #msg { margin-top: 18px; font-size: 13px; color: #ffd27a; line-height: 1.4; }
+</style>
+</head>
+<body>
+<div id="wrap"><div id="stage">
+  <video id="bg" muted loop playsinline autoplay></video>
+  <canvas id="me"></canvas>
+  <img id="desk" alt="">
+  <iframe id="ov" allow="autoplay"></iframe>
+</div></div>
+
+<div id="panel">
+  <h1>Meine <span>Ansicht</span></h1>
+  <p>So sehen dich deine Zuschauer im Studio. Kamera erlauben, dann mit den Reglern zurechtrücken.</p>
+  <label>Größe <span id="vGroesse"></span></label><input type="range" id="groesse" min="40" max="200" value="100">
+  <label>Höhe <span id="vHoehe"></span></label><input type="range" id="hoehe" min="-60" max="60" value="0">
+  <label>Seite <span id="vSeite"></span></label><input type="range" id="seite" min="-50" max="50" value="0">
+  <label>Freistellung (Kanten) <span id="vKante"></span></label><input type="range" id="kante" min="0" max="100" value="55">
+  <div class="row">
+    <button id="bOverlay" class="on">Einblendungen</button>
+    <button id="bTisch" class="on">Tisch</button>
+  </div>
+  <div class="row">
+    <button id="bHoch">Hochformat</button>
+    <button id="bQuer">Querformat</button>
+  </div>
+  <div id="msg"></div>
+</div>
+
+<script>
+const P = new URLSearchParams(location.search);
+const QUER = !!P.get('quer');
+if (QUER) document.body.classList.add('quer');
+const W = QUER ? 1920 : 1080, H = QUER ? 1080 : 1920;
+const stage = document.getElementById('stage'), wrap = document.getElementById('wrap');
+function fit() { const s = Math.min(wrap.clientWidth / W, wrap.clientHeight / H); stage.style.transform = `translate(-50%, -50%) scale(${s})`; }
+addEventListener('resize', fit); fit();
+const msg = t => { document.getElementById('msg').textContent = t; };
+
+// Ebenen
+const bg = document.getElementById('bg');
+const vid = QUER ? '3d/news-quer-studio-hinten-loop' : '3d/news-studio-hinten-loop';
+bg.src = bg.canPlayType('video/mp4; codecs="avc1.640028"') ? vid + '.mp4' : vid + '.webm'; bg.play().catch(() => {});
+document.getElementById('desk').src = QUER ? '3d/news-quer-tisch-vorne.png' : '3d/news-tisch-vorne.png';
+document.getElementById('ov').src = 'overlay-komplett.html' + (QUER ? '?quer=1' : '');
+document.getElementById('bHoch').onclick = () => { location.search = ''; };
+document.getElementById('bQuer').onclick = () => { location.search = '?quer=1'; };
+document.getElementById(QUER ? 'bQuer' : 'bHoch').classList.add('on');
+const toggle = (btn, el) => document.getElementById(btn).onclick = e => { e.target.classList.toggle('on'); document.getElementById(el).style.display = e.target.classList.contains('on') ? '' : 'none'; };
+toggle('bOverlay', 'ov'); toggle('bTisch', 'desk');
+
+// Regler (werden im Browser gemerkt)
+const ids = ['groesse', 'hoehe', 'seite', 'kante'];
+let cfg = {}; try { cfg = JSON.parse(localStorage.getItem('hg-ansicht-' + (QUER ? 'q' : 'h')) || '{}'); } catch (e) {}
+ids.forEach(id => { const el = document.getElementById(id); if (cfg[id] != null) el.value = cfg[id];
+  el.oninput = () => { cfg[id] = +el.value; try { localStorage.setItem('hg-ansicht-' + (QUER ? 'q' : 'h'), JSON.stringify(cfg)); } catch (e) {} labels(); }; });
+function labels() { ids.forEach(id => document.getElementById('v' + id[0].toUpperCase() + id.slice(1)).textContent = document.getElementById(id).value); }
+labels();
+const val = id => +document.getElementById(id).value;
+
+// Webcam + Freistellung (MediaPipe Selfie Segmentation; ohne Internet/Freistellung wird das normale Kamerabild gezeigt)
+const me = document.getElementById('me'); me.width = W; me.height = H;
+const ctx = me.getContext('2d');
+const cam = document.createElement('video'); cam.muted = true; cam.playsInline = true;
+const tmp = document.createElement('canvas'), tctx = tmp.getContext('2d');
+let maske = null, seg = null;
+
+function zeichnen() {
+  if (cam.readyState >= 2) {
+    const vw = cam.videoWidth, vh = cam.videoHeight;
+    // Person so platzieren, dass der Kopf über dem Tisch sitzt (Standard: unterer Bildrand auf Tischhöhe)
+    const baseH = (QUER ? H * .72 : H * .34) * val('groesse') / 100, baseW = baseH * vw / vh;
+    const x = W / 2 - baseW / 2 + val('seite') / 100 * W / 2;
+    const yBottom = (QUER ? H * .86 : H * .53) + val('hoehe') / 100 * H / 2;
+    ctx.clearRect(0, 0, W, H);
+    if (maske) {
+      tmp.width = vw; tmp.height = vh;
+      tctx.save(); tctx.clearRect(0, 0, vw, vh);
+      tctx.filter = `blur(${(val('kante') / 100) * 6}px)`; tctx.drawImage(maske, 0, 0, vw, vh); tctx.filter = 'none';
+      tctx.globalCompositeOperation = 'source-in'; tctx.drawImage(cam, 0, 0, vw, vh); tctx.restore();
+      ctx.drawImage(tmp, x, yBottom - baseH, baseW, baseH);
+    } else ctx.drawImage(cam, x, yBottom - baseH, baseW, baseH);
+  }
+  requestAnimationFrame(zeichnen);
+}
+
+async function freistellung() {
+  try {
+    await new Promise((ok, err) => { const s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js'; s.onload = ok; s.onerror = err; document.head.appendChild(s); });
+    seg = new SelfieSegmentation({ locateFile: f => `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${f}` });
+    seg.setOptions({ modelSelection: 1 });
+    seg.onResults(r => { maske = r.segmentationMask; });
+    (async function loop() { if (cam.readyState >= 2) { try { await seg.send({ image: cam }); } catch (e) {} } setTimeout(loop, 33); })();
+    msg('');
+  } catch (e) { msg('Freistellung konnte nicht geladen werden – Kamerabild wird ohne Freistellung gezeigt.'); }
+}
+
+(async () => {
+  try {
+    cam.srcObject = await navigator.mediaDevices.getUserMedia({ video: { width: 1280, height: 720 }, audio: false });
+    await cam.play(); freistellung(); zeichnen();
+  } catch (e) { msg('Keine Kamera: Bitte im Browser oben „Kamera erlauben“ klicken und die Seite neu laden. Wenn TikTok LIVE Studio die Kamera gerade benutzt, kurz dort beenden.'); zeichnen(); }
+})();
+</script>
+</body>
+</html>
