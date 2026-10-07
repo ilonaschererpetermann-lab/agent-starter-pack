@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HerzGedanken News-Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
+  body { display: grid; place-items: center; }
+  #gl { display: block; transform-origin: center; flex: none; }
+</style>
+</head>
+<body>
+<canvas id="gl"></canvas>
+<script>
+const P = new URLSearchParams(location.search);
+const W = P.get('quer') ? 1920 : 1080, H = P.get('quer') ? 1080 : 1920;
+if (P.get('ebene') === 'vorne') { document.documentElement.style.background = 'transparent'; document.body.style.background = 'transparent'; }
+const c = document.getElementById('gl'); c.width = W; c.height = H; c.style.width = W + 'px'; c.style.height = H + 'px';
+function fit() { if (P.get('capture')) return; const s = Math.min(innerWidth / W, innerHeight / H); c.style.transform = `scale(${s})`; }
+addEventListener('resize', fit); fit();
+</script>
+<script src="news.bundle.js"></script>
+</body>
+</html>

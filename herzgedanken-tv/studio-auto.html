@@ -20,6 +20,8 @@
 <script>
 const P = new URLSearchParams(location.search);
 const SRC = { morgen: '3d/studio-3d-hochformat-morgen-loop.mp4', tag: '3d/studio-3d-hochformat-tag-loop.mp4', abend: '3d/studio-3d-hochformat-abend-loop.mp4' };
+// Standard: neues News-Studio (hell, rot-weiß). ?stil=alt für die alten Morgen/Tag/Abend-Studios.
+if (P.get('stil') !== 'alt') { SRC.morgen = SRC.tag = SRC.abend = '3d/news-studio-hinten-loop.mp4'; }
 const welches = () => { if (SRC[P.get('zeit')]) return P.get('zeit'); const h = new Date().getHours(); return h >= 5 && h < 11 ? 'morgen' : h >= 11 && h < 17 ? 'tag' : 'abend'; };
 let aktiv = null, vorne = document.getElementById('a'), hinten = document.getElementById('b');
 function pruefen() {
