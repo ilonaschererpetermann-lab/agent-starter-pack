@@ -43,3 +43,12 @@ Quellcode: `3d/src/studio.js` (Three.js). Neu bauen mit
 
 `HerzGedanken-Sendung.mp4` (40 s, mit Ton): Einspieler „Achtung – neue News“ → Einspieler „Heute gehört“ →
 16 s Studio mit Einblendungen (hier kommt die Moderation hin) → Abspann (`einspieler/abspann.mp4`, Vorlage `einspieler/abspann.html`).
+
+## Hochformat für TikTok LIVE Studio (1080×1920)
+
+- `3d/studio-3d-hochformat.png`: Standbild. Das Logo sitzt oben unter der TikTok-Kopfzeile, der Tisch auf Brusthöhe, unten ist Platz für den Chat
+- `3d/studio-3d-hochformat-loop.mp4`: 16 s mit leichter Kamerabewegung, Endlosschleife
+- `3d/studio-hochformat.html`: Live-Version (Browserquelle)
+
+In TikTok LIVE Studio: **Quelle hinzufügen → Bild** (PNG) oder **Video** (MP4, Wiedergabe in Schleife). Die Quelle auf ganze Größe ziehen
+und unter die Kamera legen. Die Kamera mit Hintergrund-Entfernung so skalieren, dass der Kopf unter dem Logo und der Oberkörper hinter dem Tisch sitzt.

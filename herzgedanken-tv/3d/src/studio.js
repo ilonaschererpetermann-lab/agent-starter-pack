@@ -8,8 +8,10 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 
-const W = 1920, H = 1080, LOOP = 16; // Sekunden, passend zur Länge des Wand-Videos
 const P = new URLSearchParams(location.search);
+// ?vertical=1: Hochformat 1080x1920 für TikTok/Instagram LIVE
+const V = !!P.get('vertical');
+const W = V ? 1080 : 1920, H = V ? 1920 : 1080, LOOP = 16; // Sekunden, passend zur Länge des Wand-Videos
 
 const C = {
   night: 0x050e1a, petrol: 0x0f233d, gold: 0xd4af37, beige: 0xf3e5ab,
@@ -31,7 +33,7 @@ scene.fog = new THREE.Fog(0x02060d, 22, 48);
 const pmrem = new THREE.PMREMGenerator(renderer);
 scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
 
-const camera = new THREE.PerspectiveCamera(38, W / H, 0.1, 200);
+const camera = new THREE.PerspectiveCamera(V ? 74 : 38, W / H, 0.1, 200);
 
 // ---------- Hilfsfunktionen ----------
 const emissive = (color, intensity = 1) =>
@@ -78,7 +80,7 @@ const floorTex = canvasTex(1024, 1024, (ctx, w, h) => {
 });
 floorTex.wrapS = floorTex.wrapT = THREE.RepeatWrapping; floorTex.repeat.set(20, 20);
 const glass = new THREE.Mesh(new THREE.PlaneGeometry(80, 80), new THREE.MeshBasicMaterial({
-  color: 0x040a16, transparent: true, opacity: .72, alphaMap: null,
+  color: 0x040a16, transparent: true, opacity: V ? .86 : .72, alphaMap: null,
 }));
 glass.rotation.x = -Math.PI / 2; glass.position.y = .002;
 scene.add(glass);
@@ -98,14 +100,50 @@ rings.position.set(0, 0, 2.3);
 scene.add(rings);
 
 // ---------- Gebogene LED-Videowand ----------
-const WALL_R = 15, WALL_ARC = 1.12, WALL_H = 15 * 1.12 / (16 / 9), WALL_Y = .55;
+const WALL_R = 15, WALL_ARC = V ? .5 : 1.12, WALL_H = V ? 15 * .5 * 16 / 9 : 15 * 1.12 / (16 / 9), WALL_Y = .55;
 const WALL_CZ = 2.5;
 let wallTex;
 const video = document.createElement('video');
-let useVideo = !P.get('novideo') && location.protocol !== 'file:'; // file:// blockiert Video-Texturen
+let useVideo = !V && !P.get('novideo') && location.protocol !== 'file:'; // file:// blockiert Video-Texturen
 function imageTex() {
+  if (V) return verticalTex();
   const t = new THREE.TextureLoader().load(window.WALL_IMG);
   t.colorSpace = THREE.SRGBColorSpace; return t;
+}
+// Hochformat-Wandbild aus dem 16:9-Motiv: Logo oben, Stadt-Skyline unten, Himmel dazwischen
+function verticalTex() {
+  const c = document.createElement('canvas'); c.width = 1080; c.height = 1920;
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
+  const img = new Image();
+  img.onload = () => {
+    const ctx = c.getContext('2d');
+    const g = ctx.createLinearGradient(0, 0, 0, 1920);
+    g.addColorStop(0, '#050E1A'); g.addColorStop(.3, '#0F233D'); g.addColorStop(.55, '#1B2A5C');
+    g.addColorStop(.68, '#3A2470'); g.addColorStop(.74, '#5B2A86'); g.addColorStop(1, '#5B2A86');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, 1080, 1920);
+    let sd = 3; const r = () => (sd = sd * 16807 % 2147483647) / 2147483647;
+    ctx.fillStyle = '#fff';
+    for (let i = 0; i < 140; i++) { ctx.globalAlpha = .3 + r() * .7; ctx.beginPath(); ctx.arc(r() * 1080, Math.pow(r(), 1.4) * 1300, r() * 1.8 + .4, 0, 7); ctx.fill(); }
+    ctx.globalAlpha = 1;
+    // weich ausgeblendete Ausschnitte
+    const part = (sx, sy, sw, sh, dx, dy, dw, dh, fade) => {
+      const o = document.createElement('canvas'); o.width = dw; o.height = dh;
+      const x = o.getContext('2d'); x.drawImage(img, sx, sy, sw, sh, 0, 0, dw, dh);
+      x.globalCompositeOperation = 'destination-in';
+      const m = x.createLinearGradient(0, 0, 0, dh);
+      m.addColorStop(0, 'rgba(0,0,0,0)'); m.addColorStop(fade, '#000'); m.addColorStop(1 - (fade < .2 ? fade : 0), '#000'); m.addColorStop(1, fade < .2 ? 'rgba(0,0,0,0)' : '#000');
+      x.fillStyle = m; x.fillRect(0, 0, dw, dh);
+      const mh = x.createLinearGradient(0, 0, dw, 0);
+      mh.addColorStop(0, 'rgba(0,0,0,0)'); mh.addColorStop(.06, '#000'); mh.addColorStop(.94, '#000'); mh.addColorStop(1, 'rgba(0,0,0,0)');
+      x.fillStyle = mh; x.fillRect(0, 0, dw, dh);
+      ctx.drawImage(o, dx, dy);
+    };
+    part(250, 180, 1660, 440, 0, 60, 1080, 286, .1);              // Logo, RADIO, „Mut. Wurzeln. Zukunft.“
+    part(380, 630, 1160, 450, -10, 1500, 1100, 427, .3);          // Skyline + Fluss
+    t.needsUpdate = true;
+  };
+  img.src = window.WALL_IMG;
+  return t;
 }
 if (useVideo) {
   Object.assign(video, { src: 'assets/wall.mp4', muted: true, loop: true, playsInline: true, crossOrigin: 'anonymous' });
@@ -167,8 +205,8 @@ function pillar(x, z, rotY, tex) {
   screen.position.set(0, 4.55, .26); g.add(screen);
   g.position.set(x, 0, z); g.rotation.y = rotY; scene.add(g); return g;
 }
-pillar(-9.2, -7.4, .55, pillarTex(['MUSIK', 'VERBINDET HERZEN'], '#FF4D8D'));
-pillar(9.2, -7.4, -.55, pillarTex(['MUT · WURZELN', 'ZUKUNFT'], '#39B8FF'));
+pillar(V ? -5.4 : -9.2, V ? -8.6 : -7.4, V ? .3 : .55, pillarTex(['MUSIK', 'VERBINDET HERZEN'], '#FF4D8D'));
+pillar(V ? 5.4 : 9.2, V ? -8.6 : -7.4, V ? -.3 : -.55, pillarTex(['MUT · WURZELN', 'ZUKUNFT'], '#39B8FF'));
 
 // Hintere Lichtlamellen (Tiefe hinter der Wand)
 for (let i = -7; i <= 7; i++) {
@@ -273,8 +311,7 @@ const claimTex = canvasTex(1024, 576, (ctx, w, h) => {
   glowText(ctx, 'für starke Menschen', w / 2, 330, '110px "Great Vibes"', '#FFE3C8', '#F28A5B', 24);
   glowText(ctx, 'EHRLICH · MENSCHLICH · OHNE FILTER', w / 2, 480, '600 40px "Josefin Sans"', '#F3E5AB', '#000', 0);
 });
-monitor(-5.4, -.6, .4, liveTex);
-monitor(5.4, -.6, -.4, claimTex);
+if (!V) { monitor(-5.4, -.6, .4, liveTex); monitor(5.4, -.6, -.4, claimTex); }
 
 // ---------- Licht ----------
 scene.add(new THREE.HemisphereLight(0x8fb3ff, 0x1a0b26, .35));
@@ -296,9 +333,9 @@ const look = new THREE.Vector3();
 function update(t) {
   const p = (t % LOOP) / LOOP * Math.PI * 2;
   const still = P.get('still');
-  const sx = still ? 0 : Math.sin(p) * 1.6;
-  camera.position.set(sx, 2.3 + (still ? 0 : Math.sin(p * 2) * .07), 11.4 + (still ? 0 : Math.cos(p) * .35));
-  look.set(sx * .25, 2.95, -4);
+  const sx = still ? 0 : Math.sin(p) * (V ? .6 : 1.6);
+  if (V) { camera.position.set(sx, .95 + (still ? 0 : Math.sin(p * 2) * .03), 13.5); look.set(sx * .2, -.15, -4); }
+  else { camera.position.set(sx, 2.3 + (still ? 0 : Math.sin(p * 2) * .07), 11.4 + (still ? 0 : Math.cos(p) * .35)); look.set(sx * .25, 2.95, -4); }
   camera.lookAt(look);
   beams.forEach(b => { b.rotation.z = b.userData.base + Math.sin(p + b.userData.phase) * .12; });
   rings.children.forEach((r, i) => r.material.color.setHex([C.pink, C.blue, C.gold][i]).multiplyScalar(1 + .5 * Math.sin(p * 4 + i * 1.7)));
