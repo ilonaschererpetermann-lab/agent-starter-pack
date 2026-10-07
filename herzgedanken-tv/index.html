@@ -265,6 +265,19 @@ if (P.get('clean')) document.body.classList.add('clean');
 if (P.get('capture')) document.body.classList.add('capture');
 if (P.get('name')) document.getElementById('lowerName').textContent = P.get('name');
 if (P.get('role')) document.getElementById('lowerRole').textContent = P.get('role');
+// ?zeit=morgen: Sonnenaufgang statt Nacht
+const MORGEN = P.get('zeit') === 'morgen';
+if (MORGEN) {
+  const set = (id, cols) => document.querySelectorAll(`#${id} stop`).forEach((st, i) => cols[i] && st.setAttribute('stop-color', cols[i]));
+  set('sky', ['#16325E', '#2F5E9E', '#5E8CC8', '#9DB8DE', '#E7B3A8', '#FFC98A', '#FFE6B8']);
+  set('water', ['#7D8FBF', '#3C5288', '#14284A']);
+  set('sunGlow', ['#FFE2A8']);
+  document.querySelector('#sunGlow stop').setAttribute('stop-opacity', '1');
+  document.getElementById('stars').setAttribute('opacity', '.25');
+}
+const COL = MORGEN
+  ? { far: '#8C98C4', near: '#2C3A63', tower2: '#34426D', warm: .35 }
+  : { far: '#3B2560', near: '#140F2A', tower2: '#1C1438', warm: 1 };
 document.getElementById('toggle').onclick = () => document.body.classList.toggle('clean');
 
 // ---- Skalierung der 1920x1080-Bühne
@@ -302,7 +315,7 @@ function skyline(group, baseH, var_, color, windows, startSeed) {
     if (windows) {
       for (let wy = HORIZON - h + 12; wy < HORIZON - 8; wy += 14)
         for (let wx = x + 6; wx < x + w - 8; wx += 12)
-          if (rnd() < .22) {
+          if (rnd() < .22 * COL.warm) {
             const warm = rnd() < .8;
             const r = el('rect', { x: wx, y: wy, width: 5, height: 6, fill: warm ? '#FFC876' : '#BFD9FF', opacity: .55 + rnd() * .45 }, group);
             if (rnd() < .08) { r.setAttribute('class', 'flicker'); r.style.setProperty('--d', (4 + rnd() * 8) + 's'); r.style.setProperty('--delay', (-rnd() * 8) + 's'); }
@@ -312,9 +325,9 @@ function skyline(group, baseH, var_, color, windows, startSeed) {
   }
 }
 const far = document.getElementById('cityFar');
-skyline(far, 40, 90, '#3B2560', false, 3);
+skyline(far, 40, 90, COL.far, false, 3);
 const city = document.getElementById('city');
-skyline(city, 20, 60, '#140F2A', true, 11);
+skyline(city, 20, 60, COL.near, true, 11);
 
 // Kirchturm (Wahrzeichen rechts) und Turm links
 function tower(cx, h, w, color, parent) {
@@ -324,8 +337,8 @@ function tower(cx, h, w, color, parent) {
   el('rect', { x: cx - 1.5, y: HORIZON - h - h * .9 - 26, width: 3, height: 28, fill: color }, parent);
   el('circle', { cx, cy: HORIZON - h + 40, r: 9, fill: '#FFD38A', opacity: .9 }, parent);
 }
-tower(1310, 150, 46, '#140F2A', city);
-tower(1085, 95, 30, '#1C1438', city);
+tower(1310, 150, 46, COL.near, city);
+tower(1085, 95, 30, COL.tower2, city);
 
 // Straßenlichter am Ufer (Bokeh)
 const bokeh = el('g', {}, city);

@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HerzGedanken Nachrichten-Laufband</title>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  /*
+    Nachrichten-Banner im Stil großer TV-Sender, durchsichtiger Hintergrund.
+    Bühne: 1080x1920 (Hochformat, TikTok). Mit ?quer=1 1920x1080.
+    Parameter: ?ort=Stadt  ?y=Pixel (Oberkante des Banners)  ?dax=19234.5  ?news=Text1|Text2  ?eigene=Text1|Text2
+  */
+  :root { --red:#C8102E; --pink:#FF4D8D; --gold:#D4AF37; --beige:#F3E5AB; --night:#050E1A; --petrol:#0F233D; --text:#E2E8F0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; background: transparent; overflow: hidden; }
+  body { display: grid; place-items: center; }
+  #stage { position: relative; width: 1080px; height: 1920px; flex: none; transform-origin: center; font-family: 'Montserrat', sans-serif; }
+  body.quer #stage { width: 1920px; height: 1080px; }
+
+  #banner { position: absolute; left: 0; right: 0; top: 1010px; filter: drop-shadow(0 10px 28px rgba(0,0,0,.55)); }
+  body.quer #banner { top: auto; bottom: 40px; }
+
+  /* Zeile 1: Senderkennung, Info-Wechsel, Uhr */
+  .row1 { display: flex; height: 76px; }
+  .brand { flex: none; display: flex; align-items: center; gap: 12px; padding: 0 26px 0 22px;
+    background: linear-gradient(135deg, var(--pink), #C2185B); color: #fff; font-weight: 800; font-size: 23px; letter-spacing: 2px; }
+  .brand svg { width: 30px; height: 28px; }
+  .info { position: relative; flex: 1; overflow: hidden; background: rgba(5,14,26,.92); border-top: 3px solid var(--gold); }
+  .slide { position: absolute; inset: 0; display: flex; align-items: center; gap: 16px; padding: 0 22px;
+    color: #fff; font-weight: 700; font-size: 28px; white-space: nowrap; opacity: 0; transform: translateY(100%);
+    transition: transform .6s cubic-bezier(.2,.8,.2,1), opacity .6s; }
+  .slide.on { opacity: 1; transform: none; }
+  .slide.off { opacity: 0; transform: translateY(-100%); }
+  .tag { font-size: 20px; font-weight: 800; letter-spacing: 3px; color: var(--night); background: var(--beige); padding: 6px 12px; border-radius: 4px; }
+  .up { color: #3DDC84; } .down { color: #FF5A6E; }
+  .clock { flex: none; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0 22px;
+    background: #000; color: #fff; border-top: 3px solid var(--gold); }
+  .clock b { font-size: 34px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: 1px; line-height: 1; }
+  .clock span { font-size: 15px; font-weight: 500; color: var(--beige); margin-top: 4px; letter-spacing: 1px; }
+
+  /* Zeile 2: Laufschrift */
+  .row2 { display: flex; height: 58px; background: rgba(243,239,230,.97); }
+  .label { flex: none; display: flex; align-items: center; padding: 0 24px; background: var(--red); color: #fff;
+    font-weight: 800; font-size: 22px; letter-spacing: 3px; }
+  .track { position: relative; flex: 1; overflow: hidden; }
+  .run { position: absolute; top: 0; height: 100%; display: flex; align-items: center; white-space: nowrap; left: 0;
+    color: #0B1628; font-weight: 600; font-size: 27px; will-change: transform; }
+  .run .dot { display: inline-block; width: 12px; height: 12px; background: var(--red); margin: 0 28px; transform: rotate(45deg); }
+
+  body.capture #stage { transform: none !important; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="banner">
+    <div class="row1">
+      <div class="brand">
+        <svg viewBox="0 0 24 22"><path d="M12 21s-9-5.6-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.4-9 12-9 12z" fill="#fff"/></svg>
+        HERZGEDANKEN
+      </div>
+      <div class="info" id="info"></div>
+      <div class="clock"><b id="time">--:--</b><span id="date"></span></div>
+    </div>
+    <div class="row2">
+      <div class="label" id="label">NEWS</div>
+      <div class="track"><div class="run" id="run"></div></div>
+    </div>
+  </div>
+</div>
+<script>
+const P = new URLSearchParams(location.search);
+if (P.get('quer')) document.body.classList.add('quer');
+if (P.get('capture')) document.body.classList.add('capture');
+if (P.get('y')) document.getElementById('banner').style.top = P.get('y') + 'px';
+const W = P.get('quer') ? 1920 : 1080, H = P.get('quer') ? 1080 : 1920;
+function fit() { if (P.get('capture')) return; const s = Math.min(innerWidth / W, innerHeight / H); document.getElementById('stage').style.transform = `scale(${s})`; }
+addEventListener('resize', fit); fit();
+
+const ORT = P.get('ort') || 'Berlin';
+const fmt = (n, d = 2) => n.toLocaleString('de-DE', { minimumFractionDigits: d, maximumFractionDigits: d });
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+// ---------- Uhr & Begrüßung ----------
+function greeting(h) { return h < 11 ? 'Guten Morgen' : h < 18 ? 'Schönen Tag' : 'Guten Abend'; }
+function tickClock() {
+  const d = new Date();
+  document.getElementById('time').textContent = d.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+  document.getElementById('date').textContent = d.toLocaleDateString('de-DE', { weekday: 'short', day: 'numeric', month: 'short' }).toUpperCase();
+}
+tickClock(); setInterval(tickClock, 5000);
+
+// ---------- Daten ----------
+const data = { wetter: null, dax: null, news: [] };
+
+const WMO = { 0: ['☀️', 'klar'], 1: ['🌤️', 'überwiegend klar'], 2: ['⛅', 'teils bewölkt'], 3: ['☁️', 'bedeckt'], 45: ['🌫️', 'Nebel'], 48: ['🌫️', 'Reifnebel'],
+  51: ['🌦️', 'leichter Niesel'], 53: ['🌦️', 'Niesel'], 55: ['🌧️', 'starker Niesel'], 61: ['🌦️', 'leichter Regen'], 63: ['🌧️', 'Regen'], 65: ['🌧️', 'starker Regen'],
+  66: ['🌧️', 'Eisregen'], 67: ['🌧️', 'Eisregen'], 71: ['🌨️', 'leichter Schnee'], 73: ['🌨️', 'Schnee'], 75: ['❄️', 'starker Schnee'], 77: ['🌨️', 'Schneegriesel'],
+  80: ['🌦️', 'Schauer'], 81: ['🌧️', 'Schauer'], 82: ['⛈️', 'heftige Schauer'], 85: ['🌨️', 'Schneeschauer'], 86: ['🌨️', 'Schneeschauer'],
+  95: ['⛈️', 'Gewitter'], 96: ['⛈️', 'Gewitter mit Hagel'], 99: ['⛈️', 'Gewitter mit Hagel'] };
+
+async function getJSON(url) { const r = await fetch(url, { cache: 'no-store' }); if (!r.ok) throw new Error(r.status); return r.json(); }
+
+async function loadWetter() {
+  try {
+    const g = await getJSON(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(ORT)}&count=1&language=de`);
+    const o = g.results && g.results[0]; if (!o) return;
+    const w = await getJSON(`https://api.open-meteo.com/v1/forecast?latitude=${o.latitude}&longitude=${o.longitude}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1`);
+    const [icon, txt] = WMO[w.current.weather_code] || ['🌡️', ''];
+    data.wetter = { ort: o.name, temp: Math.round(w.current.temperature_2m), icon, txt,
+      max: Math.round(w.daily.temperature_2m_max[0]), min: Math.round(w.daily.temperature_2m_min[0]) };
+  } catch (e) { /* kein Wetter verfügbar: Folie entfällt */ }
+}
+
+async function loadDax() {
+  if (P.get('dax')) { data.dax = { wert: parseFloat(P.get('dax').replace(',', '.')), diff: P.get('daxplus') ? parseFloat(P.get('daxplus').replace(',', '.')) : null }; return; }
+  try { // Yahoo Finance (funktioniert nur, wenn die Quelle Browser-Zugriffe erlaubt)
+    const j = await getJSON('https://query1.finance.yahoo.com/v8/finance/chart/%5EGDAXI?interval=1d&range=5d');
+    const m = j.chart.result[0].meta;
+    data.dax = { wert: m.regularMarketPrice, diff: (m.regularMarketPrice / m.chartPreviousClose - 1) * 100 };
+  } catch (e) { /* kein DAX verfügbar: Folie entfällt */ }
+}
+
+async function loadNews() {
+  const eigene = (P.get('eigene') || '').split('|').map(s => s.trim()).filter(Boolean);
+  let news = (P.get('news') || '').split('|').map(s => s.trim()).filter(Boolean);
+  if (!news.length) {
+    try {
+      const j = await getJSON('https://www.tagesschau.de/api2u/homepage/');
+      news = (j.news || []).map(n => n.title).filter(Boolean).slice(0, 12);
+    } catch (e) { /* keine Live-Nachrichten */ }
+  }
+  if (!news.length) news = ['Willkommen bei HerzGedanken – schön, dass du da bist',
+    'Schreib uns deine Fragen in den Chat', 'Mut. Wurzeln. Zukunft.', 'Ehrlich. Menschlich. Ohne Filter.'];
+  data.news = [...eigene, ...news];
+  renderTicker();
+}
+
+// ---------- Info-Folien (wechseln alle 7 s) ----------
+function slides() {
+  const h = new Date().getHours(), out = [];
+  out.push(`<span class="tag">${esc(greeting(h).toUpperCase())}</span> Schön, dass du da bist`);
+  if (data.wetter) { const w = data.wetter;
+    out.push(`<span class="tag">WETTER</span> ${esc(w.ort)} ${w.icon} ${w.temp}° <span style="font-weight:500;font-size:24px;opacity:.85">${w.min}° / ${w.max}°</span>`); }
+  if (data.dax && isFinite(data.dax.wert)) { const d = data.dax;
+    const ch = d.diff == null ? '' : `<span class="${d.diff >= 0 ? 'up' : 'down'}">${d.diff >= 0 ? '▲ +' : '▼ '}${fmt(d.diff)} %</span>`;
+    out.push(`<span class="tag">BÖRSE</span> DAX ${fmt(d.wert)} ${ch}`); }
+  return out;
+}
+let si = -1;
+function nextSlide() {
+  const box = document.getElementById('info'), list = slides();
+  si = (si + 1) % list.length;
+  const old = box.querySelector('.slide.on');
+  if (old) { old.classList.remove('on'); old.classList.add('off'); setTimeout(() => old.remove(), 700); }
+  const el = document.createElement('div'); el.className = 'slide'; el.innerHTML = list[si]; box.appendChild(el);
+  requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('on')));
+}
+
+// ---------- Laufschrift (gleichmäßige Geschwindigkeit) ----------
+let x = 0, runW = 0, last = performance.now();
+const SPEED = 110; // Pixel pro Sekunde
+function renderTicker() {
+  const run = document.getElementById('run');
+  const once = data.news.map(t => `<span>${esc(t)}</span><span class="dot"></span>`).join('');
+  run.innerHTML = once + once;
+  runW = run.scrollWidth / 2;
+}
+function loop(now) {
+  const dt = Math.min(.1, (now - last) / 1000); last = now;
+  if (runW) { x -= SPEED * dt; if (-x >= runW) x += runW; document.getElementById('run').style.transform = `translateX(${x}px)`; }
+  requestAnimationFrame(loop);
+}
+
+// ---------- Start ----------
+(async () => {
+  await document.fonts.ready;
+  data.news = ['Nachrichten werden geladen …']; renderTicker();
+  nextSlide(); setInterval(nextSlide, 7000);
+  requestAnimationFrame(loop);
+  await Promise.all([loadWetter(), loadDax(), loadNews()]);
+  // regelmäßig auffrischen
+  setInterval(loadWetter, 15 * 60e3); setInterval(loadDax, 5 * 60e3); setInterval(loadNews, 10 * 60e3);
+})();
+</script>
+</body>
+</html>

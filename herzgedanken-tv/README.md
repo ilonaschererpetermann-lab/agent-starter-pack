@@ -46,9 +46,29 @@ Quellcode: `3d/src/studio.js` (Three.js). Neu bauen mit
 
 ## Hochformat für TikTok LIVE Studio (1080×1920)
 
-- `3d/studio-3d-hochformat.png`: Standbild. Das Logo sitzt oben unter der TikTok-Kopfzeile, der Tisch auf Brusthöhe, unten ist Platz für den Chat
-- `3d/studio-3d-hochformat-loop.mp4`: 16 s mit leichter Kamerabewegung, Endlosschleife
+- `3d/studio-3d-hochformat-abend.png`: Standbild. Das Logo sitzt oben unter der TikTok-Kopfzeile, der Tisch auf Brusthöhe, unten ist Platz für den Chat
+- `3d/studio-3d-hochformat-abend-loop.mp4`: 16 s mit leichter Kamerabewegung, Endlosschleife
 - `3d/studio-hochformat.html`: Live-Version (Browserquelle)
 
 In TikTok LIVE Studio: **Quelle hinzufügen → Bild** (PNG) oder **Video** (MP4, Wiedergabe in Schleife). Die Quelle auf ganze Größe ziehen
 und unter die Kamera legen. Die Kamera mit Hintergrund-Entfernung so skalieren, dass der Kopf unter dem Logo und der Oberkörper hinter dem Tisch sitzt.
+
+## Morgen- und Abend-Version (Hochformat)
+
+- Morgen: `3d/studio-3d-hochformat-morgen.png` / `3d/studio-3d-hochformat-morgen-loop.mp4`. Sonnenaufgang, helleres Licht, Säule „Guten Morgen“
+- Abend: `3d/studio-3d-hochformat-abend.png` / `3d/studio-3d-hochformat-abend-loop.mp4`
+- Live: `3d/studio-hochformat.html?zeit=morgen` bzw. ohne Parameter für den Abend
+
+## Nachrichten-Laufband (`laufband/laufband.html`)
+
+Banner im Stil großer Nachrichtensender mit durchsichtigem Hintergrund, als Browser- bzw. Link-Quelle **über** Studio und Kamera legen (1080×1920).
+- Oben: HerzGedanken, wechselnde Infos (Begrüßung je nach Uhrzeit, Wetter, DAX), Uhrzeit und Datum
+- Unten: Laufschrift mit aktuellen Schlagzeilen (tagesschau.de), sonst eigene Texte
+
+Parameter:
+- `ort=Augsburg`: Stadt fürs Wetter (Open-Meteo, frei)
+- `eigene=Text1|Text2`: eigene Meldungen vorne in der Laufschrift, `news=…`: nur eigene Meldungen
+- `dax=19234,5&daxplus=0,4`: DAX von Hand, falls der Live-Abruf blockiert ist
+- `y=1010`: Höhe des Banners in Pixeln, `quer=1`: Querformat 1920×1080
+
+Vorschau: `laufband/vorschau-morgen-mit-laufband.png`, `laufband/vorschau-abend-mit-laufband.png`

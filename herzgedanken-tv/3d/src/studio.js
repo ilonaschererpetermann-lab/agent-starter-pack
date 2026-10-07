@@ -11,6 +11,9 @@ import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 const P = new URLSearchParams(location.search);
 // ?vertical=1: Hochformat 1080x1920 für TikTok/Instagram LIVE
 const V = !!P.get('vertical');
+// ?zeit=morgen: helles Morgenstudio mit Sonnenaufgang auf der Wand
+const MORGEN = P.get('zeit') === 'morgen';
+const WALL_SRC = () => (MORGEN && window.WALL_IMG_MORGEN) || window.WALL_IMG;
 const W = V ? 1080 : 1920, H = V ? 1920 : 1080, LOOP = 16; // Sekunden, passend zur Länge des Wand-Videos
 
 const C = {
@@ -24,12 +27,13 @@ const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDraw
 renderer.setPixelRatio(1);
 renderer.setSize(W, H, false);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.0;
+renderer.toneMappingExposure = MORGEN ? 1.2 : 1.0;
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x02060d);
-scene.fog = new THREE.Fog(0x02060d, 22, 48);
+const BG = MORGEN ? 0x0e2346 : 0x02060d;
+scene.background = new THREE.Color(BG);
+scene.fog = new THREE.Fog(BG, 22, 48);
 const pmrem = new THREE.PMREMGenerator(renderer);
 scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
 
@@ -104,10 +108,10 @@ const WALL_R = 15, WALL_ARC = V ? .5 : 1.12, WALL_H = V ? 15 * .5 * 16 / 9 : 15 
 const WALL_CZ = 2.5;
 let wallTex;
 const video = document.createElement('video');
-let useVideo = !V && !P.get('novideo') && location.protocol !== 'file:'; // file:// blockiert Video-Texturen
+let useVideo = !V && !MORGEN && !P.get('novideo') && location.protocol !== 'file:'; // file:// blockiert Video-Texturen
 function imageTex() {
   if (V) return verticalTex();
-  const t = new THREE.TextureLoader().load(window.WALL_IMG);
+  const t = new THREE.TextureLoader().load(WALL_SRC());
   t.colorSpace = THREE.SRGBColorSpace; return t;
 }
 // Hochformat-Wandbild aus dem 16:9-Motiv: Logo oben, Stadt-Skyline unten, Himmel dazwischen
@@ -118,12 +122,17 @@ function verticalTex() {
   img.onload = () => {
     const ctx = c.getContext('2d');
     const g = ctx.createLinearGradient(0, 0, 0, 1920);
-    g.addColorStop(0, '#050E1A'); g.addColorStop(.3, '#0F233D'); g.addColorStop(.55, '#1B2A5C');
-    g.addColorStop(.68, '#3A2470'); g.addColorStop(.74, '#5B2A86'); g.addColorStop(1, '#5B2A86');
+    if (MORGEN) {
+      g.addColorStop(0, '#16325E'); g.addColorStop(.3, '#2F5E9E'); g.addColorStop(.55, '#6F9BD0');
+      g.addColorStop(.7, '#C9B4C4'); g.addColorStop(.78, '#FFC98A'); g.addColorStop(1, '#FFE6B8');
+    } else {
+      g.addColorStop(0, '#050E1A'); g.addColorStop(.3, '#0F233D'); g.addColorStop(.55, '#1B2A5C');
+      g.addColorStop(.68, '#3A2470'); g.addColorStop(.74, '#5B2A86'); g.addColorStop(1, '#5B2A86');
+    }
     ctx.fillStyle = g; ctx.fillRect(0, 0, 1080, 1920);
     let sd = 3; const r = () => (sd = sd * 16807 % 2147483647) / 2147483647;
     ctx.fillStyle = '#fff';
-    for (let i = 0; i < 140; i++) { ctx.globalAlpha = .3 + r() * .7; ctx.beginPath(); ctx.arc(r() * 1080, Math.pow(r(), 1.4) * 1300, r() * 1.8 + .4, 0, 7); ctx.fill(); }
+    for (let i = 0; i < (MORGEN ? 30 : 140); i++) { ctx.globalAlpha = .3 + r() * .7; ctx.beginPath(); ctx.arc(r() * 1080, Math.pow(r(), 1.4) * 1300, r() * 1.8 + .4, 0, 7); ctx.fill(); }
     ctx.globalAlpha = 1;
     // weich ausgeblendete Ausschnitte
     const part = (sx, sy, sw, sh, dx, dy, dw, dh, fade) => {
@@ -142,7 +151,7 @@ function verticalTex() {
     part(380, 630, 1160, 450, -10, 1500, 1100, 427, .3);          // Skyline + Fluss
     t.needsUpdate = true;
   };
-  img.src = window.WALL_IMG;
+  img.src = WALL_SRC();
   return t;
 }
 if (useVideo) {
@@ -187,11 +196,12 @@ scene.add(plinth);
 function pillarTex(lines, accent) {
   return canvasTex(256, 1536, (ctx, w, h) => {
     const g = ctx.createLinearGradient(0, 0, 0, h);
-    g.addColorStop(0, '#0F233D'); g.addColorStop(.6, '#1B2A5C'); g.addColorStop(1, '#3A1F5E');
+    if (MORGEN) { g.addColorStop(0, '#2F5E9E'); g.addColorStop(.6, '#5E8CC8'); g.addColorStop(1, '#E7A88F'); }
+    else { g.addColorStop(0, '#0F233D'); g.addColorStop(.6, '#1B2A5C'); g.addColorStop(1, '#3A1F5E'); }
     ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
     ctx.save(); ctx.translate(w / 2, h * .3); ctx.rotate(-Math.PI / 2);
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    lines.forEach((t, i) => glowText(ctx, t, 0, (i - (lines.length - 1) / 2) * 78, '600 52px "Josefin Sans"', '#F3E5AB', accent, 24));
+    lines.forEach((t, i) => glowText(ctx, t, 0, (i - (lines.length - 1) / 2) * 78, '600 52px "Josefin Sans"', MORGEN ? '#FFFFFF' : '#F3E5AB', MORGEN ? '#16325E' : accent, 24));
     ctx.restore();
     ctx.fillStyle = accent; ctx.fillRect(0, 0, 10, h); ctx.fillRect(w - 10, 0, 10, h);
   });
@@ -205,7 +215,7 @@ function pillar(x, z, rotY, tex) {
   screen.position.set(0, 4.55, .26); g.add(screen);
   g.position.set(x, 0, z); g.rotation.y = rotY; scene.add(g); return g;
 }
-pillar(V ? -5.4 : -9.2, V ? -8.6 : -7.4, V ? .3 : .55, pillarTex(['MUSIK', 'VERBINDET HERZEN'], '#FF4D8D'));
+pillar(V ? -5.4 : -9.2, V ? -8.6 : -7.4, V ? .3 : .55, pillarTex(MORGEN ? ['GUTEN MORGEN', 'MIT HERZ IN DEN TAG'] : ['MUSIK', 'VERBINDET HERZEN'], '#FF4D8D'));
 pillar(V ? 5.4 : 9.2, V ? -8.6 : -7.4, V ? -.3 : -.55, pillarTex(['MUT · WURZELN', 'ZUKUNFT'], '#39B8FF'));
 
 // Hintere Lichtlamellen (Tiefe hinter der Wand)
@@ -221,11 +231,11 @@ truss.position.set(0, 11.2, -2); scene.add(truss);
 const beams = [];
 const beamMat = (col) => new THREE.ShaderMaterial({
   transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
-  uniforms: { col: { value: new THREE.Color(col) }, k: { value: .16 } },
+  uniforms: { col: { value: new THREE.Color(col) }, k: { value: MORGEN ? .22 : .16 } },
   vertexShader: 'varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); }',
   fragmentShader: 'uniform vec3 col; uniform float k; varying vec2 vUv; void main(){ float a=pow(vUv.y,1.6)*k*(1.-abs(vUv.x-.5)*1.2); gl_FragColor=vec4(col*a,a); }',
 });
-[[-8, C.pink], [-4, C.blue], [4, C.blue], [8, C.pink], [0, C.gold]].forEach(([x, col], i) => {
+(MORGEN ? [[-8, C.gold], [-4, 0xfff1d6], [4, 0xfff1d6], [8, C.gold], [0, 0xffd49a]] : [[-8, C.pink], [-4, C.blue], [4, C.blue], [8, C.pink], [0, C.gold]]).forEach(([x, col], i) => {
   const lamp = new THREE.Mesh(new THREE.CylinderGeometry(.22, .3, .45, 24), new THREE.MeshStandardMaterial({ color: 0x111827, metalness: .9, roughness: .3 }));
   lamp.position.set(x, 10.9, -2); scene.add(lamp);
   const lens = new THREE.Mesh(new THREE.CircleGeometry(.2, 24), emissive(col, 2.5));
@@ -314,7 +324,7 @@ const claimTex = canvasTex(1024, 576, (ctx, w, h) => {
 if (!V) { monitor(-5.4, -.6, .4, liveTex); monitor(5.4, -.6, -.4, claimTex); }
 
 // ---------- Licht ----------
-scene.add(new THREE.HemisphereLight(0x8fb3ff, 0x1a0b26, .35));
+scene.add(new THREE.HemisphereLight(MORGEN ? 0xcfe2ff : 0x8fb3ff, MORGEN ? 0x3a2a40 : 0x1a0b26, MORGEN ? .9 : .35));
 const key = new THREE.SpotLight(0xfff1e0, 60, 30, .5, .6, 1.5); key.position.set(0, 7, 9); key.target.position.set(0, .8, 0);
 scene.add(key, key.target);
 const pinkL = new THREE.PointLight(C.pink, 40, 18, 1.6); pinkL.position.set(-6, 3, 2); scene.add(pinkL);
