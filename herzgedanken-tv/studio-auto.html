@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HerzGedanken Studio automatisch</title>
+<style>
+  /* Studio-Hintergrund, der sich nach der Uhrzeit selbst wechselt:
+     5–11 Uhr Morgen-Studio, 11–17 Uhr Tages-Studio, sonst Abend-Studio. Unter die Kamera legen.
+     ?zeit=morgen|tag|abend erzwingt ein Studio. */
+  * { margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
+  video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 1.5s ease; opacity: 0; }
+  video.on { opacity: 1; }
+</style>
+</head>
+<body>
+<video id="a" muted loop playsinline autoplay></video>
+<video id="b" muted loop playsinline autoplay></video>
+<script>
+const P = new URLSearchParams(location.search);
+const SRC = { morgen: '3d/studio-3d-hochformat-morgen-loop.mp4', tag: '3d/studio-3d-hochformat-tag-loop.mp4', abend: '3d/studio-3d-hochformat-abend-loop.mp4' };
+const welches = () => { if (SRC[P.get('zeit')]) return P.get('zeit'); const h = new Date().getHours(); return h >= 5 && h < 11 ? 'morgen' : h >= 11 && h < 17 ? 'tag' : 'abend'; };
+let aktiv = null, vorne = document.getElementById('a'), hinten = document.getElementById('b');
+function pruefen() {
+  const z = welches(); if (z === aktiv) return; aktiv = z;
+  // H.264 (mp4) wenn möglich, sonst WebM
+  hinten.src = hinten.canPlayType('video/mp4; codecs="avc1.640028"') ? SRC[z] : SRC[z].replace('.mp4', '.webm'); hinten.load();
+  hinten.oncanplay = () => { hinten.oncanplay = null; hinten.play().catch(() => {}); hinten.classList.add('on'); vorne.classList.remove('on');
+    const alt = vorne; vorne = hinten; hinten = alt; setTimeout(() => { hinten.pause(); hinten.removeAttribute('src'); hinten.load(); }, 1600); };
+}
+pruefen(); setInterval(pruefen, 60000);
+</script>
+</body>
+</html>

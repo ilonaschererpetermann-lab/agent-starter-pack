@@ -126,8 +126,14 @@ async function loadDax() {
   } catch (e) { /* kein DAX verfügbar: Folie entfällt */ }
 }
 
+// Tagesplan des Agenten „Studio-Regie“ (config/heute.json, wird täglich automatisch aktualisiert)
+async function loadConfig() {
+  try { const r = await fetch('../config/heute.json?t=' + Date.now(), { cache: 'no-store' }); if (r.ok) return await r.json(); } catch (e) {}
+  return {};
+}
 async function loadNews() {
-  const eigene = (P.get('eigene') || '').split('|').map(s => s.trim()).filter(Boolean);
+  const cfg = await loadConfig();
+  const eigene = [...(P.get('eigene') || '').split('|').map(s => s.trim()).filter(Boolean), ...(cfg.laufband || []), ...(cfg.werbung || [])];
   let news = (P.get('news') || '').split('|').map(s => s.trim()).filter(Boolean);
   if (!news.length) {
     try {

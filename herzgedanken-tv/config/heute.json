@@ -1,0 +1,21 @@
+{
+  "stand": "2026-10-07",
+  "hinweis": "Wird jeden Morgen automatisch vom Agenten „Studio-Regie“ neu geschrieben. Laufband und Einspieler lesen diese Datei alle 10 Minuten.",
+  "laufband": [
+    "Willkommen bei HerzGedanken – schön, dass du da bist",
+    "Demenz gestört & geil – ehrlich, menschlich, ohne Filter",
+    "Schreib „!“ vor deinen Kommentar – dann lese ich ihn laut vor",
+    "Folge dem Kanal, damit du keine Show verpasst"
+  ],
+  "werbung": [
+    "Der Demenz-Alltagsretter: 12 Vorlagen, die pflegenden Angehörigen den Alltag leichter machen – Link im Profil"
+  ],
+  "einspieler": [
+    "Demenz gestört & geil – heute live im Studio"
+  ],
+  "programm": {
+    "morgen": "Guten-Morgen-Talk: Kaffee, Tagesthemen, Fragen aus dem Chat",
+    "mittag": "Mittagspause mit Musik und Stör-Aktionen",
+    "abend": "Abendshow: Thema des Tages, Match Night / Spiele-Block"
+  }
+}

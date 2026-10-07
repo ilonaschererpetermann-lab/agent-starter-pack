@@ -111,7 +111,10 @@ const ALLE = Math.max(1, parseInt(P.get('alle') || '60', 10)); // Minuten
 const list = s => (s || '').split('|').map(x => x.trim()).filter(Boolean);
 const eigene = list(P.get('eigene'));
 let live = [], idx = 0;
+let tagesplan = [];
 async function loadNews() {
+  // Schlagzeilen des Agenten „Studio-Regie“ (config/heute.json) kommen nach den eigenen an die Reihe
+  try { const r = await fetch('../config/heute.json?t=' + Date.now(), { cache: 'no-store' }); if (r.ok) tagesplan = (await r.json()).einspieler || []; } catch (e) {}
   if (P.get('news')) { live = list(P.get('news')); return; }
   try {
     const r = await fetch('https://www.tagesschau.de/api2u/homepage/', { cache: 'no-store' });
@@ -121,7 +124,7 @@ async function loadNews() {
   } catch (e) { /* keine Live-Nachrichten: eigene oder Standardtexte */ }
 }
 function nextHeadline() {
-  const all = [...eigene, ...live];
+  const all = [...eigene, ...tagesplan, ...live];
   if (!all.length) return 'Demenz gestört & geil – live bei HerzGedanken';
   return all[idx++ % all.length];
 }

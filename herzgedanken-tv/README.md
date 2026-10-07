@@ -84,3 +84,12 @@ Link: https://ilonaschererpetermann-lab.github.io/agent-starter-pack/herzgedanke
 ## Stör-Aktionen (Ordner `stoeraktionen/`)
 
 Aktions-Banner „STÖR MICH!“, Sound-Paket und TikFinity-Anleitung: siehe `stoeraktionen/ANLEITUNG.md`.
+
+## Vollautomatik (Stand 2026-10-07)
+
+In TikTok LIVE Studio nur noch zwei Link-Quellen (je 1080×1920, Sound an, immer aktiv):
+1. **unter der Kamera:** `studio-auto.html` – wechselt selbst zwischen Morgen- (5–11), Tages- (11–17) und Abend-Studio
+2. **über der Kamera:** `overlay-komplett.html` – Stör-Karte, Nachrichten-Banner, Stör-Overlay (TikFinity) und Auto-Einspieler in einem
+
+Der Agent „Studio-Regie“ schreibt jeden Morgen `config/heute.json` (Laufband-Meldungen, Werbung, Einspieler-Schlagzeilen, Tagesprogramm)
+und `tagesplan/JJJJ-MM-TT.md`. Der Agent „Einnahmen“ arbeitet `einnahmen/STATUS.md` ab.
