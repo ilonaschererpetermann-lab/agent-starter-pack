@@ -80,3 +80,7 @@ Durchsichtige Link-/Browser-Quelle (1080×1920). Unsichtbar, bis sie von selbst 
 (oder `?alle=30` für alle 30 Minuten) spielt „ACHTUNG – NEUE NEWS“ mit Uhrzeit, aktueller Schlagzeile und Ton (8 s).
 Parameter: `eigene=A|B` (eigene Schlagzeilen zuerst), `news=A|B` (nur eigene), `ton=0`, `test=1` (jede Minute, zum Ausprobieren), `quer=1`.
 Link: https://ilonaschererpetermann-lab.github.io/agent-starter-pack/herzgedanken-tv/einspieler/auto.html
+
+## Stör-Aktionen (Ordner `stoeraktionen/`)
+
+Aktions-Banner „STÖR MICH!“, Sound-Paket und TikFinity-Anleitung: siehe `stoeraktionen/ANLEITUNG.md`.
