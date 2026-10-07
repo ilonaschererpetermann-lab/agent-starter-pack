@@ -14,6 +14,12 @@ veröffentlicht nichts ohne Freigabe von Ilona. Freigaben werden als Ja/Nein-Fra
 
 ## Nächste Schritte (der Agent arbeitet sie der Reihe nach ab)
 
+Priorität laut Absprache mit Ilona (2026-10-07):
+A. Werbung für den Demenz-Alltagsretter im Laufband (sobald Link/Produkt-ID per API gelesen werden kann)
+B. Neue Produkte für Angehörige/Betroffene (Vorlagen, Checklisten als PDF)
+C. Streamer-Paket nur als White-Label-Version (eigener Name/Logo per Parameter)
+
+
 1. Streamer-Paket zusammenstellen (`einnahmen/streamer-paket/`): Inhaltsliste, Anleitung für Käufer, Vorschaubilder.
 2. Verkaufstexte für Digistore24: Titel, Kurzbeschreibung, Langbeschreibung, Preisvorschlag, Bilder.
 3. Verkaufsseite (HTML) für das Streamer-Paket auf GitHub Pages.
@@ -26,8 +32,8 @@ veröffentlicht nichts ohne Freigabe von Ilona. Freigaben werden als Ja/Nein-Fra
 
 ## Technische Voraussetzungen (einmalig, von Ilona)
 
-- [ ] Netzwerk: `www.digistore24.com` in der Cloud-Umgebung unter „Allowed domains“ freigeben
-- [ ] Digistore24-API-Schlüssel (Schreibzugriff) als Umgebungsvariable `DIGISTORE24_API_KEY` hinterlegen (nie in den Chat)
+- [x] Netzwerk: `www.digistore24.com` freigegeben (Test 2026-10-07: Server antwortet)
+- [ ] Neuer Digistore24-API-Schlüssel (alter war auf Screenshot sichtbar → löschen) als Netzwerk-Secret: Host www.digistore24.com, Header `X-DS-API-KEY`, kein Präfix. Test 2026-10-07: „No API key given“
 
 ## Offene Freigaben
 
@@ -37,3 +43,4 @@ veröffentlicht nichts ohne Freigabe von Ilona. Freigaben werden als Ja/Nein-Fra
 ## Protokoll
 
 - 2026-10-07: Plan angelegt. Generalfreigabe erteilt. Monatsbericht-Routine eingerichtet. Warte auf Netzwerk-Freigabe und API-Schlüssel.
+- 2026-10-07 abends: Netzwerk ok, API-Schlüssel kommt noch nicht an. Ilona erledigt das morgen.
