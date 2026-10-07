@@ -67,7 +67,7 @@ Banner im Stil großer Nachrichtensender mit durchsichtigem Hintergrund, als Bro
 - Unten: Laufschrift mit aktuellen Schlagzeilen (tagesschau.de), sonst eigene Texte
 
 Parameter:
-- `ort=Augsburg`: Stadt fürs Wetter (Open-Meteo, frei)
+- `ort=Mannheim|Stuttgart`: Städte fürs Wetter, wechseln sich ab (Open-Meteo, frei)
 - `eigene=Text1|Text2`: eigene Meldungen vorne in der Laufschrift, `news=…`: nur eigene Meldungen
 - `dax=19234,5&daxplus=0,4`: DAX von Hand, falls der Live-Abruf blockiert ist
 - `y=1010`: Höhe des Banners in Pixeln, `quer=1`: Querformat 1920×1080

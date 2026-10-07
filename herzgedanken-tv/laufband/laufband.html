@@ -9,7 +9,7 @@
   /*
     Nachrichten-Banner im Stil großer TV-Sender, durchsichtiger Hintergrund.
     Bühne: 1080x1920 (Hochformat, TikTok). Mit ?quer=1 1920x1080.
-    Parameter: ?ort=Stadt  ?y=Pixel (Oberkante des Banners)  ?dax=19234.5  ?news=Text1|Text2  ?eigene=Text1|Text2
+    Parameter: ?ort=Stadt|Stadt2  ?y=Pixel (Oberkante des Banners)  ?dax=19234.5  ?news=Text1|Text2  ?eigene=Text1|Text2
   */
   :root { --red:#C8102E; --pink:#FF4D8D; --gold:#D4AF37; --beige:#F3E5AB; --night:#050E1A; --petrol:#0F233D; --text:#E2E8F0; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -77,7 +77,8 @@ const W = P.get('quer') ? 1920 : 1080, H = P.get('quer') ? 1080 : 1920;
 function fit() { if (P.get('capture')) return; const s = Math.min(innerWidth / W, innerHeight / H); document.getElementById('stage').style.transform = `scale(${s})`; }
 addEventListener('resize', fit); fit();
 
-const ORT = P.get('ort') || 'Berlin';
+// mehrere Städte mit | trennen, z. B. ?ort=Mannheim|Stuttgart
+const ORTE = (P.get('ort') || 'Mannheim|Stuttgart').split('|').map(s => s.trim()).filter(Boolean);
 const fmt = (n, d = 2) => n.toLocaleString('de-DE', { minimumFractionDigits: d, maximumFractionDigits: d });
 const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
@@ -91,7 +92,7 @@ function tickClock() {
 tickClock(); setInterval(tickClock, 5000);
 
 // ---------- Daten ----------
-const data = { wetter: null, dax: null, news: [] };
+const data = { wetter: [], dax: null, news: [] };
 
 const WMO = { 0: ['☀️', 'klar'], 1: ['🌤️', 'überwiegend klar'], 2: ['⛅', 'teils bewölkt'], 3: ['☁️', 'bedeckt'], 45: ['🌫️', 'Nebel'], 48: ['🌫️', 'Reifnebel'],
   51: ['🌦️', 'leichter Niesel'], 53: ['🌦️', 'Niesel'], 55: ['🌧️', 'starker Niesel'], 61: ['🌦️', 'leichter Regen'], 63: ['🌧️', 'Regen'], 65: ['🌧️', 'starker Regen'],
@@ -102,14 +103,18 @@ const WMO = { 0: ['☀️', 'klar'], 1: ['🌤️', 'überwiegend klar'], 2: ['�
 async function getJSON(url) { const r = await fetch(url, { cache: 'no-store' }); if (!r.ok) throw new Error(r.status); return r.json(); }
 
 async function loadWetter() {
+  const res = await Promise.all(ORTE.map(wetterFuer));
+  data.wetter = res.filter(Boolean);
+}
+async function wetterFuer(ORT) {
   try {
-    const g = await getJSON(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(ORT)}&count=1&language=de`);
-    const o = g.results && g.results[0]; if (!o) return;
+    const g = await getJSON(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(ORT)}&count=1&language=de&countryCode=DE`);
+    const o = g.results && g.results[0]; if (!o) return null;
     const w = await getJSON(`https://api.open-meteo.com/v1/forecast?latitude=${o.latitude}&longitude=${o.longitude}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1`);
     const [icon, txt] = WMO[w.current.weather_code] || ['🌡️', ''];
-    data.wetter = { ort: o.name, temp: Math.round(w.current.temperature_2m), icon, txt,
+    return { ort: o.name, temp: Math.round(w.current.temperature_2m), icon, txt,
       max: Math.round(w.daily.temperature_2m_max[0]), min: Math.round(w.daily.temperature_2m_min[0]) };
-  } catch (e) { /* kein Wetter verfügbar: Folie entfällt */ }
+  } catch (e) { return null; /* kein Wetter verfügbar: Folie entfällt */ }
 }
 
 async function loadDax() {
@@ -140,7 +145,7 @@ async function loadNews() {
 function slides() {
   const h = new Date().getHours(), out = [];
   out.push(`<span class="tag">${esc(greeting(h).toUpperCase())}</span> Schön, dass du da bist`);
-  if (data.wetter) { const w = data.wetter;
+  for (const w of data.wetter) {
     out.push(`<span class="tag">WETTER</span> ${esc(w.ort)} ${w.icon} ${w.temp}° <span style="font-weight:500;font-size:24px;opacity:.85">${w.min}° / ${w.max}°</span>`); }
   if (data.dax && isFinite(data.dax.wert)) { const d = data.dax;
     const ch = d.diff == null ? '' : `<span class="${d.diff >= 0 ? 'up' : 'down'}">${d.diff >= 0 ? '▲ +' : '▼ '}${fmt(d.diff)} %</span>`;
