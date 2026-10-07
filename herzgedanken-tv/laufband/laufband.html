@@ -24,29 +24,29 @@
   /* Zeile 1: Senderkennung, Info-Wechsel, Uhr */
   .row1 { display: flex; height: 76px; }
   .brand { flex: none; display: flex; align-items: center; gap: 12px; padding: 0 26px 0 22px;
-    background: linear-gradient(135deg, var(--pink), #C2185B); color: #fff; font-weight: 800; font-size: 23px; letter-spacing: 2px; }
+    background: var(--red); color: #fff; font-weight: 800; font-size: 23px; letter-spacing: 2px; }
   .brand svg { width: 30px; height: 28px; }
-  .info { position: relative; flex: 1; overflow: hidden; background: rgba(5,14,26,.92); border-top: 3px solid var(--gold); }
+  .info { position: relative; flex: 1; overflow: hidden; background: #fff; border-top: 3px solid var(--red); }
   .slide { position: absolute; inset: 0; display: flex; align-items: center; gap: 16px; padding: 0 22px;
-    color: #fff; font-weight: 700; font-size: 28px; white-space: nowrap; opacity: 0; transform: translateY(100%);
+    color: #1A1A1A; font-weight: 700; font-size: 28px; white-space: nowrap; opacity: 0; transform: translateY(100%);
     transition: transform .6s cubic-bezier(.2,.8,.2,1), opacity .6s; }
   .slide.on { opacity: 1; transform: none; }
   .slide.off { opacity: 0; transform: translateY(-100%); }
-  .tag { font-size: 20px; font-weight: 800; letter-spacing: 3px; color: var(--night); background: var(--beige); padding: 6px 12px; border-radius: 4px; }
-  .up { color: #3DDC84; } .down { color: #FF5A6E; }
+  .tag { font-size: 20px; font-weight: 800; letter-spacing: 3px; color: #fff; background: var(--red); padding: 6px 12px; border-radius: 4px; }
+  .up { color: #0A8F3C; } .down { color: var(--red); }
   .clock { flex: none; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0 22px;
-    background: #000; color: #fff; border-top: 3px solid var(--gold); }
+    background: #8E0B1F; color: #fff; border-top: 3px solid #8E0B1F; }
   .clock b { font-size: 34px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: 1px; line-height: 1; }
-  .clock span { font-size: 15px; font-weight: 500; color: var(--beige); margin-top: 4px; letter-spacing: 1px; }
+  .clock span { font-size: 15px; font-weight: 500; color: #fff; opacity: .85; margin-top: 4px; letter-spacing: 1px; }
 
   /* Zeile 2: Laufschrift */
-  .row2 { display: flex; height: 58px; background: rgba(243,239,230,.97); }
-  .label { flex: none; display: flex; align-items: center; padding: 0 24px; background: var(--red); color: #fff;
+  .row2 { display: flex; height: 58px; background: var(--red); border-top: 2px solid #fff; }
+  .label { flex: none; display: flex; align-items: center; padding: 0 24px; background: #fff; color: var(--red);
     font-weight: 800; font-size: 22px; letter-spacing: 3px; }
   .track { position: relative; flex: 1; overflow: hidden; }
   .run { position: absolute; top: 0; height: 100%; display: flex; align-items: center; white-space: nowrap; left: 0;
-    color: #0B1628; font-weight: 600; font-size: 27px; will-change: transform; }
-  .run .dot { display: inline-block; width: 12px; height: 12px; background: var(--red); margin: 0 28px; transform: rotate(45deg); }
+    color: #fff; font-weight: 600; font-size: 27px; will-change: transform; }
+  .run .dot { display: inline-block; width: 12px; height: 12px; background: #fff; margin: 0 28px; transform: rotate(45deg); }
 
   body.capture #stage { transform: none !important; }
 </style>
@@ -146,7 +146,7 @@ function slides() {
   const h = new Date().getHours(), out = [];
   out.push(`<span class="tag">${esc(greeting(h).toUpperCase())}</span> Schön, dass du da bist`);
   for (const w of data.wetter) {
-    out.push(`<span class="tag">WETTER</span> ${esc(w.ort)} ${w.icon} ${w.temp}° <span style="font-weight:500;font-size:24px;opacity:.85">${w.min}° / ${w.max}°</span>`); }
+    out.push(`<span class="tag">WETTER</span> ${esc(w.ort)} ${w.icon} ${w.temp}° <span style="font-weight:500;font-size:24px;opacity:.7">${w.min}° / ${w.max}°</span>`); }
   if (data.dax && isFinite(data.dax.wert)) { const d = data.dax;
     const ch = d.diff == null ? '' : `<span class="${d.diff >= 0 ? 'up' : 'down'}">${d.diff >= 0 ? '▲ +' : '▼ '}${fmt(d.diff)} %</span>`;
     out.push(`<span class="tag">BÖRSE</span> DAX ${fmt(d.wert)} ${ch}`); }

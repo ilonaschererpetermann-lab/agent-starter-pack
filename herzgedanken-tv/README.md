@@ -72,4 +72,4 @@ Parameter:
 - `dax=19234,5&daxplus=0,4`: DAX von Hand, falls der Live-Abruf blockiert ist
 - `y=1010`: Höhe des Banners in Pixeln, `quer=1`: Querformat 1920×1080
 
-Vorschau: `laufband/vorschau-morgen-mit-laufband.png`, `laufband/vorschau-abend-mit-laufband.png`
+Vorschau: `laufband/vorschau-morgen-mit-laufband.png`, `laufband/vorschau-tag-mit-laufband.png`, `laufband/vorschau-abend-mit-laufband.png`. Farben: Rot/Weiß
