@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HerzGedanken Stör-Overlay</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+  /*
+    Stör-Overlay: liest die Live-Ereignisse aus der laufenden TikFinity-App (WebSocket auf diesem Computer)
+    und spielt die HerzGedanken-Aktionen selbst ab. In TikFinity muss dafür nichts eingerichtet werden,
+    die App muss nur geöffnet und mit dem LIVE verbunden sein.
+    Durchsichtige Link-/Browser-Quelle, 1080x1920. „Sound einschalten“ und „Immer aktiv halten“ an.
+    Parameter: ?test=1 (spielt alle Aktionen nacheinander als Probe), ?debug=1 (zeigt Verbindungsstatus),
+               ?laut=0.5 (Lautstärke 0–1), ?likes=1000 (Likes pro Herzschlag), ?ws=ws://localhost:21213/
+  */
+  :root { --red:#C8102E; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; background: transparent; overflow: hidden; }
+  body { display: grid; place-items: center; }
+  #stage { position: relative; width: 1080px; height: 1920px; flex: none; transform-origin: center; font-family: 'Montserrat', sans-serif; overflow: hidden; }
+  canvas { position: absolute; inset: 0; width: 1080px; height: 1920px; pointer-events: none; }
+
+  .alert { position: absolute; left: 50%; top: 22%; transform: translateX(-50%); display: flex; align-items: center; gap: 20px;
+    padding: 18px 34px 16px 22px; background: #fff; border-left: 14px solid var(--red); border-radius: 6px;
+    box-shadow: 0 18px 50px rgba(0,0,0,.5); white-space: nowrap; animation: alert 3.2s ease both; }
+  .alert .emo { font-size: 84px; line-height: 1; }
+  .alert .who { font-weight: 800; font-size: 26px; color: var(--red); text-transform: uppercase; letter-spacing: 1px; }
+  .alert .what { font-weight: 900; font-size: 48px; color: #111; }
+  @keyframes alert {
+    0% { opacity: 0; transform: translate(-50%, -40px) scale(.7) }
+    10% { opacity: 1; transform: translate(-50%, 0) scale(1.06) } 16% { transform: translate(-50%, 0) scale(1) }
+    85% { opacity: 1; transform: translate(-50%, 0) } 100% { opacity: 0; transform: translate(-50%, -30px) } }
+  .shake { animation: shake .5s linear; }
+  @keyframes shake { 0%,100% { transform: none } 20% { transform: translate(-8px, 4px) } 40% { transform: translate(8px, -4px) } 60% { transform: translate(-6px, -2px) } 80% { transform: translate(6px, 2px) } }
+
+  #status { position: absolute; left: 16px; bottom: 16px; font: 600 22px system-ui, sans-serif; color: #fff; background: rgba(0,0,0,.6); padding: 8px 14px; border-radius: 8px; display: none; }
+  body.debug #status { display: block; }
+</style>
+</head>
+<body>
+<div id="stage"><canvas id="fx" width="1080" height="1920"></canvas><div id="status">…</div></div>
+<script>
+const P = new URLSearchParams(location.search);
+const TEST = !!P.get('test');
+if (P.get('debug') || TEST) document.body.classList.add('debug');
+function fit() { const s = Math.min(innerWidth / 1080, innerHeight / 1920); document.getElementById('stage').style.transform = `scale(${s})`; }
+addEventListener('resize', fit); fit();
+const LAUT = Math.min(1, Math.max(0, parseFloat(P.get('laut') || '0.6')));
+const LIKES_PRO_HERZ = Math.max(50, parseInt(P.get('likes') || '1000', 10));
+const stage = document.getElementById('stage'), statusEl = document.getElementById('status');
+const setStatus = t => { statusEl.textContent = t; };
+
+// ---------- Sounds (liegen neben dieser Seite im Ordner sounds/) ----------
+const SOUNDS = {};
+for (const n of ['hupe', 'applaus', 'fanfare', 'herzschlag', 'konfetti', 'gong']) { const a = new Audio(`sounds/${n}.mp3`); a.preload = 'auto'; SOUNDS[n] = a; }
+function sound(n) { try { const a = SOUNDS[n].cloneNode(); a.volume = LAUT; a.play().catch(() => {}); } catch (e) {} }
+function sprich(text) {
+  try {
+    if (!('speechSynthesis' in window)) return;
+    const u = new SpeechSynthesisUtterance(text); u.lang = 'de-DE'; u.volume = LAUT; u.rate = 1.0;
+    const v = speechSynthesis.getVoices().find(v => v.lang && v.lang.startsWith('de')); if (v) u.voice = v;
+    speechSynthesis.speak(u);
+  } catch (e) {}
+}
+
+// ---------- Effekte: Konfetti und Herzen ----------
+const cv = document.getElementById('fx'), ctx = cv.getContext('2d');
+let parts = [];
+function konfetti(n = 220) {
+  const cols = ['#C8102E', '#FFFFFF', '#FF4D8D', '#D4AF37', '#39B8FF'];
+  for (let i = 0; i < n; i++) parts.push({ x: 540 + (Math.random() - .5) * 300, y: 700, vx: (Math.random() - .5) * 26, vy: -Math.random() * 30 - 8,
+    s: 8 + Math.random() * 10, r: Math.random() * 6, vr: (Math.random() - .5) * .4, c: cols[i % cols.length], t: 0, kind: 'k' });
+}
+function herzen(n = 40) {
+  for (let i = 0; i < n; i++) parts.push({ x: Math.random() * 1080, y: 1950 + Math.random() * 300, vx: (Math.random() - .5) * 2, vy: -6 - Math.random() * 6,
+    s: 30 + Math.random() * 40, r: 0, vr: 0, c: '#FF4D8D', t: 0, kind: 'h' });
+}
+function herzPfad(x, y, s) {
+  ctx.beginPath(); ctx.moveTo(x, y + s * .3);
+  ctx.bezierCurveTo(x - s * .7, y - s * .3, x - s * .3, y - s * .8, x, y - s * .35);
+  ctx.bezierCurveTo(x + s * .3, y - s * .8, x + s * .7, y - s * .3, x, y + s * .3); ctx.fill();
+}
+function tick() {
+  ctx.clearRect(0, 0, 1080, 1920);
+  parts = parts.filter(p => p.t < 260 && p.y < 2300 && p.y > -200);
+  for (const p of parts) {
+    p.t++; p.x += p.vx; p.y += p.vy; p.r += p.vr;
+    if (p.kind === 'k') { p.vy += .7; p.vx *= .99; } else { p.x += Math.sin(p.t / 15) * 1.5; }
+    ctx.globalAlpha = Math.max(0, 1 - p.t / 260); ctx.fillStyle = p.c;
+    if (p.kind === 'k') { ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); ctx.restore(); }
+    else { ctx.shadowColor = '#FF4D8D'; ctx.shadowBlur = 20; herzPfad(p.x, p.y, p.s); ctx.shadowBlur = 0; }
+  }
+  ctx.globalAlpha = 1; requestAnimationFrame(tick);
+}
+tick();
+
+// ---------- Einblendung ----------
+const esc = t => String(t || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+let busyUntil = 0;
+const queue = [];
+function zeige(emo, wer, was, wackeln) {
+  const el = document.createElement('div'); el.className = 'alert';
+  el.innerHTML = `<div class="emo">${esc(emo)}</div><div><div class="who">${esc(wer)}</div><div class="what">${esc(was)}</div></div>`;
+  stage.appendChild(el); setTimeout(() => el.remove(), 3300);
+  if (wackeln) { stage.classList.remove('shake'); void stage.offsetWidth; stage.classList.add('shake'); }
+}
+// Aktionen nacheinander abspielen, damit sich nichts überlagert
+function einreihen(fn) { queue.push(fn); }
+setInterval(() => { if (queue.length && Date.now() > busyUntil) { busyUntil = Date.now() + 2600; queue.shift()(); } }, 200);
+
+// ---------- Die HerzGedanken-Aktionen ----------
+const AKTIONEN = {
+  rose:    (u) => einreihen(() => { zeige('🌹', u, '„Wie bitte?!“', true); sprich('Wie bitte?! Wo war ich nochmal?'); }),
+  finger:  (u) => einreihen(() => { zeige('🫰', u, 'Tröt! 📯', true); sound('hupe'); }),
+  donut:   (u) => einreihen(() => { zeige('🍩', u, 'Applaus! 👏', false); sound('applaus'); }),
+  galaxy:  (u) => einreihen(() => { zeige('🌌', u, 'Fanfare! 🎉', false); sound('fanfare'); setTimeout(() => { konfetti(); sound('konfetti'); }, 300); }),
+  likes:   (n) => einreihen(() => { zeige('❤️', `${n.toLocaleString('de-DE')} Likes`, 'Herzschlag für alle!', false); sound('herzschlag'); herzen(); }),
+  vorlesen:(u, text) => einreihen(() => { zeige('💬', u, text.length > 26 ? text.slice(0, 25) + '…' : text, false); sprich(`${u} sagt: ${text}`); }),
+};
+function geschenkTyp(name) {
+  const n = String(name || '').toLowerCase();
+  if (n.includes('rose')) return 'rose';
+  if (n.includes('finger')) return 'finger';
+  if (n.includes('donut') || n.includes('doughnut')) return 'donut';
+  if (n.includes('galax')) return 'galaxy';
+  return null;
+}
+
+// ---------- Ereignisse aus TikFinity verarbeiten ----------
+let likeSumme = 0, naechsteSchwelle = LIKES_PRO_HERZ;
+const zuletzt = {};
+function ereignis(msg) {
+  const ev = msg.event || msg.type, d = msg.data || msg;
+  const wer = d.nickname || d.uniqueId || d.user?.nickname || d.user?.uniqueId || 'Jemand';
+  if (ev === 'gift') {
+    // Geschenk-Serien (Combos) nur einmal am Ende auslösen
+    if (d.giftType === 1 && d.repeatEnd === false) return;
+    const typ = geschenkTyp(d.giftName || d.gift?.name || d.describe);
+    if (!typ) return;
+    const key = wer + typ; if (Date.now() - (zuletzt[key] || 0) < 1500) return; zuletzt[key] = Date.now();
+    AKTIONEN[typ](wer);
+  } else if (ev === 'like') {
+    if (typeof d.totalLikeCount === 'number') likeSumme = d.totalLikeCount; else likeSumme += d.likeCount || 1;
+    while (likeSumme >= naechsteSchwelle) { AKTIONEN.likes(naechsteSchwelle); naechsteSchwelle += LIKES_PRO_HERZ; }
+  } else if (ev === 'chat') {
+    const t = String(d.comment || '').trim();
+    if (t.startsWith('!') && t.length > 1) AKTIONEN.vorlesen(wer, t.slice(1).trim());
+  }
+}
+
+// ---------- Verbindung zur TikFinity-App ----------
+const WS_URL = P.get('ws') || 'ws://localhost:21213/';
+function verbinden() {
+  let ws;
+  try { ws = new WebSocket(WS_URL); } catch (e) { setStatus('⚠️ Keine Verbindung zu TikFinity'); return setTimeout(verbinden, 5000); }
+  ws.onopen = () => setStatus('✅ Mit TikFinity verbunden');
+  ws.onmessage = e => { try { ereignis(JSON.parse(e.data)); } catch (err) {} };
+  ws.onclose = () => { setStatus('⏳ Warte auf TikFinity …'); setTimeout(verbinden, 5000); };
+  ws.onerror = () => { try { ws.close(); } catch (e) {} };
+}
+verbinden();
+
+// ---------- Probelauf ----------
+if (TEST) {
+  const probe = [
+    { event: 'gift', data: { nickname: 'Test-Rose', giftName: 'Rose', giftType: 1, repeatEnd: true } },
+    { event: 'gift', data: { nickname: 'Test-Herz', giftName: 'Finger Heart', giftType: 1, repeatEnd: true } },
+    { event: 'gift', data: { nickname: 'Test-Donut', giftName: 'Doughnut', giftType: 1, repeatEnd: true } },
+    { event: 'chat', data: { nickname: 'Test-Chat', comment: '!Hallo Ilona, du bist toll' } },
+    { event: 'gift', data: { nickname: 'Test-Galaxie', giftName: 'Galaxy', giftType: 2 } },
+    { event: 'like', data: { nickname: 'Test', totalLikeCount: LIKES_PRO_HERZ } },
+  ];
+  let k = 0;
+  const lauf = () => { ereignis(probe[k % probe.length]); k++; };
+  setTimeout(lauf, 1000); setInterval(lauf, 3500);
+}
+window.stoer = { ereignis };
+</script>
+</body>
+</html>

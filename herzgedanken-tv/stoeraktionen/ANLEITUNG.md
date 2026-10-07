@@ -1,5 +1,23 @@
 # Stör-Aktionen für TikTok LIVE (HerzGedanken)
 
+## Der einfache Weg: Stör-Overlay (keine Einrichtung in TikFinity nötig)
+
+Das Overlay liest Geschenke, Likes und Kommentare direkt aus der laufenden TikFinity-App (WebSocket `ws://localhost:21213`)
+und spielt alle Aktionen selbst ab: Einblendung mit Namen, Sounds, „Wie bitte?!“, Konfetti, Herzen.
+
+TikTok LIVE Studio → Quelle hinzufügen → **Link**, 1080 × 1920, **Sound einschalten** + **Immer aktiv halten**:
+https://ilonaschererpetermann-lab.github.io/agent-starter-pack/herzgedanken-tv/stoeraktionen/overlay.html
+
+- Probe: `overlay.html?test=1` spielt alle Aktionen nacheinander ab
+- Verbindung prüfen: `overlay.html?debug=1` zeigt unten links „✅ Mit TikFinity verbunden“ oder „⏳ Warte auf TikFinity“
+- Lautstärke: `?laut=0.4`, Likes pro Herzschlag: `?likes=500`
+- Kommentare werden nur vorgelesen, wenn sie mit „!“ beginnen
+
+Falls „Warte auf TikFinity“ stehen bleibt: TikFinity muss geöffnet und mit dem LIVE verbunden sein;
+in TikFinity ggf. die WebSocket-/API-Schnittstelle einschalten.
+
+## Der Weg über TikFinity-Aktionen (Alternative)
+
 Fertig vorbereitet:
 - **Aktions-Banner** „STÖR MICH!“ zeigt den Zuschauern, welches Geschenk was auslöst:
   https://ilonaschererpetermann-lab.github.io/agent-starter-pack/herzgedanken-tv/stoeraktionen/aktionen.html
