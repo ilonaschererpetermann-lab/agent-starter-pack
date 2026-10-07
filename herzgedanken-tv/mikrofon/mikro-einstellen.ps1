@@ -16,13 +16,27 @@ public static class VM {
   [DllImport(@"$dll")] public static extern int VBVMR_Login();
   [DllImport(@"$dll")] public static extern int VBVMR_Logout();
   [DllImport(@"$dll")] public static extern int VBVMR_IsParametersDirty();
+  [DllImport(@"$dll")] public static extern int VBVMR_RunVoicemeeter(int type);
+  [DllImport(@"$dll")] public static extern int VBVMR_GetVoicemeeterType(ref int type);
   [DllImport(@"$dll", CharSet = CharSet.Ansi)] public static extern int VBVMR_SetParameterFloat(string name, float value);
 }
 "@
 
 $r = [VM]::VBVMR_Login()
 if ($r -lt 0) { Write-Host "Keine Verbindung zu Voicemeeter (Fehler $r)." -ForegroundColor Red; Read-Host "Enter zum Beenden"; exit 1 }
-if ($r -eq 1) { Write-Host "Voicemeeter ist nicht geöffnet. Bitte zuerst Voicemeeter Banana starten." -ForegroundColor Yellow; [VM]::VBVMR_Logout() | Out-Null; Read-Host "Enter zum Beenden"; exit 1 }
+if ($r -eq 1) {
+  # Voicemeeter läuft nicht: Banana selbst starten (64-Bit zuerst) und warten, bis es bereit ist
+  Write-Host "Voicemeeter Banana wird gestartet ..." -ForegroundColor Yellow
+  if ([VM]::VBVMR_RunVoicemeeter(5) -ne 0) { [VM]::VBVMR_RunVoicemeeter(2) | Out-Null }
+  $bereit = $false
+  for ($i = 0; $i -lt 30; $i++) {
+    Start-Sleep -Milliseconds 500
+    $t = 0
+    if ([VM]::VBVMR_GetVoicemeeterType([ref]$t) -eq 0 -and $t -gt 0) { $bereit = $true; break }
+  }
+  if (-not $bereit) { Write-Host "Voicemeeter ließ sich nicht starten. Bitte Voicemeeter Banana von Hand öffnen und nochmal versuchen." -ForegroundColor Red; [VM]::VBVMR_Logout() | Out-Null; Read-Host "Enter zum Beenden"; exit 1 }
+  Start-Sleep -Seconds 2
+}
 Start-Sleep -Milliseconds 300
 [VM]::VBVMR_IsParametersDirty() | Out-Null
 
