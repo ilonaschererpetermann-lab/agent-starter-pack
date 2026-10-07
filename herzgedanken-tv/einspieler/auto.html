@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HerzGedanken Auto-Einspieler</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Josefin+Sans:wght@400;600&family=Montserrat:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+  /*
+    Automatischer Einspieler „ACHTUNG – NEUE NEWS“ als durchsichtige Browser-/Link-Quelle.
+    Unsichtbar, bis er automatisch startet (Standard: zur vollen Stunde), dann 8 s Animation mit Ton.
+    Bühne 1080x1920 (Hochformat, TikTok), mit ?quer=1 1920x1080.
+    Parameter:
+      ?alle=30            alle 30 Minuten statt nur zur vollen Stunde (15, 20, 30, 60 …)
+      ?eigene=A|B         eigene Schlagzeilen, kommen zuerst an die Reihe
+      ?news=A|B           nur diese Schlagzeilen (keine Live-Nachrichten)
+      ?ton=0              ohne Ton
+      ?test=1             sofort abspielen und dann jede Minute (zum Ausprobieren)
+  */
+  :root { --pink:#FF4D8D; --pink2:#C2185B; --red:#C8102E; --gold:#D4AF37; --beige:#F3E5AB; --night:#050E1A; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; background: transparent; overflow: hidden; }
+  body { display: grid; place-items: center; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; flex: none; transform-origin: center; font-family: 'Montserrat', sans-serif; }
+  body.quer #stage { width: 1920px; height: 1080px; }
+  .show { position: absolute; inset: 0; }
+  .show * { animation-duration: 8s; animation-fill-mode: both; animation-timing-function: linear; animation-iteration-count: 1; }
+
+  .dim { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(5,14,26,.45), rgba(5,14,26,.9)); animation-name: dim; }
+  @keyframes dim { 0% { opacity: 0 } 8% { opacity: 1 } 88% { opacity: 1 } 97%, 100% { opacity: 0 } }
+  .flash { position: absolute; inset: 0; background: #fff; animation-name: flash; }
+  @keyframes flash { 0% { opacity: 0 } 2% { opacity: .85 } 7%, 100% { opacity: 0 } }
+
+  .stripe { position: absolute; left: -60%; width: 220%; height: 80px; }
+  .s1 { top: 34%; background: linear-gradient(90deg, transparent, var(--pink) 30%, var(--pink2) 70%, transparent); animation-name: sweep; }
+  .s2 { top: 42%; height: 22px; background: linear-gradient(90deg, transparent, var(--gold) 40%, var(--beige) 60%, transparent); animation-name: sweep2; }
+  .s3 { top: 47%; height: 44px; background: linear-gradient(90deg, transparent, #39B8FF 40%, #7a3cff 60%, transparent); animation-name: sweep3; }
+  @keyframes sweep  { 0% { transform: rotate(-14deg) translateX(-110%) } 9%, 100% { transform: rotate(-14deg) translateX(110%) } }
+  @keyframes sweep2 { 0%, 1.5% { transform: rotate(-14deg) translateX(110%) } 10%, 100% { transform: rotate(-14deg) translateX(-110%) } }
+  @keyframes sweep3 { 0%, 3% { transform: rotate(-14deg) translateX(-110%) } 11.5%, 100% { transform: rotate(-14deg) translateX(110%) } }
+
+  .title { position: absolute; left: 0; right: 0; top: 25%; text-align: center; }
+  body.quer .title { top: 21%; }
+  .achtung { display: inline-block; font-weight: 900; font-size: 168px; letter-spacing: 4px; color: #fff; line-height: 1;
+    text-shadow: 0 0 10px #fff, 0 0 40px var(--pink), 0 0 90px var(--pink2); animation-name: slam; }
+  body.quer .achtung { font-size: 210px; }
+  @keyframes slam {
+    0%, 9% { opacity: 0; transform: scale(2.6); filter: blur(12px) }
+    13% { opacity: 1; transform: scale(.94); filter: blur(0) } 15% { transform: scale(1.03) } 17% { transform: scale(1) }
+    80% { opacity: 1; transform: scale(1) } 86%, 100% { opacity: 0; transform: scale(.85) translateY(-60px) } }
+  .neue { margin-top: 18px; display: inline-flex; gap: 22px; align-items: center; font-weight: 800; font-size: 64px; letter-spacing: 12px; color: var(--beige);
+    text-shadow: 0 0 22px rgba(212,175,55,.8); animation-name: neue; }
+  body.quer .neue { font-size: 96px; letter-spacing: 22px; }
+  .neue svg { width: 70px; height: 64px; filter: drop-shadow(0 0 12px var(--pink)); }
+  @keyframes neue { 0%, 15% { opacity: 0; letter-spacing: 60px } 21% { opacity: 1 } 81% { opacity: 1; transform: none } 87%, 100% { opacity: 0; transform: translateY(40px) } }
+  .zeit { margin-top: 26px; font-family: 'Josefin Sans'; font-weight: 600; font-size: 40px; letter-spacing: 6px; color: #fff; opacity: 0; animation-name: neue; }
+
+  .bar { position: absolute; left: 40px; right: 40px; top: 50%; filter: drop-shadow(0 16px 40px rgba(0,0,0,.6)); animation-name: bar; }
+  body.quer .bar { left: 120px; right: 120px; top: 66%; display: flex; }
+  @keyframes bar { 0%, 24% { clip-path: inset(0 100% 0 0) } 31% { clip-path: inset(0 0 0 0) } 84% { clip-path: inset(0 0 0 0) } 90%, 100% { clip-path: inset(0 0 0 100%) } }
+  .label { display: inline-flex; align-items: center; gap: 16px; padding: 14px 40px 12px 28px; background: var(--red); color: #fff;
+    font-weight: 900; font-size: 36px; letter-spacing: 5px; }
+  body.quer .label { flex: none; }
+  .dot { width: 20px; height: 20px; border-radius: 50%; background: #fff; }
+  .headline { background: #fff; border-left: 10px solid var(--red); padding: 22px 30px 20px; }
+  body.quer .headline { flex: 1; min-width: 0; }
+  .h1 { font-weight: 800; font-size: 46px; line-height: 1.18; color: #111; }
+  .h2 { font-family: 'Josefin Sans'; font-weight: 600; font-size: 28px; color: var(--red); letter-spacing: 1px; margin-top: 8px; }
+  .logo { position: absolute; right: 50px; top: 66%; font-family: 'Great Vibes', cursive; font-size: 64px; color: #FFE3C8; text-shadow: 0 0 12px rgba(242,138,91,.8); animation-name: logo; }
+  body.quer .logo { top: 84%; right: 120px; }
+  .logo b { font-family: 'Montserrat'; font-weight: 600; font-size: 18px; letter-spacing: 8px; color: var(--beige); text-shadow: none; display: block; text-align: right; margin-top: -8px; }
+  @keyframes logo { 0%, 28% { opacity: 0; transform: translateX(40px) } 34% { opacity: 1; transform: none } 84% { opacity: 1 } 90%, 100% { opacity: 0 } }
+
+  #status { position: fixed; left: 8px; bottom: 8px; font: 12px system-ui, sans-serif; color: #fff; background: rgba(0,0,0,.5); padding: 4px 8px; border-radius: 6px; display: none; }
+  body.debug #status { display: block; }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<div id="status"></div>
+
+<template id="tpl">
+  <div class="show">
+    <div class="dim"></div>
+    <div class="stripe s1"></div><div class="stripe s2"></div><div class="stripe s3"></div>
+    <div class="title">
+      <div class="achtung">ACHTUNG</div><br>
+      <div class="neue"><svg viewBox="0 0 24 22"><path d="M12 21s-9-5.6-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.4-9 12-9 12z" fill="#FF4D8D"/></svg>NEUE NEWS<svg viewBox="0 0 24 22"><path d="M12 21s-9-5.6-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.4-9 12-9 12z" fill="#FF4D8D"/></svg></div>
+      <div class="zeit"></div>
+    </div>
+    <div class="bar">
+      <div class="label"><span class="dot"></span>EILMELDUNG</div>
+      <div class="headline"><div class="h1"></div><div class="h2"></div></div>
+    </div>
+    <div class="logo">HerzGedanken<b>RADIO · TV</b></div>
+    <div class="flash"></div>
+  </div>
+</template>
+
+<script>
+const P = new URLSearchParams(location.search);
+const QUER = !!P.get('quer'), TEST = !!P.get('test'), TON = P.get('ton') !== '0';
+if (QUER) document.body.classList.add('quer');
+if (P.get('debug') || TEST) document.body.classList.add('debug');
+const W = QUER ? 1920 : 1080, H = QUER ? 1080 : 1920;
+function fit() { const s = Math.min(innerWidth / W, innerHeight / H); document.getElementById('stage').style.transform = `scale(${s})`; }
+addEventListener('resize', fit); fit();
+const ALLE = Math.max(1, parseInt(P.get('alle') || '60', 10)); // Minuten
+
+// ---------- Schlagzeilen ----------
+const list = s => (s || '').split('|').map(x => x.trim()).filter(Boolean);
+const eigene = list(P.get('eigene'));
+let live = [], idx = 0;
+async function loadNews() {
+  if (P.get('news')) { live = list(P.get('news')); return; }
+  try {
+    const r = await fetch('https://www.tagesschau.de/api2u/homepage/', { cache: 'no-store' });
+    const j = await r.json();
+    const t = (j.news || []).map(n => n.title).filter(Boolean);
+    if (t.length) live = t.slice(0, 15);
+  } catch (e) { /* keine Live-Nachrichten: eigene oder Standardtexte */ }
+}
+function nextHeadline() {
+  const all = [...eigene, ...live];
+  if (!all.length) return 'Demenz gestört & geil – live bei HerzGedanken';
+  return all[idx++ % all.length];
+}
+
+// ---------- Ton (wird im Browser erzeugt, keine Datei nötig) ----------
+let ac;
+function jingle() {
+  if (!TON) return;
+  try {
+    ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+    if (ac.state === 'suspended') ac.resume();
+    const t0 = ac.currentTime + .05, out = ac.createGain(); out.gain.value = .8; out.connect(ac.destination);
+    const noise = (start, dur, vol) => { // Whoosh
+      const b = ac.createBuffer(1, ac.sampleRate * dur, ac.sampleRate), d = b.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+      const s = ac.createBufferSource(); s.buffer = b;
+      const f = ac.createBiquadFilter(); f.type = 'bandpass'; f.Q.value = .8;
+      f.frequency.setValueAtTime(400, start); f.frequency.exponentialRampToValueAtTime(5000, start + dur);
+      const g = ac.createGain(); g.gain.setValueAtTime(0, start); g.gain.linearRampToValueAtTime(vol, start + dur * .45); g.gain.linearRampToValueAtTime(0, start + dur);
+      s.connect(f); f.connect(g); g.connect(out); s.start(start); s.stop(start + dur);
+    };
+    const tone = (freq, start, dur, vol, type = 'sine') => {
+      const o = ac.createOscillator(), g = ac.createGain(); o.type = type; o.frequency.value = freq;
+      g.gain.setValueAtTime(0, start); g.gain.linearRampToValueAtTime(vol, start + .02); g.gain.exponentialRampToValueAtTime(.0001, start + dur);
+      o.connect(g); g.connect(out); o.start(start); o.stop(start + dur);
+    };
+    noise(t0, .9, .5);
+    tone(55, t0 + 1.0, 1.2, .9); tone(110, t0 + 1.0, .6, .3, 'triangle');  // Bass-Schlag bei „ACHTUNG“
+    tone(880, t0 + 1.6, 1.6, .25); tone(1175, t0 + 1.8, 1.6, .25); tone(1568, t0 + 2.0, 1.6, .25); // Gong
+    [196, 247, 294].forEach(f => tone(f, t0 + 1.2, 5.5, .05, 'triangle'));  // Klangteppich
+    noise(t0 + 6.9, 1.0, .35);
+  } catch (e) { /* Ton nicht möglich */ }
+}
+
+// ---------- Abspielen ----------
+let playing = false;
+function play() {
+  if (playing) return; playing = true;
+  const now = new Date();
+  const node = document.getElementById('tpl').content.firstElementChild.cloneNode(true);
+  node.querySelector('.zeit').textContent = now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }) + ' UHR';
+  node.querySelector('.h1').textContent = nextHeadline();
+  node.querySelector('.h2').textContent = 'HerzGedanken News · Ehrlich. Menschlich. Ohne Filter.';
+  document.getElementById('stage').appendChild(node);
+  jingle();
+  setTimeout(() => { node.remove(); playing = false; }, 8300);
+}
+window.einspieler = { play };
+
+// ---------- Zeitplan ----------
+function msBisNaechstes() {
+  const now = new Date();
+  if (TEST) return 60000 - (now.getSeconds() * 1000 + now.getMilliseconds());
+  const minOfDay = now.getHours() * 60 + now.getMinutes();
+  const next = (Math.floor(minOfDay / ALLE) + 1) * ALLE;
+  const d = new Date(now); d.setHours(0, next, 0, 0);
+  return d - now;
+}
+function plan() {
+  const ms = msBisNaechstes();
+  document.getElementById('status').textContent = `Nächster Einspieler: ${new Date(Date.now() + ms).toLocaleTimeString('de-DE')}`;
+  setTimeout(async () => { await loadNews(); play(); plan(); }, ms);
+}
+
+(async () => {
+  await document.fonts.ready;
+  await loadNews();
+  setInterval(loadNews, 10 * 60e3);
+  if (TEST) setTimeout(play, 1500);
+  plan();
+})();
+</script>
+</body>
+</html>
