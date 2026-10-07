@@ -275,8 +275,18 @@ if (MORGEN) {
   document.querySelector('#sunGlow stop').setAttribute('stop-opacity', '1');
   document.getElementById('stars').setAttribute('opacity', '.25');
 }
+// ?zeit=tag: heller Mittagshimmel mit Sonne und Wolken
+const TAG = P.get('zeit') === 'tag';
+if (TAG) {
+  const set = (id, cols) => document.querySelectorAll(`#${id} stop`).forEach((st, i) => cols[i] && st.setAttribute('stop-color', cols[i]));
+  set('sky', ['#1C5BA8', '#2F78C8', '#4F95DA', '#7DB3E6', '#A9CDEF', '#CFE4F6', '#E8F3FB']);
+  set('water', ['#6FA6D6', '#336FAE', '#163E70']);
+  set('sunGlow', ['#FFFFFF']);
+  document.getElementById('stars').setAttribute('opacity', '0');
+}
 const COL = MORGEN
   ? { far: '#8C98C4', near: '#2C3A63', tower2: '#34426D', warm: .35 }
+  : TAG ? { far: '#9DB4D6', near: '#2E4670', tower2: '#3B5582', warm: .08 }
   : { far: '#3B2560', near: '#140F2A', tower2: '#1C1438', warm: 1 };
 document.getElementById('toggle').onclick = () => document.body.classList.toggle('clean');
 
@@ -365,6 +375,21 @@ mirror.removeAttribute('id');
 mirror.setAttribute('transform', `translate(0 ${HORIZON * 2}) scale(1 -1)`);
 mirror.setAttribute('opacity', '.28');
 refl.parentNode.insertBefore(mirror, refl);
+
+// Tagsüber: Sonne, Wolken, gedämpfte Stadtlichter
+if (TAG) {
+  const sky = document.getElementById('scene');
+  const sunG = el('g', {}, null); sky.insertBefore(sunG, document.getElementById('stars'));
+  el('circle', { cx: 1790, cy: 120, r: 150, fill: '#FFF6D8', opacity: .35, filter: 'url(#blur6)' }, sunG);
+  el('circle', { cx: 1790, cy: 120, r: 62, fill: '#FFFBEA' }, sunG);
+  const clouds = el('g', { opacity: .9 }, null); sky.insertBefore(clouds, document.getElementById('stars'));
+  seed = 77;
+  [[180, 120, 1.1], [620, 70, .8], [1180, 120, 1.0], [160, 560, .8], [1780, 600, .7]].forEach(([cx, cy, k]) => {
+    const g = el('g', { filter: 'url(#blur2)', class: 'cloud' }, clouds);
+    for (let i = 0; i < 6; i++) el('ellipse', { cx: cx + (i - 2.5) * 46 * k, cy: cy - Math.sin(i / 5 * Math.PI) * 30 * k, rx: (55 + rnd() * 35) * k, ry: (30 + rnd() * 18) * k, fill: '#FFFFFF', opacity: .75 }, g);
+  });
+  document.querySelectorAll('#city circle, #reflect rect').forEach(e => e.setAttribute('opacity', (parseFloat(e.getAttribute('opacity') || 1) * .25).toFixed(2)));
+}
 
 // Ticker
 const items = ['Gute Musik für starke Menschen', 'Musik verbindet Herzen', 'Mehr als Radio ♥',

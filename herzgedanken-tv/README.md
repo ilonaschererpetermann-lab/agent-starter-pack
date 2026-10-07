@@ -57,7 +57,8 @@ und unter die Kamera legen. Die Kamera mit Hintergrund-Entfernung so skalieren, 
 
 - Morgen: `3d/studio-3d-hochformat-morgen.png` / `3d/studio-3d-hochformat-morgen-loop.mp4`. Sonnenaufgang, helleres Licht, Säule „Guten Morgen“
 - Abend: `3d/studio-3d-hochformat-abend.png` / `3d/studio-3d-hochformat-abend-loop.mp4`
-- Live: `3d/studio-hochformat.html?zeit=morgen` bzw. ohne Parameter für den Abend
+- Tag: `3d/studio-3d-hochformat-tag.png` / `3d/studio-3d-hochformat-tag-loop.mp4`. Blauer Himmel mit Sonne und Wolken, Säule „Schönen Tag“
+- Live: `3d/studio-hochformat.html?zeit=morgen` oder `?zeit=tag`, ohne Parameter für den Abend
 
 ## Nachrichten-Laufband (`laufband/laufband.html`)
 
