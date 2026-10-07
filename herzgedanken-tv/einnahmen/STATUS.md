@@ -20,6 +20,15 @@ veröffentlicht nichts ohne Freigabe von Ilona. Freigaben werden als Ja/Nein-Fra
 4. Laufband-Werbung für jedes Produkt mit Link einbauen, sobald Links vorliegen.
 5. Wöchentlich: was hat funktioniert, was nicht, nächste Idee.
 
+## Generalfreigabe
+
+2026-10-07: Ilona erteilt Generalfreigabe für legale neue Produkte in Digistore24; sie möchte nur am Monatsende den Erfolg sehen (Routine „Monatsbericht“).
+
+## Technische Voraussetzungen (einmalig, von Ilona)
+
+- [ ] Netzwerk: `www.digistore24.com` in der Cloud-Umgebung unter „Allowed domains“ freigeben
+- [ ] Digistore24-API-Schlüssel (Schreibzugriff) als Umgebungsvariable `DIGISTORE24_API_KEY` hinterlegen (nie in den Chat)
+
 ## Offene Freigaben
 
 - [ ] Digistore24-Link „Demenz-Alltagsretter“
@@ -27,4 +36,4 @@ veröffentlicht nichts ohne Freigabe von Ilona. Freigaben werden als Ja/Nein-Fra
 
 ## Protokoll
 
-- 2026-10-07: Plan angelegt.
+- 2026-10-07: Plan angelegt. Generalfreigabe erteilt. Monatsbericht-Routine eingerichtet. Warte auf Netzwerk-Freigabe und API-Schlüssel.
