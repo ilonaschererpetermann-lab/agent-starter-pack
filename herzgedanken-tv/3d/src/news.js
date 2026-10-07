@@ -162,7 +162,7 @@ const front = new THREE.Mesh(new THREE.CylinderGeometry(R_OUT + .01, R_OUT + .01
 front.position.y = .5; desk.add(front);
 const glow = new THREE.Mesh(new THREE.CylinderGeometry(R_OUT + .02, R_OUT + .02, .04, 96, 1, true, -ARC / 2, ARC), lit(RED, 1.8)); glow.position.y = .05; desk.add(glow);
 // Hochformat: Tisch näher und größer, damit er den Oberkörper bis zur Brust verdeckt
-if (V) { desk.position.set(0, 0, 2.6); desk.scale.setScalar(1.15); } else desk.position.set(0, 0, -.2);
+if (V) { desk.position.set(0, 0, 2.6); desk.scale.setScalar(1.15); } else { desk.position.set(0, 0, 1.2); desk.scale.setScalar(1.15); }
 _add(desk);
 
 // ---------- Licht ----------
