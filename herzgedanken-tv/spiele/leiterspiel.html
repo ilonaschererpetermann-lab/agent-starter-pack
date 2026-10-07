@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HerzGedanken Herz-Leiter</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  /*
+    „Die Herz-Leiter“ – Leiterspiel für TikTok LIVE, die Zuschauer spielen über den Chat.
+    Liest die Live-Ereignisse aus der laufenden TikFinity-App (WebSocket ws://localhost:21213).
+    Link-/Browser-Quelle 1080x1920, durchsichtig, Sound an, immer aktiv.
+    Chat:  „dabei“ = mitspielen · „w“ oder „würfeln“ = würfeln (alle 15 s)
+    Geschenke: Rose = Extra-Wurf · Donut = +3 · Galaxie = +6 Turbo · Fingerherz = Spitzenreiter 3 zurück
+    1000 Likes = alle ein Feld vor.   Parameter: ?test=1 (Probelauf mit Testspielern), ?laut=0.5
+  */
+  :root { --red:#D50F25; --navy:#0B1D3A; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; background: transparent; overflow: hidden; }
+  body { display: grid; place-items: center; }
+  #stage { position: relative; width: 1080px; height: 1920px; flex: none; transform-origin: center; font-family: 'Montserrat', sans-serif; }
+
+  #head { position: absolute; left: 60px; right: 60px; top: 250px; display: flex; align-items: center; justify-content: space-between;
+    background: var(--red); color: #fff; padding: 14px 26px; border-radius: 14px 14px 0 0; }
+  #head .t { font-weight: 900; font-size: 44px; letter-spacing: 2px; }
+  #head .h { font-family: 'Great Vibes', cursive; font-size: 46px; }
+  #help { position: absolute; left: 60px; right: 60px; top: 330px; background: #fff; color: var(--navy); font-weight: 700; font-size: 25px;
+    padding: 10px 22px; display: flex; justify-content: space-between; border-bottom: 4px solid var(--red); }
+  #help b { color: var(--red); }
+
+  #board { position: absolute; left: 60px; top: 384px; width: 960px; height: 1040px; display: grid;
+    grid-template-columns: repeat(6, 1fr); grid-template-rows: repeat(8, 1fr); gap: 4px; padding: 4px;
+    background: rgba(11,29,58,.88); border-radius: 0 0 14px 14px; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+  .cell { position: relative; background: rgba(255,255,255,.92); border-radius: 8px; }
+  .cell:nth-child(odd) { background: rgba(232,238,248,.92); }
+  .cell .n { position: absolute; left: 8px; top: 4px; font-weight: 800; font-size: 26px; color: rgba(11,29,58,.45); }
+  .cell.ziel { background: linear-gradient(135deg, #FFD54A, #F5A623); }
+  .cell.ziel .n { color: #7a4b00; }
+  .cell.ziel::after { content: '👑'; position: absolute; right: 10px; bottom: 6px; font-size: 54px; }
+  .cell.start::after { content: 'START'; position: absolute; right: 8px; bottom: 8px; font-weight: 900; font-size: 20px; color: var(--red); }
+  svg#links { position: absolute; left: 60px; top: 384px; width: 960px; height: 1040px; pointer-events: none; }
+
+  .tok { position: absolute; width: 50px; height: 50px; margin: -25px 0 0 -25px; border-radius: 50%; display: grid; place-items: center;
+    color: #fff; font-weight: 900; font-size: 19px; border: 3px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,.4);
+    transition: left .25s ease, top .25s ease; z-index: 5; }
+  .tok.jump { animation: jump .35s ease; }
+  @keyframes jump { 50% { transform: scale(1.35); } }
+
+  #log { position: absolute; left: 60px; right: 60px; top: 1440px; min-height: 64px; background: #fff; border-left: 10px solid var(--red);
+    border-radius: 8px; padding: 12px 20px; font-weight: 800; font-size: 30px; color: var(--navy); box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+  #top { position: absolute; left: 60px; right: 60px; top: 1520px; display: flex; gap: 10px; }
+  #top .p { flex: 1; background: rgba(11,29,58,.9); color: #fff; border-radius: 8px; padding: 8px 12px; font-weight: 700; font-size: 22px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #top .p i { font-style: normal; color: #FFD54A; margin-right: 6px; }
+
+  #win { position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%) scale(.6); opacity: 0; transition: all .5s cubic-bezier(.2,.9,.3,1.4);
+    background: #fff; border: 8px solid var(--red); border-radius: 20px; padding: 30px 50px; text-align: center; z-index: 20; box-shadow: 0 30px 80px rgba(0,0,0,.6); }
+  #win.on { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  #win .k { font-size: 90px; } #win .w { font-weight: 900; font-size: 64px; color: var(--red); } #win .s { font-weight: 700; font-size: 30px; color: var(--navy); margin-top: 6px; }
+  canvas#fx { position: absolute; inset: 0; pointer-events: none; z-index: 19; }
+  #status { position: absolute; left: 16px; bottom: 16px; font: 600 20px system-ui, sans-serif; color: #fff; background: rgba(0,0,0,.6); padding: 6px 12px; border-radius: 8px; display: none; }
+  body.debug #status { display: block; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="head"><span class="t">DIE HERZ-LEITER</span><span class="h">HerzGedanken ❤</span></div>
+  <div id="help"><span>Schreib <b>dabei</b></span><span><b>w</b> = würfeln</span><span>🌹 Extra · 🍩 +3 · 🌌 +6</span></div>
+  <div id="board"></div>
+  <svg id="links" viewBox="0 0 960 1040"></svg>
+  <div id="log">Schreib „dabei“ in den Chat und spiel mit! 🎲</div>
+  <div id="top"></div>
+  <div id="win"><div class="k">👑</div><div class="w" id="winName"></div><div class="s">hat die Herz-Leiter geschafft!</div></div>
+  <canvas id="fx" width="1080" height="1920"></canvas>
+  <div id="status"></div>
+</div>
+<script>
+const P = new URLSearchParams(location.search);
+const TEST = !!P.get('test');
+if (TEST || P.get('debug')) document.body.classList.add('debug');
+function fit() { const s = Math.min(innerWidth / 1080, innerHeight / 1920); document.getElementById('stage').style.transform = `scale(${s})`; }
+addEventListener('resize', fit); fit();
+const LAUT = Math.min(1, Math.max(0, parseFloat(P.get('laut') || '0.5')));
+
+// ---------- Spielfeld: 48 Felder, Schlangenlinie von unten links nach oben ----------
+const COLS = 6, ROWS = 8, ZIEL = 48, CW = 960 / COLS, CH = 1040 / ROWS;
+const LEITERN = { 3: 15, 8: 20, 21: 33, 30: 42 };
+const RUTSCHEN = { 14: 2, 25: 13, 39: 27, 44: 32 };
+function feldPos(n) { // Mittelpunkt von Feld n (1..48) im Board
+  const r = Math.floor((n - 1) / COLS), c0 = (n - 1) % COLS, c = r % 2 ? COLS - 1 - c0 : c0;
+  return { x: c * CW + CW / 2, y: (ROWS - 1 - r) * CH + CH / 2 };
+}
+const board = document.getElementById('board');
+const zellen = [];
+for (let row = ROWS - 1; row >= 0; row--) for (let col = 0; col < COLS; col++) {
+  const n = row * COLS + (row % 2 ? COLS - col : col + 1);
+  zellen.push({ n, el: Object.assign(document.createElement('div'), { className: 'cell' + (n === ZIEL ? ' ziel' : '') + (n === 1 ? ' start' : ''), innerHTML: `<span class="n">${n}</span>` }) });
+}
+zellen.forEach(z => board.appendChild(z.el));
+
+// Leitern (gold) und Rutschen (rot) als SVG
+const svg = document.getElementById('links'), NS = 'http://www.w3.org/2000/svg';
+function linie(a, b, attrs) { const l = document.createElementNS(NS, 'line'); Object.entries({ x1: a.x, y1: a.y, x2: b.x, y2: b.y, ...attrs }).forEach(([k, v]) => l.setAttribute(k, v)); svg.appendChild(l); }
+for (const [von, nach] of Object.entries(LEITERN)) {
+  const a = feldPos(+von), b = feldPos(nach), dx = b.x - a.x, dy = b.y - a.y, L = Math.hypot(dx, dy), nx = -dy / L * 16, ny = dx / L * 16;
+  linie({ x: a.x + nx, y: a.y + ny }, { x: b.x + nx, y: b.y + ny }, { stroke: '#C8961E', 'stroke-width': 8, 'stroke-linecap': 'round' });
+  linie({ x: a.x - nx, y: a.y - ny }, { x: b.x - nx, y: b.y - ny }, { stroke: '#C8961E', 'stroke-width': 8, 'stroke-linecap': 'round' });
+  for (let k = 1; k < L / 36; k++) { const t = k * 36 / L; linie({ x: a.x + dx * t + nx, y: a.y + dy * t + ny }, { x: a.x + dx * t - nx, y: a.y + dy * t - ny }, { stroke: '#E8B84A', 'stroke-width': 6 }); }
+}
+for (const [von, nach] of Object.entries(RUTSCHEN)) {
+  const a = feldPos(+von), b = feldPos(nach), p = document.createElementNS(NS, 'path');
+  const mx = (a.x + b.x) / 2 + (a.y < b.y ? 70 : -70), my = (a.y + b.y) / 2;
+  p.setAttribute('d', `M${a.x},${a.y} Q${mx},${my} ${b.x},${b.y}`);
+  Object.entries({ fill: 'none', stroke: '#D50F25', 'stroke-width': 22, 'stroke-linecap': 'round', opacity: .8 }).forEach(([k, v]) => p.setAttribute(k, v)); svg.appendChild(p);
+  const p2 = p.cloneNode(); p2.setAttribute('stroke', '#FF8A9A'); p2.setAttribute('stroke-width', 6); p2.setAttribute('stroke-dasharray', '14 14'); svg.appendChild(p2);
+}
+
+// ---------- Sounds ----------
+const SND = {}; for (const n of ['hupe', 'applaus', 'fanfare', 'konfetti', 'gong', 'herzschlag']) { const a = new Audio(`../stoeraktionen/sounds/${n}.mp3`); a.preload = 'auto'; SND[n] = a; }
+let lastSnd = 0;
+function sound(n, force) { if (!force && Date.now() - lastSnd < 700) return; lastSnd = Date.now(); try { const a = SND[n].cloneNode(); a.volume = LAUT; a.play().catch(() => {}); } catch (e) {} }
+
+// ---------- Spieler ----------
+const FARBEN = ['#D50F25', '#1E6FE0', '#11A36A', '#F08C00', '#8E44AD', '#0B1D3A', '#E83E8C', '#16A2B8', '#6C757D', '#B8860B'];
+const spieler = new Map(); // id -> {name, feld, el, letzterWurf}
+const MAX = 30, COOLDOWN = 15000;
+let gewinnerAktiv = false;
+const esc = t => String(t || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const logEl = document.getElementById('log');
+const log = t => { logEl.innerHTML = t; };
+
+function setzen(s, feld, anim) {
+  s.feld = feld; const p = feldPos(Math.max(1, feld));
+  // mehrere Figuren auf einem Feld leicht versetzen
+  const nachbarn = [...spieler.values()].filter(o => o.feld === feld); const i = nachbarn.indexOf(s);
+  const off = i <= 0 ? [0, 0] : [((i % 3) - 1) * 26, (Math.floor(i / 3) % 2 ? 18 : -18)];
+  s.el.style.left = (60 + p.x + off[0]) + 'px'; s.el.style.top = (384 + p.y + off[1]) + 'px';
+  if (anim) { s.el.classList.remove('jump'); void s.el.offsetWidth; s.el.classList.add('jump'); }
+}
+function beitreten(id, name) {
+  if (spieler.has(id) || gewinnerAktiv) return;
+  if (spieler.size >= MAX) { log(`Das Spielfeld ist voll (${MAX}) – nächste Runde bist du dabei!`); return; }
+  const el = document.createElement('div'); el.className = 'tok';
+  el.style.background = FARBEN[spieler.size % FARBEN.length]; el.textContent = name.replace(/[^\p{L}\p{N}]/gu, '').slice(0, 2).toUpperCase() || '♥';
+  document.getElementById('stage').appendChild(el);
+  const s = { id, name, feld: 1, el, letzterWurf: 0 }; spieler.set(id, s); setzen(s, 1);
+  log(`👋 <b>${esc(name)}</b> ist dabei! Schreib <b>w</b> zum Würfeln`); rangliste();
+}
+const warte = ms => new Promise(r => setTimeout(r, ms));
+const queue = []; let busy = false;
+function einreihen(fn) { queue.push(fn); if (!busy) abarbeiten(); }
+async function abarbeiten() { busy = true; while (queue.length) { await queue.shift()(); } busy = false; }
+
+async function ziehen(s, schritte, grund) {
+  if (gewinnerAktiv) return;
+  let ziel = s.feld + schritte;
+  if (ziel > ZIEL) ziel = ZIEL - (ziel - ZIEL); // über das Ziel hinaus → zurückprallen
+  log(`🎲 <b>${esc(s.name)}</b> ${grund} <b>${schritte}</b> → Feld ${ziel}`);
+  const dir = ziel >= s.feld ? 1 : -1;
+  while (s.feld !== ziel) { setzen(s, s.feld + dir, true); await warte(180); }
+  if (LEITERN[ziel]) { await warte(250); sound('konfetti'); log(`🪜 <b>${esc(s.name)}</b> nimmt die Leiter: ${ziel} → <b>${LEITERN[ziel]}</b>!`); setzen(s, LEITERN[ziel], true); await warte(500); }
+  else if (RUTSCHEN[ziel]) { await warte(250); sound('hupe'); log(`🛝 Oh nein! <b>${esc(s.name)}</b> rutscht: ${ziel} → <b>${RUTSCHEN[ziel]}</b>`); setzen(s, RUTSCHEN[ziel], true); await warte(500); }
+  rangliste();
+  if (s.feld === ZIEL) await gewonnen(s);
+}
+function wuerfeln(id, extra) {
+  const s = spieler.get(id); if (!s || gewinnerAktiv) return;
+  if (!extra && Date.now() - s.letzterWurf < COOLDOWN) return; // Spam-Schutz
+  if (!extra) s.letzterWurf = Date.now();
+  einreihen(() => ziehen(s, 1 + Math.floor(Math.random() * 6), extra ? 'Extra-Wurf 🌹' : 'würfelt'));
+}
+function rangliste() {
+  const top = [...spieler.values()].sort((a, b) => b.feld - a.feld).slice(0, 3);
+  document.getElementById('top').innerHTML = top.map((s, i) => `<div class="p"><i>${['🥇', '🥈', '🥉'][i]}</i>${esc(s.name)} · ${s.feld}</div>`).join('');
+}
+async function gewonnen(s) {
+  gewinnerAktiv = true; sound('fanfare', true); konfetti();
+  document.getElementById('winName').textContent = s.name; document.getElementById('win').classList.add('on');
+  log(`👑 <b>${esc(s.name)}</b> gewinnt! Neue Runde in 15 Sekunden …`);
+  await warte(15000);
+  document.getElementById('win').classList.remove('on');
+  spieler.forEach(o => o.el.remove()); spieler.clear(); gewinnerAktiv = false; rangliste();
+  log('Neue Runde! Schreib „dabei“ in den Chat 🎲');
+}
+
+// ---------- Konfetti ----------
+const cv = document.getElementById('fx'), ctx = cv.getContext('2d'); let parts = [];
+function konfetti() { const c = ['#D50F25', '#fff', '#FFD54A', '#1E6FE0']; for (let i = 0; i < 260; i++) parts.push({ x: 540, y: 800, vx: (Math.random() - .5) * 30, vy: -Math.random() * 30 - 6, s: 8 + Math.random() * 10, c: c[i % 4], t: 0, r: Math.random() * 6 }); }
+(function tick() { ctx.clearRect(0, 0, 1080, 1920); parts = parts.filter(p => p.t < 240);
+  for (const p of parts) { p.t++; p.x += p.vx; p.y += p.vy; p.vy += .7; p.r += .2; ctx.globalAlpha = 1 - p.t / 240; ctx.fillStyle = p.c; ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); ctx.restore(); }
+  ctx.globalAlpha = 1; requestAnimationFrame(tick); })();
+
+// ---------- Ereignisse (TikFinity) ----------
+let likeSumme = 0, naechsteLikes = 1000;
+function ereignis(msg) {
+  const ev = msg.event || msg.type, d = msg.data || msg;
+  const id = d.uniqueId || d.userId || d.user?.uniqueId || d.nickname;
+  const name = d.nickname || d.uniqueId || d.user?.nickname || 'Gast';
+  if (!id) return;
+  if (ev === 'chat') {
+    const t = String(d.comment || '').trim().toLowerCase().replace(/^!/, '');
+    if (/^(dabei|join|mitspielen)\b/.test(t)) beitreten(id, name);
+    else if (/^(w|würfeln|wuerfeln|wurf|roll)\b/.test(t)) { if (!spieler.has(id)) beitreten(id, name); wuerfeln(id); }
+  } else if (ev === 'gift') {
+    if (d.giftType === 1 && d.repeatEnd === false) return;
+    const g = String(d.giftName || '').toLowerCase();
+    if (!spieler.has(id)) beitreten(id, name);
+    const s = spieler.get(id); if (!s) return;
+    if (g.includes('rose')) wuerfeln(id, true);
+    else if (g.includes('donut') || g.includes('doughnut')) { sound('applaus'); einreihen(() => ziehen(s, 3, 'Donut-Boost 🍩')); }
+    else if (g.includes('galax')) { sound('fanfare', true); einreihen(() => ziehen(s, 6, 'TURBO 🌌')); }
+    else if (g.includes('finger')) { // Stör-Aktion: Spitzenreiter muss 3 zurück
+      const leader = [...spieler.values()].filter(o => o.id !== id).sort((a, b) => b.feld - a.feld)[0];
+      if (leader && leader.feld > 1) { sound('hupe'); einreihen(async () => { log(`🫰 <b>${esc(name)}</b> stört: <b>${esc(leader.name)}</b> muss 3 zurück!`); const ziel = Math.max(1, leader.feld - 3); while (leader.feld > ziel) { setzen(leader, leader.feld - 1, true); await warte(180); } rangliste(); await warte(400); }); }
+    }
+  } else if (ev === 'like') {
+    if (typeof d.totalLikeCount === 'number') likeSumme = d.totalLikeCount; else likeSumme += d.likeCount || 1;
+    if (likeSumme >= naechsteLikes) { naechsteLikes += 1000; sound('herzschlag', true);
+      einreihen(async () => { log('❤️ 1000 Likes: <b>Herzschub</b> – alle ein Feld vor!'); for (const s of spieler.values()) if (s.feld < ZIEL - 1) setzen(s, s.feld + 1, true); rangliste(); await warte(700); }); }
+  }
+}
+
+// ---------- Verbindung zu TikFinity ----------
+const statusEl = document.getElementById('status');
+(function verbinden() {
+  let ws; try { ws = new WebSocket(P.get('ws') || 'ws://localhost:21213/'); } catch (e) { return setTimeout(verbinden, 5000); }
+  ws.onopen = () => statusEl.textContent = '✅ Mit TikFinity verbunden';
+  ws.onmessage = e => { try { ereignis(JSON.parse(e.data)); } catch (err) {} };
+  ws.onclose = () => { statusEl.textContent = '⏳ Warte auf TikFinity …'; setTimeout(verbinden, 5000); };
+  ws.onerror = () => { try { ws.close(); } catch (e) {} };
+})();
+
+// ---------- Probelauf ----------
+if (TEST) {
+  const namen = ['Snoopy', 'Diane', 'Chucky', 'Rita', 'Perle_34', 'Tina'];
+  namen.forEach((n, i) => setTimeout(() => ereignis({ event: 'chat', data: { uniqueId: n, nickname: n, comment: 'dabei' } }), 300 + i * 200));
+  let k = 0;
+  setInterval(() => {
+    const n = namen[k++ % namen.length];
+    const r = Math.random();
+    if (r < .12) ereignis({ event: 'gift', data: { uniqueId: n, nickname: n, giftName: 'Rose', giftType: 1, repeatEnd: true } });
+    else if (r < .18) ereignis({ event: 'gift', data: { uniqueId: n, nickname: n, giftName: 'Doughnut', giftType: 1, repeatEnd: true } });
+    else if (r < .21) ereignis({ event: 'gift', data: { uniqueId: n, nickname: n, giftName: 'Finger Heart', giftType: 1, repeatEnd: true } });
+    else { const s = spieler.get(n); if (s) s.letzterWurf = 0; ereignis({ event: 'chat', data: { uniqueId: n, nickname: n, comment: 'w' } }); }
+  }, 1600);
+}
+window.spiel = { ereignis, spieler };
+</script>
+</body>
+</html>
