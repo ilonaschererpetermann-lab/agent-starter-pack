@@ -79,7 +79,10 @@
   #logo b { font-family: 'Montserrat'; font-weight: 600; font-size: 18px; letter-spacing: 8px; color: var(--beige); text-shadow: none; display: block; text-align: right; margin-top: -8px; }
   @keyframes logo { 0%, 28% { opacity: 0; transform: translateX(40px) } 34% { opacity: 1; transform: none } 84% { opacity: 1 } 90%, 100% { opacity: 0 } }
 
-  body.capture #stage { transform: none !important; }
+  body.capture #stage { transform: translate(-50%, -50%) !important; }
+
+  /* Bühne immer mittig, auch wenn das Fenster kleiner ist */
+  #stage { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
 </style>
 </head>
 <body>
@@ -114,7 +117,7 @@ document.fonts.ready.then(() => {
   const h = document.getElementById('h1'); let size = 46;
   while (h.scrollWidth > h.clientWidth && size > 26) h.style.fontSize = (--size) + 'px';
 });
-function fit() { if (P.get('capture')) return; const s = Math.min(innerWidth / 1920, innerHeight / 1080); document.getElementById('stage').style.transform = `scale(${s})`; }
+function fit() { if (P.get('capture')) return; const s = Math.min(innerWidth / 1920, innerHeight / 1080); document.getElementById('stage').style.transform = `translate(-50%, -50%) scale(${s})`; }
 addEventListener('resize', fit); fit();
 // Im Browser in Schleife abspielen (alle 9 s neu starten)
 if (!P.get('capture')) setInterval(() => document.getAnimations().forEach(a => { a.currentTime = 0; a.play(); }), 9000);

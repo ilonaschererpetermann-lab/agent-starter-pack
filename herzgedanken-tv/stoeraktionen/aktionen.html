@@ -40,7 +40,10 @@
   .dots { display: flex; gap: 8px; justify-content: center; padding: 8px 0 0; }
   .dots i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.5); box-shadow: 0 0 0 2px rgba(200,16,46,.6); }
   .dots i.on { background: var(--red); box-shadow: 0 0 0 2px #fff; }
-  body.capture #stage { transform: none !important; }
+  body.capture #stage { transform: translate(-50%, -50%) !important; }
+
+  /* Bühne immer mittig, auch wenn das Fenster kleiner ist */
+  #stage { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
 </style>
 </head>
 <body>
@@ -56,7 +59,7 @@ const P = new URLSearchParams(location.search);
 if (P.get('quer')) document.body.classList.add('quer');
 if (P.get('capture')) document.body.classList.add('capture');
 const W = P.get('quer') ? 1920 : 1080, H = P.get('quer') ? 1080 : 1920;
-function fit() { if (P.get('capture')) return; const s = Math.min(innerWidth / W, innerHeight / H); document.getElementById('stage').style.transform = `scale(${s})`; }
+function fit() { if (P.get('capture')) return; const s = Math.min(innerWidth / W, innerHeight / H); document.getElementById('stage').style.transform = `translate(-50%, -50%) scale(${s})`; }
 addEventListener('resize', fit); fit();
 
 const card = document.getElementById('card');

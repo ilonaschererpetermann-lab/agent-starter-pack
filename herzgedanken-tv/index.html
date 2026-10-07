@@ -151,6 +151,9 @@
     cursor: pointer; font-size: 14px;
   }
   body.capture #controls { display: none; }
+
+  /* Bühne immer mittig, auch wenn das Fenster kleiner ist */
+  #stage { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
 </style>
 </head>
 <body>
@@ -293,7 +296,7 @@ document.getElementById('toggle').onclick = () => document.body.classList.toggle
 // ---- Skalierung der 1920x1080-Bühne
 function fit() {
   const s = Math.min(innerWidth / 1920, innerHeight / 1080);
-  document.getElementById('stage').style.transform = `scale(${s})`;
+  document.getElementById('stage').style.transform = `translate(-50%, -50%) scale(${s})`;
 }
 addEventListener('resize', fit); fit();
 

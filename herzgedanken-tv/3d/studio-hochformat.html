@@ -11,6 +11,9 @@
   body { display: grid; place-items: center; }
   /* 1080x1920-Bühne, per JS auf das Fenster skaliert */
   #gl { width: 1080px; height: 1920px; display: block; transform-origin: center; flex: none; }
+
+  /* Bühne immer mittig, auch wenn das Fenster kleiner ist */
+  #gl { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
 </style>
 </head>
 <body>
@@ -21,7 +24,7 @@
 <script>
 const P = new URLSearchParams(location.search);
 if (!P.get('vertical')) { P.set('vertical', '1'); history.replaceState(null, '', '?' + P); }
-function fit() { if (P.get('capture')) return; const s = Math.min(innerWidth / 1080, innerHeight / 1920); document.getElementById('gl').style.transform = `scale(${s})`; }
+function fit() { if (P.get('capture')) return; const s = Math.min(innerWidth / 1080, innerHeight / 1920); document.getElementById('gl').style.transform = `translate(-50%, -50%) scale(${s})`; }
 addEventListener('resize', fit); fit();
 </script>
 <script src="studio.bundle.js"></script>

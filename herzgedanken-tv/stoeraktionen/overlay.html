@@ -36,6 +36,9 @@
 
   #status { position: absolute; left: 16px; bottom: 16px; font: 600 22px system-ui, sans-serif; color: #fff; background: rgba(0,0,0,.6); padding: 8px 14px; border-radius: 8px; display: none; }
   body.debug #status { display: block; }
+
+  /* Bühne immer mittig, auch wenn das Fenster kleiner ist */
+  #stage { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
 </style>
 </head>
 <body>
@@ -44,7 +47,7 @@
 const P = new URLSearchParams(location.search);
 const TEST = !!P.get('test');
 if (P.get('debug') || TEST) document.body.classList.add('debug');
-function fit() { const s = Math.min(innerWidth / 1080, innerHeight / 1920); document.getElementById('stage').style.transform = `scale(${s})`; }
+function fit() { const s = Math.min(innerWidth / 1080, innerHeight / 1920); document.getElementById('stage').style.transform = `translate(-50%, -50%) scale(${s})`; }
 addEventListener('resize', fit); fit();
 const LAUT = Math.min(1, Math.max(0, parseFloat(P.get('laut') || '0.6')));
 // Kommentare liest standardmäßig TikFinity selbst vor (bessere Stimme); ?vorlesen=1 lässt das Overlay vorlesen

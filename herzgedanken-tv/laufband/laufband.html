@@ -48,7 +48,10 @@
     color: #fff; font-weight: 600; font-size: 27px; will-change: transform; }
   .run .dot { display: inline-block; width: 12px; height: 12px; background: #fff; margin: 0 28px; transform: rotate(45deg); }
 
-  body.capture #stage { transform: none !important; }
+  body.capture #stage { transform: translate(-50%, -50%) !important; }
+
+  /* Bühne immer mittig, auch wenn das Fenster kleiner ist */
+  #stage { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
 </style>
 </head>
 <body>
@@ -74,7 +77,7 @@ if (P.get('quer')) document.body.classList.add('quer');
 if (P.get('capture')) document.body.classList.add('capture');
 if (P.get('y')) document.getElementById('banner').style.top = P.get('y') + 'px';
 const W = P.get('quer') ? 1920 : 1080, H = P.get('quer') ? 1080 : 1920;
-function fit() { if (P.get('capture')) return; const s = Math.min(innerWidth / W, innerHeight / H); document.getElementById('stage').style.transform = `scale(${s})`; }
+function fit() { if (P.get('capture')) return; const s = Math.min(innerWidth / W, innerHeight / H); document.getElementById('stage').style.transform = `translate(-50%, -50%) scale(${s})`; }
 addEventListener('resize', fit); fit();
 
 // mehrere Städte mit | trennen, z. B. ?ort=Mannheim|Stuttgart

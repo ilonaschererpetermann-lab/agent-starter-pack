@@ -10,6 +10,9 @@
   html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
   body { display: grid; place-items: center; }
   #gl { display: block; transform-origin: center; flex: none; }
+
+  /* Bühne immer mittig, auch wenn das Fenster kleiner ist */
+  #gl { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
 </style>
 </head>
 <body>
@@ -19,7 +22,7 @@ const P = new URLSearchParams(location.search);
 const W = P.get('quer') ? 1920 : 1080, H = P.get('quer') ? 1080 : 1920;
 if (P.get('ebene') === 'vorne') { document.documentElement.style.background = 'transparent'; document.body.style.background = 'transparent'; }
 const c = document.getElementById('gl'); c.width = W; c.height = H; c.style.width = W + 'px'; c.style.height = H + 'px';
-function fit() { if (P.get('capture')) return; const s = Math.min(innerWidth / W, innerHeight / H); c.style.transform = `scale(${s})`; }
+function fit() { if (P.get('capture')) return; const s = Math.min(innerWidth / W, innerHeight / H); c.style.transform = `translate(-50%, -50%) scale(${s})`; }
 addEventListener('resize', fit); fit();
 </script>
 <script src="news.bundle.js"></script>

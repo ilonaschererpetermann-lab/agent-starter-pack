@@ -41,7 +41,10 @@
   .h { position: absolute; bottom: -80px; width: 44px; height: 40px; opacity: 0; animation-name: rise; animation-timing-function: linear;
     filter: drop-shadow(0 0 10px var(--pink)); }
   @keyframes rise { 0% { opacity: 0; transform: translateY(0) scale(.6) } 10% { opacity: .9 } 80% { opacity: .7 } 100% { opacity: 0; transform: translateY(-1150px) scale(1.1) } }
-  body.capture #stage { transform: none !important; }
+  body.capture #stage { transform: translate(-50%, -50%) !important; }
+
+  /* Bühne immer mittig, auch wenn das Fenster kleiner ist */
+  #stage { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
 </style>
 </head>
 <body>
@@ -61,7 +64,7 @@
 <script>
 const P = new URLSearchParams(location.search);
 if (P.get('capture')) document.body.classList.add('capture');
-function fit() { if (P.get('capture')) return; const s = Math.min(innerWidth / 1920, innerHeight / 1080); document.getElementById('stage').style.transform = `scale(${s})`; }
+function fit() { if (P.get('capture')) return; const s = Math.min(innerWidth / 1920, innerHeight / 1080); document.getElementById('stage').style.transform = `translate(-50%, -50%) scale(${s})`; }
 addEventListener('resize', fit); fit();
 // feste Positionen, damit jedes Rendering gleich aussieht
 const hearts = document.getElementById('hearts');

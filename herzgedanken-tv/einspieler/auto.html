@@ -73,6 +73,9 @@
 
   #status { position: fixed; left: 8px; bottom: 8px; font: 12px system-ui, sans-serif; color: #fff; background: rgba(0,0,0,.5); padding: 4px 8px; border-radius: 6px; display: none; }
   body.debug #status { display: block; }
+
+  /* Bühne immer mittig, auch wenn das Fenster kleiner ist */
+  #stage { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
 </style>
 </head>
 <body>
@@ -103,7 +106,7 @@ const QUER = !!P.get('quer'), TEST = !!P.get('test'), TON = P.get('ton') !== '0'
 if (QUER) document.body.classList.add('quer');
 if (P.get('debug') || TEST) document.body.classList.add('debug');
 const W = QUER ? 1920 : 1080, H = QUER ? 1080 : 1920;
-function fit() { const s = Math.min(innerWidth / W, innerHeight / H); document.getElementById('stage').style.transform = `scale(${s})`; }
+function fit() { const s = Math.min(innerWidth / W, innerHeight / H); document.getElementById('stage').style.transform = `translate(-50%, -50%) scale(${s})`; }
 addEventListener('resize', fit); fit();
 const ALLE = Math.max(1, parseInt(P.get('alle') || '60', 10)); // Minuten
 

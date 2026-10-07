@@ -81,6 +81,9 @@
     cursor: pointer; font-size: 14px;
   }
   body.capture #controls { display: none; }
+
+  /* Bühne immer mittig, auch wenn das Fenster kleiner ist */
+  #stage { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
 </style>
 </head>
 <body>
@@ -112,7 +115,7 @@ if (P.get('capture')) document.body.classList.add('capture');
 if (P.get('name')) document.getElementById('lowerName').textContent = P.get('name');
 if (P.get('role')) document.getElementById('lowerRole').textContent = P.get('role');
 document.getElementById('toggle').onclick = () => document.body.classList.toggle('clean');
-function fit() { const s = Math.min(innerWidth / 1920, innerHeight / 1080); document.getElementById('stage').style.transform = `scale(${s})`; }
+function fit() { const s = Math.min(innerWidth / 1920, innerHeight / 1080); document.getElementById('stage').style.transform = `translate(-50%, -50%) scale(${s})`; }
 addEventListener('resize', fit); fit();
 const items = ['Gute Musik für starke Menschen', 'Musik verbindet Herzen', 'Mehr als Radio ♥',
   'Mut. Wurzeln. Zukunft.', 'Ehrlich. Menschlich. Ohne Filter.', 'Rund um die Uhr für Euch auf Sendung'];
