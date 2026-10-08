@@ -1,27 +1,27 @@
 {
-  "stand": "2026-10-07",
+  "stand": "2026-10-08",
   "hinweis": "Wird jeden Morgen automatisch vom Agenten „Studio-Regie“ neu geschrieben. Laufband und Einspieler lesen diese Datei alle 10 Minuten.",
   "laufband": [
-    "Mittwoch, Herbstlicht, Kaffee – schön, dass du da bist 🧡",
-    "Mitte der Woche: Du schaffst mehr, als du heute denkst",
-    "Folge dem Kanal – so verpasst du keine Show 👑",
-    "Schreib „!“ vor deinen Kommentar – dann lese ich ihn laut vor",
+    "Donnerstag – fast Wochenende! Schön, dass du da bist 🧡",
+    "Danke an alle, die gestern dabei waren – ihr seid die HerzGedanken-Familie ❤️",
+    "Neu: Die Herz-Leiter! Schreib „dabei“ und dann „w“ zum Würfeln 🎲",
     "Rose = „Wie bitte?!“ · Fingerherz = Hupe · Donut = Applaus",
-    "Galaxie = Fanfare + Konfetti · 1000 Likes = Herzschlag 💓"
+    "Galaxie = Fanfare + Konfetti · 1000 Likes = Herzschlag 💓",
+    "Schreib „!“ vor deinen Kommentar – dann wird er vorgelesen"
   ],
   "werbung": [
     "Der Demenz-Alltagsretter: 12 Vorlagen für leichtere Tage – Link im Profil"
   ],
   "einspieler": [
-    "Herbst-Gefühle: Was wärmt dich gerade?",
-    "Mittwochs-Mut: Ein kleiner Schritt zählt",
-    "Ehrlich gesagt: Vergessen darf auch lustig sein",
-    "Chat-Rekord? Heute knacken wir ihn gemeinsam",
-    "Gestört & geil: Die Stör-Aktionen sind scharf"
+    "Donnerstags-Dank: Ihr habt gestern Geschichte geschrieben",
+    "Herz-Leiter: Wer schafft es heute bis zur Krone?",
+    "Vergessen ist menschlich – Lachen auch",
+    "Fast Wochenende: Was gönnst du dir?",
+    "Neues Studio, gleiches Herz – live bei HerzGedanken"
   ],
   "programm": {
-    "morgen": "Guten-Morgen-Talk bei Kaffee: Was macht den Herbstmorgen schön?",
-    "mittag": "Mittagspause mit Musik, Lieblingssongs aus dem Chat und Stör-Aktionen.",
-    "abend": "Abendshow „Mittwochs-Mut“: Geschichten, Spiele-Block und Geschenk-Ziel."
+    "morgen": "Kaffee-Talk: Danke-Runde und was uns diese Woche Mut gemacht hat.",
+    "mittag": "Mittagspause mit Musik, Wunschliedern und Stör-Aktionen.",
+    "abend": "Abendshow mit erster großer Herz-Leiter-Runde und Krönung der Gewinner."
   }
 }
