@@ -1,27 +1,27 @@
 {
-  "stand": "2026-10-08",
+  "stand": "2026-10-09",
   "hinweis": "Wird jeden Morgen automatisch vom Agenten „Studio-Regie“ neu geschrieben. Laufband und Einspieler lesen diese Datei alle 10 Minuten.",
   "laufband": [
-    "Donnerstag – fast Wochenende! Schön, dass du da bist 🧡",
-    "Danke an alle, die gestern dabei waren – ihr seid die HerzGedanken-Familie ❤️",
-    "Neu: Die Herz-Leiter! Schreib „dabei“ und dann „w“ zum Würfeln 🎲",
+    "Freitag! Das Wochenende winkt schon – schön, dass du da bist 🧡",
+    "Spiel mit: „dabei“ schreiben, dann „w“ zum Würfeln – wer holt die Krone? 👑",
     "Rose = „Wie bitte?!“ · Fingerherz = Hupe · Donut = Applaus",
     "Galaxie = Fanfare + Konfetti · 1000 Likes = Herzschlag 💓",
-    "Schreib „!“ vor deinen Kommentar – dann wird er vorgelesen"
+    "Schreib „!“ vor deinen Kommentar – dann wird er vorgelesen",
+    "Folge dem Kanal – so verpasst du keine Show 🦁"
   ],
   "werbung": [
     "Der Demenz-Alltagsretter: 12 Vorlagen für leichtere Tage – Link im Profil"
   ],
   "einspieler": [
-    "Donnerstags-Dank: Ihr habt gestern Geschichte geschrieben",
-    "Herz-Leiter: Wer schafft es heute bis zur Krone?",
-    "Vergessen ist menschlich – Lachen auch",
-    "Fast Wochenende: Was gönnst du dir?",
-    "Neues Studio, gleiches Herz – live bei HerzGedanken"
+    "Freitags-Feeling: Was hast du diese Woche geschafft?",
+    "Herz-Leiter-Freitag: Großes Wochenfinale am Abend",
+    "Ehrlich gesagt: Kleine Schritte sind auch Schritte",
+    "Wochenend-Pläne? Erzähl's uns im Chat",
+    "Live bei HerzGedanken – gestört, geil und ganz ehrlich"
   ],
   "programm": {
-    "morgen": "Kaffee-Talk: Danke-Runde und was uns diese Woche Mut gemacht hat.",
-    "mittag": "Mittagspause mit Musik, Wunschliedern und Stör-Aktionen.",
-    "abend": "Abendshow mit erster großer Herz-Leiter-Runde und Krönung der Gewinner."
+    "morgen": "Kaffee-Talk: Wochenrückblick – was lief gut, was war schwer?",
+    "mittag": "Freitags-Mittag mit Gute-Laune-Musik und Wunschliedern.",
+    "abend": "Wochenfinale: Herz-Leiter-Turnier mit Krönung der Wochensiegerin oder des Wochensiegers."
   }
 }
