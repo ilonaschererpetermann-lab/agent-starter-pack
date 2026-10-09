@@ -12,6 +12,8 @@ veröffentlicht nichts ohne Freigabe von Ilona. Freigaben werden als Ja/Nein-Fra
 | 3 | Bestehende Produkte (Kochbuch, Malbuch, Magazin) im Laufband rotieren | offen | Digistore24-Links |
 | 5 | **Notfallmappe Demenz** (PDF, 8 Seiten, ausfüllbar), `einnahmen/produkte/notfallmappe/` | fertig, Texte liegen bereit | in Digistore24 anlegen (9,90 €) |
 | 6 | **Bundle** Alltagsretter + Notfallmappe (Idee 2026-10-08, Aufwand gering, Nutzen hoch: höherer Warenkorb ohne neues Produkt) | Idee | Freigabe |
+| 7 | **Arzt- & Begutachtungs-Begleiter Demenz** (PDF, 8 Seiten, 238 Felder), `einnahmen/produkte/arztbegleiter/` | fertig, Texte liegen bereit | in Digistore24 anlegen (9,90 €, Bundle mit Notfallmappe 14,90 €) |
+| 8 | **Lebensbuch / Biografiebogen** zum Ausfüllen (Idee 2026-10-09: Erinnerungen, Fotos, Lieblingsmusik – hilft Pflegekräften und Familie, Gesprächsstoff für gute Tage; Aufwand gering, gleicher Generator; Nutzen mittel, gutes Geschenkprodukt zu Weihnachten) | Idee | Freigabe |
 | 4 | Digistore24-Affiliate: passende Fremdprodukte für pflegende Angehörige empfehlen | Recherche | Freigabe je Produkt |
 
 ## Nächste Schritte (der Agent arbeitet sie der Reihe nach ab)
@@ -42,9 +44,11 @@ C. Streamer-Paket nur als White-Label-Version (eigener Name/Logo per Parameter)
 - [ ] Digistore24-Link „Demenz-Alltagsretter“
 - [ ] Streamer-Paket verkaufen? (Ja/Nein)
 - [ ] Notfallmappe Demenz für 9,90 € in Digistore24 anlegen? (Ja/Nein) – Texte: einnahmen/produkte/notfallmappe/DIGISTORE24-TEXTE.md
+- [ ] Arzt-Begleiter Demenz 9,90 € + Bundle mit Notfallmappe 14,90 € anlegen? (Ja/Nein) – Texte: einnahmen/produkte/arztbegleiter/DIGISTORE24-TEXTE.md
 
 ## Protokoll
 
 - 2026-10-07: Plan angelegt. Generalfreigabe erteilt. Monatsbericht-Routine eingerichtet. Warte auf Netzwerk-Freigabe und API-Schlüssel.
 - 2026-10-07 abends: Netzwerk ok, API-Schlüssel kommt noch nicht an. Ilona erledigt das morgen.
 - 2026-10-08: API-Schlüssel weiterhin nicht hinterlegt („No API key given“). Produkt „Notfallmappe Demenz“ gebaut (8 Seiten, 256 Felder, geprüft), Digistore24-Texte + Preisvorschlag 9,90 € + Vorschaubilder erstellt. Neue Idee: Bundle Alltagsretter + Notfallmappe.
+- 2026-10-09: API-Schlüssel weiterhin nicht hinterlegt („No API key given“). Priorität B: Produkt „Arzt- & Begutachtungs-Begleiter Demenz“ gebaut (8 Seiten, 238 Felder, Layout geprüft), Texte + Preis 9,90 € + Bundle-Preis 14,90 € + Vorschaubilder. Neue Idee: Lebensbuch/Biografiebogen (Weihnachtsgeschenk). Hinweis: Ohne API-Schlüssel muss Ilona die Produkte selbst in Digistore24 anlegen (Texte zum Kopieren liegen bereit) – oder den Schlüssel hinterlegen, dann übernimmt der Agent.
