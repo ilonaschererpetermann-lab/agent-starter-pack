@@ -13,7 +13,8 @@ veröffentlicht nichts ohne Freigabe von Ilona. Freigaben werden als Ja/Nein-Fra
 | 5 | **Notfallmappe Demenz** (PDF, 8 Seiten, ausfüllbar), `einnahmen/produkte/notfallmappe/` | fertig, Texte liegen bereit | in Digistore24 anlegen (9,90 €) |
 | 6 | **Bundle** Alltagsretter + Notfallmappe (Idee 2026-10-08, Aufwand gering, Nutzen hoch: höherer Warenkorb ohne neues Produkt) | Idee | Freigabe |
 | 7 | **Arzt- & Begutachtungs-Begleiter Demenz** (PDF, 8 Seiten, 238 Felder), `einnahmen/produkte/arztbegleiter/` | fertig, Texte liegen bereit | in Digistore24 anlegen (9,90 €, Bundle mit Notfallmappe 14,90 €) |
-| 8 | **Lebensbuch / Biografiebogen** zum Ausfüllen (Idee 2026-10-09: Erinnerungen, Fotos, Lieblingsmusik – hilft Pflegekräften und Familie, Gesprächsstoff für gute Tage; Aufwand gering, gleicher Generator; Nutzen mittel, gutes Geschenkprodukt zu Weihnachten) | Idee | Freigabe |
+| 8 | **Mein Lebensbuch** (Biografiebogen, PDF, 10 Seiten, 122 Felder + 12 Fotofelder), `einnahmen/produkte/lebensbuch/` | fertig, Texte liegen bereit | in Digistore24 anlegen (12,90 €; Paket „HerzGedanken Komplett“ mit Notfallmappe + Arzt-Begleiter 24,90 €) |
+| 9 | **Advents-Kalender für pflegende Angehörige** (Idee 2026-10-10: 24 Mini-Impulse zur Selbstfürsorge als PDF, Verkauf Nov.–Dez.; Aufwand gering, Nutzen mittel–hoch durch Saison, auch als Geschenk und Laufband-Aktion im Live) | Idee, muss bis Mitte November fertig sein | Freigabe |
 | 4 | Digistore24-Affiliate: passende Fremdprodukte für pflegende Angehörige empfehlen | Recherche | Freigabe je Produkt |
 
 ## Nächste Schritte (der Agent arbeitet sie der Reihe nach ab)
@@ -45,6 +46,7 @@ C. Streamer-Paket nur als White-Label-Version (eigener Name/Logo per Parameter)
 - [ ] Streamer-Paket verkaufen? (Ja/Nein)
 - [ ] Notfallmappe Demenz für 9,90 € in Digistore24 anlegen? (Ja/Nein) – Texte: einnahmen/produkte/notfallmappe/DIGISTORE24-TEXTE.md
 - [ ] Arzt-Begleiter Demenz 9,90 € + Bundle mit Notfallmappe 14,90 € anlegen? (Ja/Nein) – Texte: einnahmen/produkte/arztbegleiter/DIGISTORE24-TEXTE.md
+- [ ] Lebensbuch 12,90 € + Paket „HerzGedanken Komplett“ 24,90 € anlegen? (Ja/Nein) – Texte: einnahmen/produkte/lebensbuch/DIGISTORE24-TEXTE.md
 
 ## Protokoll
 
@@ -52,3 +54,4 @@ C. Streamer-Paket nur als White-Label-Version (eigener Name/Logo per Parameter)
 - 2026-10-07 abends: Netzwerk ok, API-Schlüssel kommt noch nicht an. Ilona erledigt das morgen.
 - 2026-10-08: API-Schlüssel weiterhin nicht hinterlegt („No API key given“). Produkt „Notfallmappe Demenz“ gebaut (8 Seiten, 256 Felder, geprüft), Digistore24-Texte + Preisvorschlag 9,90 € + Vorschaubilder erstellt. Neue Idee: Bundle Alltagsretter + Notfallmappe.
 - 2026-10-09: API-Schlüssel weiterhin nicht hinterlegt („No API key given“). Priorität B: Produkt „Arzt- & Begutachtungs-Begleiter Demenz“ gebaut (8 Seiten, 238 Felder, Layout geprüft), Texte + Preis 9,90 € + Bundle-Preis 14,90 € + Vorschaubilder. Neue Idee: Lebensbuch/Biografiebogen (Weihnachtsgeschenk). Hinweis: Ohne API-Schlüssel muss Ilona die Produkte selbst in Digistore24 anlegen (Texte zum Kopieren liegen bereit) – oder den Schlüssel hinterlegen, dann übernimmt der Agent.
+- 2026-10-10: API-Schlüssel weiterhin nicht hinterlegt. Priorität B: Produkt „Mein Lebensbuch“ (Idee vom 09.10.) gebaut: 10 Seiten, 122 Felder, 12 Fotofelder, Layout geprüft; Texte, Preis 12,90 €, Paket „HerzGedanken Komplett“ 24,90 €, Vorschaubilder. Neue Idee: Advents-Kalender für pflegende Angehörige (Saison). Damit liegen 3 fertige Produkte zum Anlegen bereit. Keine neue Push-Frage (Frage zum API-Schlüssel vom 09.10. ist noch offen).
