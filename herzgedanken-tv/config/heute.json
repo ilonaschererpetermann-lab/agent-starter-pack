@@ -1,9 +1,9 @@
 {
-  "stand": "2026-10-09",
+  "stand": "2026-10-10",
   "hinweis": "Wird jeden Morgen automatisch vom Agenten „Studio-Regie“ neu geschrieben. Laufband und Einspieler lesen diese Datei alle 10 Minuten.",
   "laufband": [
-    "Freitag! Das Wochenende winkt schon – schön, dass du da bist 🧡",
-    "Spiel mit: „dabei“ schreiben, dann „w“ zum Würfeln – wer holt die Krone? 👑",
+    "Samstag! Heute ist Welttag der psychischen Gesundheit – pass gut auf dich auf 🧡",
+    "Spiel mit: „dabei“ schreiben, dann „w“ zum Würfeln – Herz-Leiter am Abend 🎲",
     "Rose = „Wie bitte?!“ · Fingerherz = Hupe · Donut = Applaus",
     "Galaxie = Fanfare + Konfetti · 1000 Likes = Herzschlag 💓",
     "Schreib „!“ vor deinen Kommentar – dann wird er vorgelesen",
@@ -13,15 +13,15 @@
     "Der Demenz-Alltagsretter: 12 Vorlagen für leichtere Tage – Link im Profil"
   ],
   "einspieler": [
-    "Freitags-Feeling: Was hast du diese Woche geschafft?",
-    "Herz-Leiter-Freitag: Großes Wochenfinale am Abend",
-    "Ehrlich gesagt: Kleine Schritte sind auch Schritte",
-    "Wochenend-Pläne? Erzähl's uns im Chat",
+    "Welttag der psychischen Gesundheit: Wie geht's dir wirklich?",
+    "Samstags-Talk: Was gibt dir Kraft?",
+    "Ehrlich gesagt: Hilfe annehmen ist stark",
+    "Herz-Leiter am Samstagabend – würfel mit!",
     "Live bei HerzGedanken – gestört, geil und ganz ehrlich"
   ],
   "programm": {
-    "morgen": "Kaffee-Talk: Wochenrückblick – was lief gut, was war schwer?",
-    "mittag": "Freitags-Mittag mit Gute-Laune-Musik und Wunschliedern.",
-    "abend": "Wochenfinale: Herz-Leiter-Turnier mit Krönung der Wochensiegerin oder des Wochensiegers."
+    "morgen": "Samstags-Kaffee: Welttag der psychischen Gesundheit – was gibt uns Kraft?",
+    "mittag": "Wochenend-Mittag: Lieblingsorte und kleine Auszeiten.",
+    "abend": "Samstagabend-Spiel: Herz-Leiter mit Stör-Aktionen und Danke-Runde."
   }
 }
