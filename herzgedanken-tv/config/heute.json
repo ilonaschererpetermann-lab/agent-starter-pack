@@ -1,8 +1,8 @@
 {
-  "stand": "2026-10-10",
+  "stand": "2026-10-11",
   "hinweis": "Wird jeden Morgen automatisch vom Agenten „Studio-Regie“ neu geschrieben. Laufband und Einspieler lesen diese Datei alle 10 Minuten.",
   "laufband": [
-    "Samstag! Heute ist Welttag der psychischen Gesundheit – pass gut auf dich auf 🧡",
+    "Sonntag! Zeit für Erinnerungen, Kaffee und Kuchen – schön, dass du da bist 🧡",
     "Spiel mit: „dabei“ schreiben, dann „w“ zum Würfeln – Herz-Leiter am Abend 🎲",
     "Rose = „Wie bitte?!“ · Fingerherz = Hupe · Donut = Applaus",
     "Galaxie = Fanfare + Konfetti · 1000 Likes = Herzschlag 💓",
@@ -13,15 +13,15 @@
     "Der Demenz-Alltagsretter: 12 Vorlagen für leichtere Tage – Link im Profil"
   ],
   "einspieler": [
-    "Welttag der psychischen Gesundheit: Wie geht's dir wirklich?",
-    "Samstags-Talk: Was gibt dir Kraft?",
-    "Ehrlich gesagt: Hilfe annehmen ist stark",
-    "Herz-Leiter am Samstagabend – würfel mit!",
+    "Sonntags-Erinnerungen: Was war früher dein Sonntag?",
+    "Kaffee, Kuchen, Geschichten – erzähl mit!",
+    "Ehrlich gesagt: Erinnerungen sind ein Schatz",
+    "Herz-Leiter am Sonntagabend – würfel mit!",
     "Live bei HerzGedanken – gestört, geil und ganz ehrlich"
   ],
   "programm": {
-    "morgen": "Samstags-Kaffee: Welttag der psychischen Gesundheit – was gibt uns Kraft?",
-    "mittag": "Wochenend-Mittag: Lieblingsorte und kleine Auszeiten.",
-    "abend": "Samstagabend-Spiel: Herz-Leiter mit Stör-Aktionen und Danke-Runde."
+    "morgen": "Sonntags-Kaffee: Wie sah der Sonntag früher aus? Erinnerungen aus dem Chat.",
+    "mittag": "Sonntagsessen: Omas Rezepte und Lieblingsgerichte.",
+    "abend": "Sonntagabend-Spiel: Herz-Leiter, Stör-Aktionen und Wochenausblick."
   }
 }
