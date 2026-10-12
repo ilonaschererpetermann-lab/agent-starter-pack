@@ -16,6 +16,7 @@ veröffentlicht nichts ohne Freigabe von Ilona. Freigaben werden als Ja/Nein-Fra
 | 8 | **Mein Lebensbuch** (Biografiebogen, PDF, 10 Seiten, 122 Felder + 12 Fotofelder), `einnahmen/produkte/lebensbuch/` | fertig, Texte liegen bereit | in Digistore24 anlegen (12,90 €; Paket „HerzGedanken Komplett“ mit Notfallmappe + Arzt-Begleiter 24,90 €) |
 | 9 | **Advents-Kalender für pflegende Angehörige** (PDF, 9 Seiten, 24 Impulse, ausfüllbar), `einnahmen/produkte/adventskalender/` | fertig, Texte liegen bereit | in Digistore24 anlegen (7,90 €, Verkauf ab ca. 1. November) |
 | 10 | **Digistore24-Partnerprogramm für eigene Produkte** (Idee 2026-10-11: andere Pflege-/Demenz-Accounts, Pflegeberaterinnen und Blogs empfehlen Ilonas PDFs gegen Provision, z. B. 30 %; Digistore24 hat das eingebaut, kostet nichts, Provision nur bei Verkauf; Aufwand gering: Provision im Produkt einstellen + kurze Partner-Infoseite; Nutzen hoch: Reichweite außerhalb von TikTok) | Idee | Freigabe |
+| 11 | **Hörfassung Advents-Kalender** (Idee 2026-10-12: Ilona liest die 24 Impulse ein, MP3-Paket 4,90 € oder im Bundle; Aufwand mittel – ca. 1 Std. Aufnahme, Schnitt macht der Agent; Nutzen mittel, persönliche Stimme) | Idee | Freigabe + Aufnahme |
 | 4 | Digistore24-Affiliate: passende Fremdprodukte für pflegende Angehörige empfehlen | Recherche | Freigabe je Produkt |
 
 ## Nächste Schritte (der Agent arbeitet sie der Reihe nach ab)
@@ -30,7 +31,9 @@ C. Streamer-Paket nur als White-Label-Version (eigener Name/Logo per Parameter)
 2. Verkaufstexte für Digistore24: Titel, Kurzbeschreibung, Langbeschreibung, Preisvorschlag, Bilder.
 3. Verkaufsseite (HTML) für das Streamer-Paket auf GitHub Pages.
 4. Laufband-Werbung für jedes Produkt mit Link einbauen, sobald Links vorliegen.
-5. Wöchentlich: was hat funktioniert, was nicht, nächste Idee.
+5. Wöchentlich: was hat funktioniert, was nicht, nächste Idee (`WOCHE-JJJJ-KW.md`).
+
+**Stand KW 42:** Bauen pausiert, Verkaufen hat Vorrang. Plan B ohne API: `SELBST-ANLEGEN.md`. Advents-Kalender zuerst (Frist Ende Oktober).
 
 ## Generalfreigabe
 
@@ -58,3 +61,4 @@ C. Streamer-Paket nur als White-Label-Version (eigener Name/Logo per Parameter)
 - 2026-10-09: API-Schlüssel weiterhin nicht hinterlegt („No API key given“). Priorität B: Produkt „Arzt- & Begutachtungs-Begleiter Demenz“ gebaut (8 Seiten, 238 Felder, Layout geprüft), Texte + Preis 9,90 € + Bundle-Preis 14,90 € + Vorschaubilder. Neue Idee: Lebensbuch/Biografiebogen (Weihnachtsgeschenk). Hinweis: Ohne API-Schlüssel muss Ilona die Produkte selbst in Digistore24 anlegen (Texte zum Kopieren liegen bereit) – oder den Schlüssel hinterlegen, dann übernimmt der Agent.
 - 2026-10-10: API-Schlüssel weiterhin nicht hinterlegt. Priorität B: Produkt „Mein Lebensbuch“ (Idee vom 09.10.) gebaut: 10 Seiten, 122 Felder, 12 Fotofelder, Layout geprüft; Texte, Preis 12,90 €, Paket „HerzGedanken Komplett“ 24,90 €, Vorschaubilder. Neue Idee: Advents-Kalender für pflegende Angehörige (Saison). Damit liegen 3 fertige Produkte zum Anlegen bereit. Keine neue Push-Frage (Frage zum API-Schlüssel vom 09.10. ist noch offen).
 - 2026-10-11: API-Schlüssel weiterhin nicht hinterlegt. Produkt „Advents-Kalender für pflegende Angehörige“ (Idee vom 10.10., saisonal) gebaut: 9 Seiten, 24 Impulse, 52 Felder, Layout geprüft; Texte, Preis 7,90 €, Vorschaubilder. Neue Idee: Digistore24-Partnerprogramm für die eigenen PDFs. Jetzt 4 fertige Produkte bereit. Keine neue Push-Frage (Frage zum API-Schlüssel vom 09.10. weiter offen).
+- 2026-10-12: API-Schlüssel weiterhin nicht hinterlegt. Wochenrückblick KW 41 geschrieben (Umsatz 0 €, 4 Produkte fertig, Engpass = Anlegen in Digistore24). Entscheidung: keine neuen Produkte bis zum ersten Verkauf. Plan B `SELBST-ANLEGEN.md` erstellt. Neue Idee: Hörfassung des Advents-Kalenders. Push-Frage: Plan B ja/nein.
