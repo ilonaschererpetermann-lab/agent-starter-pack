@@ -1,27 +1,27 @@
 {
-  "stand": "2026-10-12",
+  "stand": "2026-10-13",
   "hinweis": "Wird jeden Morgen automatisch vom Agenten „Studio-Regie“ neu geschrieben. Laufband und Einspieler lesen diese Datei alle 10 Minuten.",
   "laufband": [
-    "Montag! Neue Woche, neues Glück – schön, dass du da bist 🧡",
-    "Neue Herz-Leiter-Woche: „dabei“ schreiben, dann „w“ zum Würfeln 🎲",
+    "Dienstag ist Fragetag: Frag mich alles über Demenz – ehrlich und ohne Filter 🧡",
+    "Schreib „?“ vor deine Frage – dann landet sie auf meiner Liste",
+    "Herz-Leiter am Abend: „dabei“ schreiben, dann „w“ zum Würfeln 🎲",
     "Rose = „Wie bitte?!“ · Fingerherz = Hupe · Donut = Applaus",
     "Galaxie = Fanfare + Konfetti · 1000 Likes = Herzschlag 💓",
-    "Schreib „!“ vor deinen Kommentar – dann wird er vorgelesen",
     "Folge dem Kanal – so verpasst du keine Show 🦁"
   ],
   "werbung": [
     "Der Demenz-Alltagsretter: 12 Vorlagen für leichtere Tage – Link im Profil"
   ],
   "einspieler": [
-    "Montags-Start: Was nimmst du dir diese Woche vor?",
-    "Neue Woche, neue Herz-Leiter-Runde – würfel mit!",
-    "Ehrlich gesagt: Montag darf auch langsam sein",
-    "Ein kleines Ziel für diese Woche? Schreib's in den Chat",
+    "Fragetag: Frag mich alles über Demenz",
+    "Keine Frage ist zu doof – ehrlich versprochen",
+    "Ehrlich gesagt: Lachen hilft auch mit Demenz",
+    "Herz-Leiter am Dienstagabend – würfel mit!",
     "Live bei HerzGedanken – gestört, geil und ganz ehrlich"
   ],
   "programm": {
-    "morgen": "Montags-Kaffee: Wochenstart ohne Druck – ein kleines Ziel für jede und jeden.",
-    "mittag": "Mittagspause: Alltagstricks, die das Leben leichter machen – aus dem Chat für den Chat.",
-    "abend": "Herz-Leiter-Wochenauftakt: erste Runde der neuen Woche mit Stör-Aktionen."
+    "morgen": "Fragetag am Morgen: Frag mich alles über Demenz und PCA – ehrlich beantwortet.",
+    "mittag": "Mittags-Fragerunde für Angehörige: Was hilft im Alltag wirklich?",
+    "abend": "Herz-Leiter am Dienstagabend mit Stör-Aktionen – Punkte für das Freitagsfinale."
   }
 }
