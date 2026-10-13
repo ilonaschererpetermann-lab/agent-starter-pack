@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HerzGedanken Shop – Hilfen für den Alltag mit Demenz</title>
+<meta name="description" content="Ausfüllbare PDF-Hilfen für Menschen mit Demenz und ihre Angehörigen – von Ilona, selbst betroffen. Ehrlich. Menschlich. Ohne Filter.">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  /*
+    Verkaufsseite (Entwurf). Kauf-Links werden unten in LINKS eingetragen, sobald die Produkte in Digistore24 freigeschaltet sind.
+    Ohne Link zeigt der Knopf „Bald erhältlich“. Erst nach Ilonas Freigabe auf gh-pages veröffentlichen.
+  */
+  :root { --petrol:#0F233D; --nacht:#071322; --gold:#D4AF37; --beige:#F3E5AB; --creme:#FBF8EF; --text:#1d2533; --grau:#4A5568; --pink:#FF4D8D; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--creme); line-height: 1.55; }
+  header { background: var(--petrol); color: #fff; text-align: center; padding: 56px 16px 48px; border-bottom: 4px solid var(--gold); }
+  header .logo { font-family: 'Great Vibes', cursive; font-size: 54px; color: #FFE3C8; line-height: 1; }
+  header h1 { font-size: clamp(24px, 5vw, 38px); font-weight: 800; margin: 14px 0 10px; }
+  header p { color: var(--beige); max-width: 640px; margin: 0 auto; }
+  .claim { margin-top: 18px; letter-spacing: 4px; font-size: 13px; color: var(--gold); font-weight: 600; }
+  main { max-width: 1080px; margin: 0 auto; padding: 40px 16px 56px; }
+  .ich { background: #fff; border-left: 4px solid var(--gold); padding: 20px 22px; border-radius: 8px; margin-bottom: 40px; }
+  .ich b { color: var(--petrol); }
+  h2 { color: var(--petrol); font-size: 26px; margin-bottom: 18px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; }
+  .karte { background: #fff; border: 1px solid #e6dcc0; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+  .karte img { width: 100%; aspect-ratio: 210/297; object-fit: cover; object-position: top; background: var(--petrol); }
+  .inhalt { padding: 16px 18px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .karte h3 { color: var(--petrol); font-size: 18px; }
+  .karte p { font-size: 14px; color: var(--grau); flex: 1; }
+  .preis { font-size: 22px; font-weight: 800; color: var(--petrol); }
+  .knopf { display: block; text-align: center; padding: 12px; border-radius: 8px; background: var(--pink); color: #fff; font-weight: 800; text-decoration: none; }
+  .knopf.aus { background: #c9c3b3; pointer-events: none; }
+  .paket { margin-top: 34px; background: var(--petrol); color: #fff; border-radius: 12px; padding: 26px 22px; display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between; }
+  .paket h3 { color: var(--gold); font-size: 22px; }
+  .paket p { color: var(--beige); font-size: 14px; max-width: 560px; }
+  .paket .preis { color: #fff; }
+  .paket s { color: var(--beige); font-weight: 400; font-size: 16px; margin-left: 6px; }
+  .paket .knopf { min-width: 200px; }
+  footer { text-align: center; font-size: 12.5px; color: var(--grau); padding: 26px 16px 40px; border-top: 1px solid #e6dcc0; }
+  footer p + p { margin-top: 6px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">HerzGedanken</div>
+  <h1>Hilfen für den Alltag mit Demenz</h1>
+  <p>Ausfüllbare Vorlagen für Betroffene und Angehörige – am PC oder von Hand. Gemacht von jemandem, der weiß, wie es sich anfühlt.</p>
+  <div class="claim">EHRLICH · MENSCHLICH · OHNE FILTER</div>
+</header>
+<main>
+  <div class="ich"><b>Ich bin Ilona</b> und lebe selbst mit Demenz. Auf TikTok erzähle ich davon – ehrlich, mit Humor und ohne Filter.
+    Diese Vorlagen sind das, was ich mir selbst gewünscht hätte: klar, groß geschrieben, ohne Fachchinesisch.</div>
+
+  <h2>Die Vorlagen</h2>
+  <div class="grid" id="grid"></div>
+
+  <div class="paket">
+    <div>
+      <h3>Paket „HerzGedanken Komplett“</h3>
+      <p>Notfallmappe + Arzt-Begleiter + Lebensbuch – alles im gleichen Stil, alles griffbereit.</p>
+    </div>
+    <div>
+      <div class="preis">24,90 €<s>32,70 €</s></div>
+      <a class="knopf" data-produkt="paket" href="#">Zum Paket</a>
+    </div>
+  </div>
+</main>
+<footer>
+  <p>Digitale Produkte (PDF-Download). Kauf und Auslieferung über Digistore24.</p>
+  <p>Die Vorlagen ersetzen keine ärztliche, pflegerische, psychologische oder rechtliche Beratung.</p>
+  <p>HerzGedanken MediaGroup · <a href="#" id="impressum">Impressum</a> · <a href="#" id="datenschutz">Datenschutz</a></p>
+</footer>
+<script>
+// Kauf-Links aus Digistore24 hier eintragen (leer = „Bald erhältlich“)
+const LINKS = { advent: '', notfall: '', lebensbuch: '', arzt: '', paket: '' };
+const PRODUKTE = [
+  { id: 'notfall', titel: 'Notfallmappe Demenz', preis: '9,90 €', bild: '../produkte/notfallmappe/vorschau-deckblatt.png',
+    text: 'Kontakte, Medikamente, Ärzte, Vermisstenbogen und Dokumente – alles Wichtige auf 8 Seiten für den Ernstfall.' },
+  { id: 'arzt', titel: 'Arzt- & Begutachtungs-Begleiter', preis: '9,90 €', bild: '../produkte/arztbegleiter/vorschau-deckblatt.png',
+    text: 'Gut vorbereitet zum Arzt und zur Pflegegrad-Begutachtung: Beobachtungstagebuch, Fragen, Ergebnisse.' },
+  { id: 'lebensbuch', titel: 'Mein Lebensbuch', preis: '12,90 €', bild: '../produkte/lebensbuch/vorschau-deckblatt.png',
+    text: 'Erinnerungen festhalten: Kindheit, Liebe, Arbeit, Lieblingsdinge und 12 Fotofelder – mit Kurzfassung für die Pflege.' },
+  { id: 'advent', titel: 'Advents-Kalender für Angehörige', preis: '7,90 €', bild: '../produkte/adventskalender/vorschau-deckblatt.png',
+    text: '24 kleine Momente nur für dich – machbare Impulse zur Selbstfürsorge für alle, die pflegen.' },
+];
+const grid = document.getElementById('grid');
+for (const p of PRODUKTE) {
+  const el = document.createElement('div'); el.className = 'karte';
+  el.innerHTML = `<img alt="" loading="lazy"><div class="inhalt"><h3></h3><p></p><div class="preis"></div><a class="knopf" data-produkt="${p.id}" href="#"></a></div>`;
+  el.querySelector('img').src = p.bild; el.querySelector('img').alt = p.titel;
+  el.querySelector('h3').textContent = p.titel; el.querySelector('p').textContent = p.text; el.querySelector('.preis').textContent = p.preis;
+  grid.appendChild(el);
+}
+document.querySelectorAll('[data-produkt]').forEach(a => {
+  const link = LINKS[a.dataset.produkt];
+  if (link) { a.href = link; a.textContent = a.textContent || 'Jetzt herunterladen'; a.rel = 'noopener'; }
+  else { a.classList.add('aus'); a.textContent = 'Bald erhältlich'; a.removeAttribute('href'); }
+});
+</script>
+</body>
+</html>
