@@ -1,9 +1,9 @@
 {
-  "stand": "2026-10-13",
+  "stand": "2026-10-14",
   "hinweis": "Wird jeden Morgen automatisch vom Agenten „Studio-Regie“ neu geschrieben. Laufband und Einspieler lesen diese Datei alle 10 Minuten.",
   "laufband": [
-    "Dienstag ist Fragetag: Frag mich alles über Demenz – ehrlich und ohne Filter 🧡",
-    "Schreib deine Frage in den Chat – oder mit „!“ davor, dann wird sie vorgelesen",
+    "Mittwoch = Bergfest! Die halbe Woche ist geschafft 🧡",
+    "Heute ist Musik-Mittwoch: Schreib „!“ und deinen Liedwunsch – er wird vorgelesen 🎶",
     "Herz-Leiter am Abend: „dabei“ schreiben, dann „w“ zum Würfeln 🎲",
     "Rose = „Wie bitte?!“ · Fingerherz = Hupe · Donut = Applaus",
     "Galaxie = Fanfare + Konfetti · 1000 Likes = Herzschlag 💓",
@@ -13,15 +13,15 @@
     "Der Demenz-Alltagsretter: 12 Vorlagen für leichtere Tage – Link im Profil"
   ],
   "einspieler": [
-    "Fragetag: Frag mich alles über Demenz",
-    "Keine Frage ist zu doof – ehrlich versprochen",
-    "Ehrlich gesagt: Lachen hilft auch mit Demenz",
-    "Herz-Leiter am Dienstagabend – würfel mit!",
+    "Bergfest! Die halbe Woche ist geschafft",
+    "Musik-Mittwoch: Welches Lied trägt dich durch den Tag?",
+    "Ehrlich gesagt: Musik kennt man oft noch am längsten",
+    "Herz-Leiter am Mittwochabend – würfel mit!",
     "Live bei HerzGedanken – gestört, geil und ganz ehrlich"
   ],
   "programm": {
-    "morgen": "Fragetag am Morgen: Frag mich alles über Demenz und PCA – ehrlich beantwortet.",
-    "mittag": "Mittags-Fragerunde für Angehörige: Was hilft im Alltag wirklich?",
-    "abend": "Herz-Leiter am Dienstagabend mit Stör-Aktionen – Punkte für das Freitagsfinale."
+    "morgen": "Musik-Mittwoch: Lieder, die Erinnerungen wecken – eure Wünsche aus dem Chat.",
+    "mittag": "Bergfest-Mittag: Was lief diese Woche schon gut? Halbzeit-Check der Wochenziele.",
+    "abend": "Herz-Leiter am Mittwochabend mit Stör-Aktionen – Punkte für das Freitagsfinale."
   }
 }
