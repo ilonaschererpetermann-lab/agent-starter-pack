@@ -1,9 +1,9 @@
 {
-  "stand": "2026-10-14",
+  "stand": "2026-10-15",
   "hinweis": "Wird jeden Morgen automatisch vom Agenten „Studio-Regie“ neu geschrieben. Laufband und Einspieler lesen diese Datei alle 10 Minuten.",
   "laufband": [
-    "Mittwoch = Bergfest! Die halbe Woche ist geschafft 🧡",
-    "Heute ist Musik-Mittwoch: Schreib „!“ und deinen Liedwunsch – er wird vorgelesen 🎶",
+    "Donnerstag ist Pannen-Tag: Erzähl uns deine lustigste Alltags-Panne 😂",
+    "Schreib „!“ vor deine Panne – dann wird sie vorgelesen",
     "Herz-Leiter am Abend: „dabei“ schreiben, dann „w“ zum Würfeln 🎲",
     "Rose = „Wie bitte?!“ · Fingerherz = Hupe · Donut = Applaus",
     "Galaxie = Fanfare + Konfetti · 1000 Likes = Herzschlag 💓",
@@ -13,15 +13,15 @@
     "Der Demenz-Alltagsretter: 12 Vorlagen für leichtere Tage – Link im Profil"
   ],
   "einspieler": [
-    "Bergfest! Die halbe Woche ist geschafft",
-    "Musik-Mittwoch: Welches Lied trägt dich durch den Tag?",
-    "Ehrlich gesagt: Musik kennt man oft noch am längsten",
-    "Herz-Leiter am Mittwochabend – würfel mit!",
+    "Pannen-Donnerstag: Lachen statt schämen",
+    "Brille im Kühlschrank? Erzähl's uns!",
+    "Ehrlich gesagt: Wer lacht, hat mehr vom Tag",
+    "Herz-Leiter am Donnerstagabend – würfel mit!",
     "Live bei HerzGedanken – gestört, geil und ganz ehrlich"
   ],
   "programm": {
-    "morgen": "Musik-Mittwoch: Lieder, die Erinnerungen wecken – eure Wünsche aus dem Chat.",
-    "mittag": "Bergfest-Mittag: Was lief diese Woche schon gut? Halbzeit-Check der Wochenziele.",
-    "abend": "Herz-Leiter am Mittwochabend mit Stör-Aktionen – Punkte für das Freitagsfinale."
+    "morgen": "Pannen-Donnerstag: Die lustigsten Alltags-Pannen aus dem Chat – lachen statt schämen.",
+    "mittag": "Mittags-Talk: Wie geht man mit peinlichen Momenten um? Tipps aus dem Chat.",
+    "abend": "Herz-Leiter am Donnerstagabend – letzte Chance auf Punkte vor dem Freitagsfinale."
   }
 }
