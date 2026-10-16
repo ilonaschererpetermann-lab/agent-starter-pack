@@ -1,27 +1,27 @@
 {
-  "stand": "2026-10-15",
+  "stand": "2026-10-16",
   "hinweis": "Wird jeden Morgen automatisch vom Agenten „Studio-Regie“ neu geschrieben. Laufband und Einspieler lesen diese Datei alle 10 Minuten.",
   "laufband": [
-    "Donnerstag ist Pannen-Tag: Erzähl uns deine lustigste Alltags-Panne 😂",
-    "Schreib „!“ vor deine Panne – dann wird sie vorgelesen",
-    "Herz-Leiter am Abend: „dabei“ schreiben, dann „w“ zum Würfeln 🎲",
+    "Freitag! Heute Abend wird gekrönt: Herz-Leiter-Wochenfinale um 19:30 👑",
+    "Spiel mit: „dabei“ schreiben, dann „w“ zum Würfeln 🎲",
     "Rose = „Wie bitte?!“ · Fingerherz = Hupe · Donut = Applaus",
     "Galaxie = Fanfare + Konfetti · 1000 Likes = Herzschlag 💓",
+    "Schreib „!“ vor deinen Kommentar – dann wird er vorgelesen",
     "Folge dem Kanal – so verpasst du keine Show 🦁"
   ],
   "werbung": [
     "Der Demenz-Alltagsretter: 12 Vorlagen für leichtere Tage – Link im Profil"
   ],
   "einspieler": [
-    "Pannen-Donnerstag: Lachen statt schämen",
-    "Brille im Kühlschrank? Erzähl's uns!",
-    "Ehrlich gesagt: Wer lacht, hat mehr vom Tag",
-    "Herz-Leiter am Donnerstagabend – würfel mit!",
+    "Freitag: Hast du dein Wochenziel geschafft?",
+    "Heute Abend: Herz-Leiter-Wochenfinale",
+    "Ehrlich gesagt: Auch halb geschafft ist geschafft",
+    "Wer holt sich heute die Krone?",
     "Live bei HerzGedanken – gestört, geil und ganz ehrlich"
   ],
   "programm": {
-    "morgen": "Pannen-Donnerstag: Die lustigsten Alltags-Pannen aus dem Chat – lachen statt schämen.",
-    "mittag": "Mittags-Talk: Wie geht man mit peinlichen Momenten um? Tipps aus dem Chat.",
-    "abend": "Herz-Leiter am Donnerstagabend – letzte Chance auf Punkte vor dem Freitagsfinale."
+    "morgen": "Freitags-Kaffee: Wochenziele vom Montag – was hat geklappt, was nicht? Ehrlich und ohne Druck.",
+    "mittag": "Freitags-Mittag: Gute-Laune-Musik und Wochenendpläne.",
+    "abend": "Wochenfinale: Herz-Leiter-Turnier mit Krönung der Wochensiegerin oder des Wochensiegers."
   }
 }
