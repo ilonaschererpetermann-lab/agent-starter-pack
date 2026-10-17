@@ -1,9 +1,9 @@
 {
-  "stand": "2026-10-16",
+  "stand": "2026-10-17",
   "hinweis": "Wird jeden Morgen automatisch vom Agenten „Studio-Regie“ neu geschrieben. Laufband und Einspieler lesen diese Datei alle 10 Minuten.",
   "laufband": [
-    "Freitag! Heute Abend wird gekrönt: Herz-Leiter-Wochenfinale um 19:30 👑",
-    "Spiel mit: „dabei“ schreiben, dann „w“ zum Würfeln 🎲",
+    "Herbst-Samstag! Laub, Kastanien, warme Socken – schön, dass du da bist 🍂",
+    "Neue Herz-Leiter-Woche startet heute Abend: „dabei“ schreiben, dann „w“ 🎲",
     "Rose = „Wie bitte?!“ · Fingerherz = Hupe · Donut = Applaus",
     "Galaxie = Fanfare + Konfetti · 1000 Likes = Herzschlag 💓",
     "Schreib „!“ vor deinen Kommentar – dann wird er vorgelesen",
@@ -13,15 +13,15 @@
     "Der Demenz-Alltagsretter: 12 Vorlagen für leichtere Tage – Link im Profil"
   ],
   "einspieler": [
-    "Freitag: Hast du dein Wochenziel geschafft?",
-    "Heute Abend: Herz-Leiter-Wochenfinale",
-    "Ehrlich gesagt: Auch halb geschafft ist geschafft",
-    "Wer holt sich heute die Krone?",
+    "Herbst-Samstag: Was liebst du an dieser Jahreszeit?",
+    "Kastanien sammeln oder Sofa? Erzähl's uns!",
+    "Ehrlich gesagt: Langsam ist auch ein Tempo",
+    "Herz-Leiter am Samstagabend – würfel mit!",
     "Live bei HerzGedanken – gestört, geil und ganz ehrlich"
   ],
   "programm": {
-    "morgen": "Freitags-Kaffee: Wochenziele vom Montag – was hat geklappt, was nicht? Ehrlich und ohne Druck.",
-    "mittag": "Freitags-Mittag: Gute-Laune-Musik und Wochenendpläne.",
-    "abend": "Wochenfinale: Herz-Leiter-Turnier mit Krönung der Wochensiegerin oder des Wochensiegers."
+    "morgen": "Herbst-Kaffee: Was liebst du am Herbst? Erinnerungen an Laub, Kastanien und Drachensteigen.",
+    "mittag": "Herbst-Mittag: Kürbissuppe, Zwiebelkuchen und eure Lieblingsrezepte.",
+    "abend": "Samstagabend-Spiel: Herz-Leiter, Auftakt der neuen Wochenwertung."
   }
 }
