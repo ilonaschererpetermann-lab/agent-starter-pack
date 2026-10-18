@@ -1,9 +1,9 @@
 {
-  "stand": "2026-10-17",
+  "stand": "2026-10-18",
   "hinweis": "Wird jeden Morgen automatisch vom Agenten „Studio-Regie“ neu geschrieben. Laufband und Einspieler lesen diese Datei alle 10 Minuten.",
   "laufband": [
-    "Herbst-Samstag! Laub, Kastanien, warme Socken – schön, dass du da bist 🍂",
-    "Neue Herz-Leiter-Woche startet heute Abend: „dabei“ schreiben, dann „w“ 🎲",
+    "Sonntag der Lieblingsmenschen: Wer tut dir gut? Erzähl's uns 🧡",
+    "Herz-Leiter am Abend: „dabei“ schreiben, dann „w“ zum Würfeln 🎲",
     "Rose = „Wie bitte?!“ · Fingerherz = Hupe · Donut = Applaus",
     "Galaxie = Fanfare + Konfetti · 1000 Likes = Herzschlag 💓",
     "Schreib „!“ vor deinen Kommentar – dann wird er vorgelesen",
@@ -13,15 +13,15 @@
     "Der Demenz-Alltagsretter: 12 Vorlagen für leichtere Tage – Link im Profil"
   ],
   "einspieler": [
-    "Herbst-Samstag: Was liebst du an dieser Jahreszeit?",
-    "Kastanien sammeln oder Sofa? Erzähl's uns!",
-    "Ehrlich gesagt: Langsam ist auch ein Tempo",
-    "Herz-Leiter am Samstagabend – würfel mit!",
+    "Sonntag der Lieblingsmenschen: Wer tut dir gut?",
+    "Danke sagen kostet nichts – wem sagst du's heute?",
+    "Ehrlich gesagt: Allein muss das keiner schaffen",
+    "Herz-Leiter am Sonntagabend – würfel mit!",
     "Live bei HerzGedanken – gestört, geil und ganz ehrlich"
   ],
   "programm": {
-    "morgen": "Herbst-Kaffee: Was liebst du am Herbst? Erinnerungen an Laub, Kastanien und Drachensteigen.",
-    "mittag": "Herbst-Mittag: Kürbissuppe, Zwiebelkuchen und eure Lieblingsrezepte.",
-    "abend": "Samstagabend-Spiel: Herz-Leiter, Auftakt der neuen Wochenwertung."
+    "morgen": "Sonntags-Kaffee: Lieblingsmenschen – wer tut dir gut, wem willst du Danke sagen?",
+    "mittag": "Sonntags-Mittag: Familienrezepte und Tischgeschichten.",
+    "abend": "Herz-Leiter am Sonntagabend mit Stör-Aktionen und Wochenausblick."
   }
 }
