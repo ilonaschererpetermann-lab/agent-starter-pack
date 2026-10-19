@@ -1,8 +1,8 @@
 {
-  "stand": "2026-10-18",
+  "stand": "2026-10-19",
   "hinweis": "Wird jeden Morgen automatisch vom Agenten „Studio-Regie“ neu geschrieben. Laufband und Einspieler lesen diese Datei alle 10 Minuten.",
   "laufband": [
-    "Sonntag der Lieblingsmenschen: Wer tut dir gut? Erzähl's uns 🧡",
+    "Mut-Montag! Was traust du dich diese Woche? 💪🧡",
     "Herz-Leiter am Abend: „dabei“ schreiben, dann „w“ zum Würfeln 🎲",
     "Rose = „Wie bitte?!“ · Fingerherz = Hupe · Donut = Applaus",
     "Galaxie = Fanfare + Konfetti · 1000 Likes = Herzschlag 💓",
@@ -13,15 +13,15 @@
     "Der Demenz-Alltagsretter: 12 Vorlagen für leichtere Tage – Link im Profil"
   ],
   "einspieler": [
-    "Sonntag der Lieblingsmenschen: Wer tut dir gut?",
-    "Danke sagen kostet nichts – wem sagst du's heute?",
-    "Ehrlich gesagt: Allein muss das keiner schaffen",
-    "Herz-Leiter am Sonntagabend – würfel mit!",
+    "Mut-Montag: Was traust du dich diese Woche?",
+    "Kleiner Mut zählt auch – erzähl's uns!",
+    "Ehrlich gesagt: Mut heißt nicht, keine Angst zu haben",
+    "Herz-Leiter am Montagabend – würfel mit!",
     "Live bei HerzGedanken – gestört, geil und ganz ehrlich"
   ],
   "programm": {
-    "morgen": "Sonntags-Kaffee: Lieblingsmenschen – wer tut dir gut, wem willst du Danke sagen?",
-    "mittag": "Sonntags-Mittag: Familienrezepte und Tischgeschichten.",
-    "abend": "Herz-Leiter am Sonntagabend mit Stör-Aktionen und Wochenausblick."
+    "morgen": "Mut-Montag: Was traust du dich diese Woche? Kleine mutige Schritte aus dem Chat.",
+    "mittag": "Mittagspause: Wie spricht man über Demenz, ohne dass es peinlich wird?",
+    "abend": "Herz-Leiter am Montagabend – Punkte sammeln fürs Freitagsfinale."
   }
 }
