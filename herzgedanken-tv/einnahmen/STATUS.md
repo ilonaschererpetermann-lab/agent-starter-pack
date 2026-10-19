@@ -38,6 +38,7 @@ C. Streamer-Paket nur als White-Label-Version (eigener Name/Logo per Parameter)
 4. Laufband-Werbung für jedes Produkt mit Link einbauen, sobald Links vorliegen.
 5. Wöchentlich: was hat funktioniert, was nicht, nächste Idee (`WOCHE-JJJJ-KW.md`).
 
+**Stand KW 43:** Wochenrückblick `WOCHE-2026-42.md`. Weiter Wartemodus, eine Erinnerung pro Woche.
 **Stand KW 42:** Bauen pausiert, Verkaufen hat Vorrang. Plan B ohne API: `SELBST-ANLEGEN.md`. Advents-Kalender zuerst (Frist Ende Oktober).
 Spickzettel fürs ehrliche Verkaufen im Live: `LIVE-VERKAUF.md`.
 Verkaufsseite-Entwurf: `verkaufsseite/index.html` (alle 4 Produkte + Paket, Knöpfe „Bald erhältlich“ bis Links da sind). **Vor Veröffentlichung nötig:** Kauf-Links, Impressum- und Datenschutz-Link (Pflicht in Deutschland), Ilonas Freigabe.
@@ -75,3 +76,4 @@ Verkaufsseite-Entwurf: `verkaufsseite/index.html` (alle 4 Produkte + Paket, Knö
 - 2026-10-16: API-Schlüssel weiterhin nicht hinterlegt. Gratis-Notfallkarte gebaut (Scheckkartenformat, Vorder-/Rückseite, ausfüllbar, Layout geprüft) – Einstieg für die Notfallmappe, Verschenken nur nach Freigabe. Erinnerung an Ilona zur Frist Advents-Kalender (Ende Oktober) per Push.
 - 2026-10-17: API-Schlüssel weiterhin nicht hinterlegt, keine Antwort auf die Erinnerung vom 16.10. Bewusst kein neues Material gebaut (6 fertige Bausteine liegen bereit, Engpass bleibt das Anlegen). Neue Idee: Lebensbuch als Print-on-Demand-Buch. Keine Push-Frage (Erinnerung von gestern noch offen).
 - 2026-10-18: API-Schlüssel weiterhin nicht hinterlegt, keine Antwort. Kein neues Material gebaut (Engpass unverändert). Neue Idee: Hörgeschichten „Gestört & geil“. Morgen Wochenrückblick KW 42. Keine Push-Frage (Erinnerung vom 16.10. noch offen).
+- 2026-10-19: Wochenrückblick KW 42 (Umsatz 0 €, Engpass unverändert). Wöchentliche Erinnerung per Push (Advents-Kalender-Frist 31.10.).
