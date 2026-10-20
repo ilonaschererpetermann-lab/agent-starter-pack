@@ -1,27 +1,27 @@
 {
-  "stand": "2026-10-19",
+  "stand": "2026-10-20",
   "hinweis": "Wird jeden Morgen automatisch vom Agenten „Studio-Regie“ neu geschrieben. Laufband und Einspieler lesen diese Datei alle 10 Minuten.",
   "laufband": [
-    "Mut-Montag! Was traust du dich diese Woche? 💪🧡",
+    "Dienstag ist Tipp-Tag: Welches Hilfsmittel erleichtert deinen Alltag? 🧡",
+    "Schreib deinen Tipp in den Chat – oder mit „!“ davor, dann wird er vorgelesen",
     "Herz-Leiter am Abend: „dabei“ schreiben, dann „w“ zum Würfeln 🎲",
     "Rose = „Wie bitte?!“ · Fingerherz = Hupe · Donut = Applaus",
     "Galaxie = Fanfare + Konfetti · 1000 Likes = Herzschlag 💓",
-    "Schreib „!“ vor deinen Kommentar – dann wird er vorgelesen",
     "Folge dem Kanal – so verpasst du keine Show 🦁"
   ],
   "werbung": [
     "Der Demenz-Alltagsretter: 12 Vorlagen für leichtere Tage – Link im Profil"
   ],
   "einspieler": [
-    "Mut-Montag: Was traust du dich diese Woche?",
-    "Kleiner Mut zählt auch – erzähl's uns!",
-    "Ehrlich gesagt: Mut heißt nicht, keine Angst zu haben",
-    "Herz-Leiter am Montagabend – würfel mit!",
+    "Tipp-Tag: Was hilft dir wirklich im Alltag?",
+    "Zettel, Wecker, feste Plätze – was ist dein Trick?",
+    "Ehrlich gesagt: Hilfsmittel sind keine Schwäche",
+    "Herz-Leiter am Dienstagabend – würfel mit!",
     "Live bei HerzGedanken – gestört, geil und ganz ehrlich"
   ],
   "programm": {
-    "morgen": "Mut-Montag: Was traust du dich diese Woche? Kleine mutige Schritte aus dem Chat.",
-    "mittag": "Mittagspause: Wie spricht man über Demenz, ohne dass es peinlich wird?",
-    "abend": "Herz-Leiter am Montagabend – Punkte sammeln fürs Freitagsfinale."
+    "morgen": "Tipp-Tag: Kleine Hilfsmittel, die den Alltag mit Demenz leichter machen – aus Ilonas Erfahrung und dem Chat.",
+    "mittag": "Mittags-Talk für Angehörige: Was hilft beim Begleiten wirklich?",
+    "abend": "Herz-Leiter am Dienstagabend – Punkte sammeln fürs Freitagsfinale."
   }
 }
