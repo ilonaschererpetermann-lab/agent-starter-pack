@@ -1,9 +1,9 @@
 {
-  "stand": "2026-10-20",
+  "stand": "2026-10-21",
   "hinweis": "Wird jeden Morgen automatisch vom Agenten „Studio-Regie“ neu geschrieben. Laufband und Einspieler lesen diese Datei alle 10 Minuten.",
   "laufband": [
-    "Dienstag ist Tipp-Tag: Welches Hilfsmittel erleichtert deinen Alltag? 🧡",
-    "Schreib deinen Tipp in den Chat – oder mit „!“ davor, dann wird er vorgelesen",
+    "Musik-Mittwoch! Welches Lied bringt dich zum Tanzen? 🎶🧡",
+    "Schreib „!“ und deinen Liedwunsch – er wird vorgelesen",
     "Herz-Leiter am Abend: „dabei“ schreiben, dann „w“ zum Würfeln 🎲",
     "Rose = „Wie bitte?!“ · Fingerherz = Hupe · Donut = Applaus",
     "Galaxie = Fanfare + Konfetti · 1000 Likes = Herzschlag 💓",
@@ -13,15 +13,15 @@
     "Der Demenz-Alltagsretter: 12 Vorlagen für leichtere Tage – Link im Profil"
   ],
   "einspieler": [
-    "Tipp-Tag: Was hilft dir wirklich im Alltag?",
-    "Zettel, Wecker, feste Plätze – was ist dein Trick?",
-    "Ehrlich gesagt: Hilfsmittel sind keine Schwäche",
-    "Herz-Leiter am Dienstagabend – würfel mit!",
+    "Musik-Mittwoch: Welches Lied bringt dich zum Tanzen?",
+    "Bergfest! Halbzeit der Woche",
+    "Ehrlich gesagt: Tanzen geht auch im Sitzen",
+    "Herz-Leiter am Mittwochabend – würfel mit!",
     "Live bei HerzGedanken – gestört, geil und ganz ehrlich"
   ],
   "programm": {
-    "morgen": "Tipp-Tag: Kleine Hilfsmittel, die den Alltag mit Demenz leichter machen – aus Ilonas Erfahrung und dem Chat.",
-    "mittag": "Mittags-Talk für Angehörige: Was hilft beim Begleiten wirklich?",
-    "abend": "Herz-Leiter am Dienstagabend – Punkte sammeln fürs Freitagsfinale."
+    "morgen": "Musik-Mittwoch: Tanzlieder von früher – wer tanzt mit, auch im Sitzen?",
+    "mittag": "Bergfest-Mittag: Halbzeit-Check – wie läuft dein Mut-Plan vom Montag?",
+    "abend": "Herz-Leiter am Mittwochabend – Punkte sammeln fürs Freitagsfinale."
   }
 }
