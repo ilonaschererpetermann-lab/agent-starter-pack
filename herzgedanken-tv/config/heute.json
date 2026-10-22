@@ -1,9 +1,9 @@
 {
-  "stand": "2026-10-21",
+  "stand": "2026-10-22",
   "hinweis": "Wird jeden Morgen automatisch vom Agenten „Studio-Regie“ neu geschrieben. Laufband und Einspieler lesen diese Datei alle 10 Minuten.",
   "laufband": [
-    "Musik-Mittwoch! Welches Lied bringt dich zum Tanzen? 🎶🧡",
-    "Schreib „!“ und deinen Liedwunsch – er wird vorgelesen",
+    "Lach-Donnerstag! Erzähl uns deinen besten (harmlosen) Witz 😂",
+    "Schreib „!“ vor deinen Witz – dann wird er vorgelesen",
     "Herz-Leiter am Abend: „dabei“ schreiben, dann „w“ zum Würfeln 🎲",
     "Rose = „Wie bitte?!“ · Fingerherz = Hupe · Donut = Applaus",
     "Galaxie = Fanfare + Konfetti · 1000 Likes = Herzschlag 💓",
@@ -13,15 +13,15 @@
     "Der Demenz-Alltagsretter: 12 Vorlagen für leichtere Tage – Link im Profil"
   ],
   "einspieler": [
-    "Musik-Mittwoch: Welches Lied bringt dich zum Tanzen?",
-    "Bergfest! Halbzeit der Woche",
-    "Ehrlich gesagt: Tanzen geht auch im Sitzen",
-    "Herz-Leiter am Mittwochabend – würfel mit!",
+    "Lach-Donnerstag: Wer hat den besten Witz?",
+    "Lachen ist die beste Pause",
+    "Ehrlich gesagt: Humor hilft durch schwere Tage",
+    "Letzte Herz-Leiter-Runde vor dem Finale!",
     "Live bei HerzGedanken – gestört, geil und ganz ehrlich"
   ],
   "programm": {
-    "morgen": "Musik-Mittwoch: Tanzlieder von früher – wer tanzt mit, auch im Sitzen?",
-    "mittag": "Bergfest-Mittag: Halbzeit-Check – wie läuft dein Mut-Plan vom Montag?",
-    "abend": "Herz-Leiter am Mittwochabend – Punkte sammeln fürs Freitagsfinale."
+    "morgen": "Lach-Donnerstag: Witze-Runde aus dem Chat – harmlos, herzlich, gern auch flach.",
+    "mittag": "Mittags-Talk: Wann hilft Humor – und wann lieber nicht?",
+    "abend": "Herz-Leiter am Donnerstagabend – letzte Chance auf Punkte vor dem Freitagsfinale."
   }
 }
