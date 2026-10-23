@@ -25,6 +25,7 @@ veröffentlicht nichts ohne Freigabe von Ilona. Freigaben werden als Ja/Nein-Fra
 | 17 | **Saisonale Mini-PDFs** (Idee 2026-10-20: „Weihnachten mit Demenz entspannt feiern“ – Checkliste für Familienfeste, Besuchsplan, Ruhe-Ecke; 3–4 Seiten, 3,90 € oder Gratis-Beigabe zum Advents-Kalender; Aufwand gering, gleicher Generator; erst bauen, wenn das erste Produkt verkauft) | Idee | Freigabe |
 | 18 | **Steady/Patreon-ähnliche Unterstützer-Mitgliedschaft** (Idee 2026-10-21: Fans unterstützen Ilona monatlich mit kleinem Betrag und bekommen z. B. monatlich eine neue Vorlage + Danke im Live; Aufwand gering–mittel; Nutzen: planbares Einkommen; **Konto nur Ilona**, Steuerfragen vorher klären) | Idee | Freigabe + Konto durch Ilona |
 | 19 | **Kooperation mit Pflegekassen-/Selbsthilfe-Newslettern** (Idee 2026-10-22: Gastbeitrag „Demenz von innen“ in Newslettern von Alzheimer-Gesellschaften/Selbsthilfe, mit Hinweis auf Ilonas Vorlagen; kostet nichts, Reichweite bei genau der Zielgruppe; Aufwand gering – Text schreibt der Agent, Anfrage nur nach Freigabe) | Idee | Freigabe |
+| 20 | **Gemeinsamer Live-Spendenabend für eine Demenz-Organisation** (Idee 2026-10-23: kein Einkommen, aber Vertrauen und Reichweite; TikTok-Geschenke eines Abends gehen offen an eine gemeinnützige Organisation; Aufwand gering; rechtlich/steuerlich vorher klären, wie Spenden korrekt weitergegeben werden) | Idee | Freigabe |
 | 4 | Digistore24-Affiliate: passende Fremdprodukte für pflegende Angehörige empfehlen | Recherche | Freigabe je Produkt |
 
 ## Nächste Schritte (der Agent arbeitet sie der Reihe nach ab)
@@ -83,3 +84,4 @@ Verkaufsseite-Entwurf: `verkaufsseite/index.html` (alle 4 Produkte + Paket, Knö
 - 2026-10-20: API-Schlüssel weiterhin nicht hinterlegt, keine Antwort auf Push vom 19.10. Wartemodus. Neue Idee: saisonale Mini-PDF „Weihnachten mit Demenz“. Keine Push-Frage (eine pro Woche).
 - 2026-10-21: API-Schlüssel weiterhin nicht hinterlegt, keine Antwort. Wartemodus. Neue Idee: monatliche Unterstützer-Mitgliedschaft. Keine Push-Frage (eine pro Woche).
 - 2026-10-22: API-Schlüssel weiterhin nicht hinterlegt, keine Antwort. Wartemodus. Neue Idee: Gastbeiträge in Selbsthilfe-Newslettern. Keine Push-Frage (eine pro Woche). Noch 9 Tage bis zur Advents-Frist.
+- 2026-10-23: API-Schlüssel weiterhin nicht hinterlegt, keine Antwort. Wartemodus. Neue Idee: Live-Spendenabend (Vertrauen statt Umsatz). Keine Push-Frage (nächste Erinnerung Montag 26.10.). Noch 8 Tage bis zur Advents-Frist.
