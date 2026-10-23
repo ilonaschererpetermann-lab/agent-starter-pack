@@ -1,27 +1,27 @@
 {
-  "stand": "2026-10-22",
+  "stand": "2026-10-23",
   "hinweis": "Wird jeden Morgen automatisch vom Agenten „Studio-Regie“ neu geschrieben. Laufband und Einspieler lesen diese Datei alle 10 Minuten.",
   "laufband": [
-    "Lach-Donnerstag! Erzähl uns deinen besten (harmlosen) Witz 😂",
-    "Schreib „!“ vor deinen Witz – dann wird er vorgelesen",
-    "Herz-Leiter am Abend: „dabei“ schreiben, dann „w“ zum Würfeln 🎲",
+    "Freitag! Heute Abend wird gekrönt: Herz-Leiter-Wochenfinale um 19:30 👑",
+    "Spiel mit: „dabei“ schreiben, dann „w“ zum Würfeln 🎲",
     "Rose = „Wie bitte?!“ · Fingerherz = Hupe · Donut = Applaus",
     "Galaxie = Fanfare + Konfetti · 1000 Likes = Herzschlag 💓",
+    "Schreib „!“ vor deinen Kommentar – dann wird er vorgelesen",
     "Folge dem Kanal – so verpasst du keine Show 🦁"
   ],
   "werbung": [
     "Der Demenz-Alltagsretter: 12 Vorlagen für leichtere Tage – Link im Profil"
   ],
   "einspieler": [
-    "Lach-Donnerstag: Wer hat den besten Witz?",
-    "Lachen ist die beste Pause",
-    "Ehrlich gesagt: Humor hilft durch schwere Tage",
-    "Letzte Herz-Leiter-Runde vor dem Finale!",
+    "Freitag: Wie lief dein Mut-Plan?",
+    "Heute Abend: Herz-Leiter-Wochenfinale",
+    "Ehrlich gesagt: Versucht ist auch geschafft",
+    "Wer holt sich heute die Krone?",
     "Live bei HerzGedanken – gestört, geil und ganz ehrlich"
   ],
   "programm": {
-    "morgen": "Lach-Donnerstag: Witze-Runde aus dem Chat – harmlos, herzlich, gern auch flach.",
-    "mittag": "Mittags-Talk: Wann hilft Humor – und wann lieber nicht?",
-    "abend": "Herz-Leiter am Donnerstagabend – letzte Chance auf Punkte vor dem Freitagsfinale."
+    "morgen": "Freitags-Kaffee: Wie lief dein Mut-Plan vom Montag? Ehrlich, ohne Druck.",
+    "mittag": "Freitags-Mittag: Gute-Laune-Musik und Wochenendpläne.",
+    "abend": "Wochenfinale: Herz-Leiter-Turnier mit Krönung der Wochensiegerin oder des Wochensiegers."
   }
 }
