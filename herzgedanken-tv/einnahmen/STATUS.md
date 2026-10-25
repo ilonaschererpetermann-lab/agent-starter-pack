@@ -27,6 +27,7 @@ veröffentlicht nichts ohne Freigabe von Ilona. Freigaben werden als Ja/Nein-Fra
 | 19 | **Kooperation mit Pflegekassen-/Selbsthilfe-Newslettern** (Idee 2026-10-22: Gastbeitrag „Demenz von innen“ in Newslettern von Alzheimer-Gesellschaften/Selbsthilfe, mit Hinweis auf Ilonas Vorlagen; kostet nichts, Reichweite bei genau der Zielgruppe; Aufwand gering – Text schreibt der Agent, Anfrage nur nach Freigabe) | Idee | Freigabe |
 | 20 | **Gemeinsamer Live-Spendenabend für eine Demenz-Organisation** (Idee 2026-10-23: kein Einkommen, aber Vertrauen und Reichweite; TikTok-Geschenke eines Abends gehen offen an eine gemeinnützige Organisation; Aufwand gering; rechtlich/steuerlich vorher klären, wie Spenden korrekt weitergegeben werden) | Idee | Freigabe |
 | 21 | **Ratgeber-Bundle für Arbeitgeber** (Idee 2026-10-24: Kurz-PDF „Mitarbeitende pflegen Angehörige mit Demenz – was hilft im Betrieb?“ für Personalabteilungen; zahlungskräftigere Zielgruppe, Ilonas Sicht als Betroffene; Aufwand mittel; erst nach dem ersten Verkauf) | Idee | Freigabe |
+| 22 | **TikTok-Abo (Subscription) für Stammzuschauer** (Idee 2026-10-25: falls Ilonas Konto die Voraussetzungen erfüllt, monatliches Abo direkt in TikTok mit Abzeichen und Abo-Lives; kein externes Konto nötig; Voraussetzungen und Bedingungen in TikTok LIVE Studio prüfen; Aufwand gering) | Idee | Ilona prüft Freischaltung |
 | 4 | Digistore24-Affiliate: passende Fremdprodukte für pflegende Angehörige empfehlen | Recherche | Freigabe je Produkt |
 
 ## Nächste Schritte (der Agent arbeitet sie der Reihe nach ab)
@@ -87,3 +88,4 @@ Verkaufsseite-Entwurf: `verkaufsseite/index.html` (alle 4 Produkte + Paket, Knö
 - 2026-10-22: API-Schlüssel weiterhin nicht hinterlegt, keine Antwort. Wartemodus. Neue Idee: Gastbeiträge in Selbsthilfe-Newslettern. Keine Push-Frage (eine pro Woche). Noch 9 Tage bis zur Advents-Frist.
 - 2026-10-23: API-Schlüssel weiterhin nicht hinterlegt, keine Antwort. Wartemodus. Neue Idee: Live-Spendenabend (Vertrauen statt Umsatz). Keine Push-Frage (nächste Erinnerung Montag 26.10.). Noch 8 Tage bis zur Advents-Frist.
 - 2026-10-24: API-Schlüssel weiterhin nicht hinterlegt, keine Antwort. Wartemodus. Neue Idee: Ratgeber für Arbeitgeber. Keine Push-Frage (nächste Erinnerung Montag 26.10.). Noch 7 Tage bis zur Advents-Frist.
+- 2026-10-25: API-Schlüssel weiterhin nicht hinterlegt, keine Antwort. Wartemodus. Neue Idee: TikTok-Abo prüfen. Morgen Wochenrückblick KW 43 + wöchentliche Erinnerung (Frist Advents-Kalender 31.10.).
