@@ -1,9 +1,9 @@
 {
-  "stand": "2026-10-24",
+  "stand": "2026-10-25",
   "hinweis": "Wird jeden Morgen automatisch vom Agenten „Studio-Regie“ neu geschrieben. Laufband und Einspieler lesen diese Datei alle 10 Minuten.",
   "laufband": [
-    "Heute Nacht wird die Uhr eine Stunde zurückgestellt – eine Stunde geschenkt! ⏰🧡",
-    "Was machst du mit der geschenkten Stunde? Schreib's in den Chat",
+    "Sonntag! Die Uhr ist umgestellt – hast du die Stunde gut genutzt? ⏰🧡",
+    "Gemütlich-Sonntag: Tee, Decke, Lieblingsmusik – was macht's dir gemütlich?",
     "Herz-Leiter am Abend: „dabei“ schreiben, dann „w“ zum Würfeln 🎲",
     "Rose = „Wie bitte?!“ · Fingerherz = Hupe · Donut = Applaus",
     "Galaxie = Fanfare + Konfetti · 1000 Likes = Herzschlag 💓",
@@ -13,15 +13,15 @@
     "Der Demenz-Alltagsretter: 12 Vorlagen für leichtere Tage – Link im Profil"
   ],
   "einspieler": [
-    "Eine Stunde geschenkt: Was machst du damit?",
-    "Uhr umstellen – und wer stellt dich um?",
-    "Ehrlich gesagt: Zeit fühlt sich mit Demenz anders an",
-    "Herz-Leiter am Samstagabend – würfel mit!",
+    "Gemütlich-Sonntag: Was macht's dir kuschelig?",
+    "Uhr umgestellt – alles gut bei dir?",
+    "Ehrlich gesagt: Dunkle Tage brauchen helle Momente",
+    "Herz-Leiter am Sonntagabend – würfel mit!",
     "Live bei HerzGedanken – gestört, geil und ganz ehrlich"
   ],
   "programm": {
-    "morgen": "Samstags-Kaffee: Zeit und Demenz – wie fühlt sich Zeit an, wenn sie durcheinandergerät?",
-    "mittag": "Samstags-Mittag: Was machst du mit der geschenkten Stunde?",
-    "abend": "Samstagabend-Spiel: Herz-Leiter, Auftakt der neuen Wochenwertung."
+    "morgen": "Gemütlich-Sonntag: Was hilft, wenn es draußen früher dunkel wird?",
+    "mittag": "Sonntags-Mittag: Suppen, Eintöpfe und warme Lieblingsessen.",
+    "abend": "Herz-Leiter am Sonntagabend mit Stör-Aktionen und Wochenausblick."
   }
 }
