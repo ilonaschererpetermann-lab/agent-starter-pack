@@ -44,6 +44,7 @@ C. Streamer-Paket nur als White-Label-Version (eigener Name/Logo per Parameter)
 4. Laufband-Werbung für jedes Produkt mit Link einbauen, sobald Links vorliegen.
 5. Wöchentlich: was hat funktioniert, was nicht, nächste Idee (`WOCHE-JJJJ-KW.md`).
 
+**Stand KW 44:** Wochenrückblick `WOCHE-2026-43.md`. Vorschlag: Einnahmen-Routine bis zum API-Schlüssel nur noch montags.
 **Stand KW 43:** Wochenrückblick `WOCHE-2026-42.md`. Weiter Wartemodus, eine Erinnerung pro Woche.
 **Stand KW 42:** Bauen pausiert, Verkaufen hat Vorrang. Plan B ohne API: `SELBST-ANLEGEN.md`. Advents-Kalender zuerst (Frist Ende Oktober).
 Spickzettel fürs ehrliche Verkaufen im Live: `LIVE-VERKAUF.md`.
@@ -89,3 +90,4 @@ Verkaufsseite-Entwurf: `verkaufsseite/index.html` (alle 4 Produkte + Paket, Knö
 - 2026-10-23: API-Schlüssel weiterhin nicht hinterlegt, keine Antwort. Wartemodus. Neue Idee: Live-Spendenabend (Vertrauen statt Umsatz). Keine Push-Frage (nächste Erinnerung Montag 26.10.). Noch 8 Tage bis zur Advents-Frist.
 - 2026-10-24: API-Schlüssel weiterhin nicht hinterlegt, keine Antwort. Wartemodus. Neue Idee: Ratgeber für Arbeitgeber. Keine Push-Frage (nächste Erinnerung Montag 26.10.). Noch 7 Tage bis zur Advents-Frist.
 - 2026-10-25: API-Schlüssel weiterhin nicht hinterlegt, keine Antwort. Wartemodus. Neue Idee: TikTok-Abo prüfen. Morgen Wochenrückblick KW 43 + wöchentliche Erinnerung (Frist Advents-Kalender 31.10.).
+- 2026-10-26: Wochenrückblick KW 43 (Umsatz 0 €, keine Antwort seit 07.10.). Wöchentliche Erinnerung per Push (Advents-Frist Sa 31.10.).
