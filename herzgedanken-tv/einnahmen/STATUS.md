@@ -28,6 +28,7 @@ veröffentlicht nichts ohne Freigabe von Ilona. Freigaben werden als Ja/Nein-Fra
 | 20 | **Gemeinsamer Live-Spendenabend für eine Demenz-Organisation** (Idee 2026-10-23: kein Einkommen, aber Vertrauen und Reichweite; TikTok-Geschenke eines Abends gehen offen an eine gemeinnützige Organisation; Aufwand gering; rechtlich/steuerlich vorher klären, wie Spenden korrekt weitergegeben werden) | Idee | Freigabe |
 | 21 | **Ratgeber-Bundle für Arbeitgeber** (Idee 2026-10-24: Kurz-PDF „Mitarbeitende pflegen Angehörige mit Demenz – was hilft im Betrieb?“ für Personalabteilungen; zahlungskräftigere Zielgruppe, Ilonas Sicht als Betroffene; Aufwand mittel; erst nach dem ersten Verkauf) | Idee | Freigabe |
 | 22 | **TikTok-Abo (Subscription) für Stammzuschauer** (Idee 2026-10-25: falls Ilonas Konto die Voraussetzungen erfüllt, monatliches Abo direkt in TikTok mit Abzeichen und Abo-Lives; kein externes Konto nötig; Voraussetzungen und Bedingungen in TikTok LIVE Studio prüfen; Aufwand gering) | Idee | Ilona prüft Freischaltung |
+| 23 | **Gesprächskarten-Set „Erzähl mal …“** (Idee 2026-10-27: 48 druckbare Karten mit Fragen für Besuche bei Menschen mit Demenz, z. B. „Was war dein Lieblingsessen als Kind?“; passt zum Frage-Dienstag im Live; mit vorhandenem Mappe-Code schnell erstellbar; Preisidee 5,90 €; Aufwand gering; erst nach dem ersten Verkauf) | Idee | Freigabe |
 | 4 | Digistore24-Affiliate: passende Fremdprodukte für pflegende Angehörige empfehlen | Recherche | Freigabe je Produkt |
 
 ## Nächste Schritte (der Agent arbeitet sie der Reihe nach ab)
@@ -91,3 +92,4 @@ Verkaufsseite-Entwurf: `verkaufsseite/index.html` (alle 4 Produkte + Paket, Knö
 - 2026-10-24: API-Schlüssel weiterhin nicht hinterlegt, keine Antwort. Wartemodus. Neue Idee: Ratgeber für Arbeitgeber. Keine Push-Frage (nächste Erinnerung Montag 26.10.). Noch 7 Tage bis zur Advents-Frist.
 - 2026-10-25: API-Schlüssel weiterhin nicht hinterlegt, keine Antwort. Wartemodus. Neue Idee: TikTok-Abo prüfen. Morgen Wochenrückblick KW 43 + wöchentliche Erinnerung (Frist Advents-Kalender 31.10.).
 - 2026-10-26: Wochenrückblick KW 43 (Umsatz 0 €, keine Antwort seit 07.10.). Wöchentliche Erinnerung per Push (Advents-Frist Sa 31.10.).
+- 2026-10-27: API-Schlüssel weiterhin nicht hinterlegt, keine Antwort auf Push vom 26.10. Wartemodus. Neue Idee: Gesprächskarten-Set „Erzähl mal …“. Keine Push-Frage (eine pro Woche). Noch 4 Tage bis zur Advents-Frist.
