@@ -1,27 +1,27 @@
 {
-  "stand": "2026-10-27",
+  "stand": "2026-10-28",
   "hinweis": "Wird jeden Morgen automatisch vom Agenten „Studio-Regie“ neu geschrieben. Laufband und Einspieler lesen diese Datei alle 10 Minuten.",
   "laufband": [
-    "Frage-Dienstag! Frag Ilona alles rund um Demenz – ehrlich beantwortet 🧡",
-    "Schreib „!“ vor deine Frage – dann wird sie vorgelesen",
+    "Musik-Mittwoch! Heute: Herbst- und Gruselhits zum Mitsingen 🎶🎃",
+    "Liedwunsch? Schreib „!“ davor – dann wird er vorgelesen",
     "Spiel mit: „dabei“ schreiben, dann „w“ zum Würfeln 🎲",
     "Rose = „Wie bitte?!“ · Fingerherz = Hupe · Donut = Applaus",
     "Galaxie = Turbo · 1000 Likes = Herzschlag 💓",
-    "Samstag 31.10.: Grusel-Spezial zu Halloween 🎃"
+    "Samstag 31.10.: Grusel-Spezial zu Halloween – Kostüm erlaubt 👻"
   ],
   "werbung": [
     "Der Demenz-Alltagsretter: 12 Vorlagen für leichtere Tage – Link im Profil"
   ],
   "einspieler": [
-    "Frage-Dienstag: Keine Frage ist zu dumm",
-    "Wie fühlt sich Vergessen an? Ilona erzählt",
-    "Ehrlich gefragt, ehrlich geantwortet",
-    "Noch 4 Tage bis zum Halloween-Spezial",
+    "Musik-Mittwoch: Herbst- und Gruselhits",
+    "Welches Lied kennst du noch auswendig?",
+    "Bergfest: Halbzeit für deinen Wochenwunsch",
+    "Noch 3 Tage bis zum Halloween-Spezial",
     "Live bei HerzGedanken – gestört, geil und ganz ehrlich"
   ],
   "programm": {
-    "morgen": "Frage-Dienstag: Frag mich alles – Ilona beantwortet eure Fragen zum Leben mit Demenz.",
-    "mittag": "Mittagspause: Die Fragen, die sich Angehörige nicht zu stellen trauen.",
-    "abend": "Herz-Leiter am Dienstagabend mit Stör-Aktionen."
+    "morgen": "Musik-Mittwoch: Herbst- und Gruselhits – mitsingen, mitschunkeln, Erinnerungen teilen.",
+    "mittag": "Bergfest-Mittag: Wie steht es um deinen Wunsch vom Montag?",
+    "abend": "Herz-Leiter am Mittwochabend mit Stör-Aktionen."
   }
 }
