@@ -1,27 +1,27 @@
 {
-  "stand": "2026-10-28",
+  "stand": "2026-10-29",
   "hinweis": "Wird jeden Morgen automatisch vom Agenten „Studio-Regie“ neu geschrieben. Laufband und Einspieler lesen diese Datei alle 10 Minuten.",
   "laufband": [
-    "Musik-Mittwoch! Heute: Herbst- und Gruselhits zum Mitsingen 🎶🎃",
-    "Liedwunsch? Schreib „!“ davor – dann wird er vorgelesen",
+    "Pannen-Donnerstag! Heute: Schreckmomente, über die wir heute lachen 😱😂",
+    "Deine Panne? Schreib „!“ davor – dann wird sie vorgelesen",
     "Spiel mit: „dabei“ schreiben, dann „w“ zum Würfeln 🎲",
     "Rose = „Wie bitte?!“ · Fingerherz = Hupe · Donut = Applaus",
     "Galaxie = Turbo · 1000 Likes = Herzschlag 💓",
-    "Samstag 31.10.: Grusel-Spezial zu Halloween – Kostüm erlaubt 👻"
+    "Übermorgen, Samstag 31.10.: Grusel-Spezial zu Halloween 👻"
   ],
   "werbung": [
     "Der Demenz-Alltagsretter: 12 Vorlagen für leichtere Tage – Link im Profil"
   ],
   "einspieler": [
-    "Musik-Mittwoch: Herbst- und Gruselhits",
-    "Welches Lied kennst du noch auswendig?",
-    "Bergfest: Halbzeit für deinen Wochenwunsch",
-    "Noch 3 Tage bis zum Halloween-Spezial",
+    "Pannen-Donnerstag: Schreckmomente zum Lachen",
+    "Wo war nochmal die Brille? Auf dem Kopf.",
+    "Lachen ist erlaubt – auch über sich selbst",
+    "Noch 2 Tage bis zum Halloween-Spezial",
     "Live bei HerzGedanken – gestört, geil und ganz ehrlich"
   ],
   "programm": {
-    "morgen": "Musik-Mittwoch: Herbst- und Gruselhits – mitsingen, mitschunkeln, Erinnerungen teilen.",
-    "mittag": "Bergfest-Mittag: Wie steht es um deinen Wunsch vom Montag?",
-    "abend": "Herz-Leiter am Mittwochabend mit Stör-Aktionen."
+    "morgen": "Pannen-Donnerstag: Schreckmomente aus dem Alltag, über die wir heute lachen können.",
+    "mittag": "Mittagspause: Wie bleibt man gelassen, wenn etwas schiefgeht?",
+    "abend": "Herz-Leiter am Donnerstagabend – letzte Punkte vor dem Freitagsfinale."
   }
 }
