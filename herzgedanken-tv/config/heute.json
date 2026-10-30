@@ -1,27 +1,27 @@
 {
-  "stand": "2026-10-29",
+  "stand": "2026-10-30",
   "hinweis": "Wird jeden Morgen automatisch vom Agenten „Studio-Regie“ neu geschrieben. Laufband und Einspieler lesen diese Datei alle 10 Minuten.",
   "laufband": [
-    "Pannen-Donnerstag! Heute: Schreckmomente, über die wir heute lachen 😱😂",
-    "Deine Panne? Schreib „!“ davor – dann wird sie vorgelesen",
+    "Freitag! Heute 19:30 Herz-Leiter-Wochenfinale – wer wird gekrönt? 👑",
     "Spiel mit: „dabei“ schreiben, dann „w“ zum Würfeln 🎲",
     "Rose = „Wie bitte?!“ · Fingerherz = Hupe · Donut = Applaus",
+    "Schreib „!“ vor deinen Kommentar – dann wird er vorgelesen",
     "Galaxie = Turbo · 1000 Likes = Herzschlag 💓",
-    "Übermorgen, Samstag 31.10.: Grusel-Spezial zu Halloween 👻"
+    "Morgen, Samstag 31.10.: Grusel-Spezial zu Halloween – Kostüm erlaubt 🎃"
   ],
   "werbung": [
     "Der Demenz-Alltagsretter: 12 Vorlagen für leichtere Tage – Link im Profil"
   ],
   "einspieler": [
-    "Pannen-Donnerstag: Schreckmomente zum Lachen",
-    "Wo war nochmal die Brille? Auf dem Kopf.",
-    "Lachen ist erlaubt – auch über sich selbst",
-    "Noch 2 Tage bis zum Halloween-Spezial",
+    "Wochenfinale: Heute wird gekrönt",
+    "Hat dein Wochenwunsch geklappt?",
+    "Versucht ist auch geschafft",
+    "Morgen: Halloween-Spezial im Studio",
     "Live bei HerzGedanken – gestört, geil und ganz ehrlich"
   ],
   "programm": {
-    "morgen": "Pannen-Donnerstag: Schreckmomente aus dem Alltag, über die wir heute lachen können.",
-    "mittag": "Mittagspause: Wie bleibt man gelassen, wenn etwas schiefgeht?",
-    "abend": "Herz-Leiter am Donnerstagabend – letzte Punkte vor dem Freitagsfinale."
+    "morgen": "Freitags-Kaffee: Wunsch-Check – was ist aus deinem Wunsch vom Montag geworden?",
+    "mittag": "Freitags-Mittag: Gute-Laune-Lieder und Kostüm-Ideen für morgen.",
+    "abend": "Herz-Leiter-Wochenfinale mit Krönung."
   }
 }
