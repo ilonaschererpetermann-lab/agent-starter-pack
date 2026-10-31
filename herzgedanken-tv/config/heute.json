@@ -1,27 +1,27 @@
 {
-  "stand": "2026-10-30",
+  "stand": "2026-10-31",
   "hinweis": "Wird jeden Morgen automatisch vom Agenten „Studio-Regie“ neu geschrieben. Laufband und Einspieler lesen diese Datei alle 10 Minuten.",
   "laufband": [
-    "Freitag! Heute 19:30 Herz-Leiter-Wochenfinale – wer wird gekrönt? 👑",
-    "Spiel mit: „dabei“ schreiben, dann „w“ zum Würfeln 🎲",
+    "Halloween-Spezial! Heute ist alles ein bisschen gruselig – und sehr lustig 🎃👻",
+    "Zeig dein Kostüm! Schreib „!“ davor – dann wird dein Kommentar vorgelesen",
+    "Grusel-Würfeln: „dabei“ schreiben, dann „w“ zum Würfeln 🎲",
     "Rose = „Wie bitte?!“ · Fingerherz = Hupe · Donut = Applaus",
-    "Schreib „!“ vor deinen Kommentar – dann wird er vorgelesen",
     "Galaxie = Turbo · 1000 Likes = Herzschlag 💓",
-    "Morgen, Samstag 31.10.: Grusel-Spezial zu Halloween – Kostüm erlaubt 🎃"
+    "Folge dem Kanal – so verpasst du keine Show 🦁"
   ],
   "werbung": [
     "Der Demenz-Alltagsretter: 12 Vorlagen für leichtere Tage – Link im Profil"
   ],
   "einspieler": [
-    "Wochenfinale: Heute wird gekrönt",
-    "Hat dein Wochenwunsch geklappt?",
-    "Versucht ist auch geschafft",
-    "Morgen: Halloween-Spezial im Studio",
+    "Halloween-Spezial im HerzGedanken-Studio",
+    "Süßes oder Saures? Heute beides",
+    "Was macht dir wirklich Angst – und was nicht mehr?",
+    "Kostüm-Parade im Chat",
     "Live bei HerzGedanken – gestört, geil und ganz ehrlich"
   ],
   "programm": {
-    "morgen": "Freitags-Kaffee: Wunsch-Check – was ist aus deinem Wunsch vom Montag geworden?",
-    "mittag": "Freitags-Mittag: Gute-Laune-Lieder und Kostüm-Ideen für morgen.",
-    "abend": "Herz-Leiter-Wochenfinale mit Krönung."
+    "morgen": "Samstags-Kaffee zu Halloween: Gruselgeschichten von früher und was heute wirklich Angst macht.",
+    "mittag": "Kostüm-Parade: Zeig dein Kostüm – Ilona kürt das schönste.",
+    "abend": "Grusel-Herz-Leiter: Halloween-Spezial mit Stör-Aktionen."
   }
 }
