@@ -104,3 +104,4 @@ Verkaufsseite-Entwurf: `verkaufsseite/index.html` (alle 4 Produkte + Paket, Knö
 - 2026-11-01: API-Schlüssel weiterhin nicht hinterlegt, keine Antwort auf Monatsbericht-Push. Wartemodus. Bewusst keine neue Idee: Die Liste (27 Ideen) reicht, bis der erste Verkauf läuft (siehe Monatsbericht). Keine Push-Frage (gestern gesendet).
 - 2026-11-02: Wochenrückblick KW 44 (0 €, keine Antwort). Keine Wochen-Erinnerung, weil die Monatsbericht-Frage vom 31.10. noch offen ist. Nächster Push frühestens 09.11.
 - 2026-11-03: API-Schlüssel weiterhin nicht hinterlegt, keine Antwort. Wartemodus, keine neue Idee (Liste bleibt bei 27). Keine Push-Frage (nächste frühestens 09.11.).
+- 2026-11-04: API-Schlüssel weiterhin nicht hinterlegt, keine Antwort. Wartemodus, keine neue Idee. Keine Push-Frage (nächste frühestens 09.11.).
