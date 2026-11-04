@@ -1,27 +1,27 @@
 {
-  "stand": "2026-11-03",
+  "stand": "2026-11-04",
   "hinweis": "Wird jeden Morgen automatisch vom Agenten „Studio-Regie“ neu geschrieben. Laufband und Einspieler lesen diese Datei alle 10 Minuten.",
   "laufband": [
-    "Tipp-Dienstag! Heute: Gut durch die dunkle Jahreszeit 💡🧡",
-    "Dein bester Tipp? Schreib „!“ davor – dann wird er vorgelesen",
+    "Musik-Mittwoch! Heute: Lieder zum Kuscheln für graue Novembertage 🎶🧡",
+    "Liedwunsch? Schreib „!“ davor – dann wird er vorgelesen",
     "Spiel mit: „dabei“ schreiben, dann „w“ zum Würfeln 🎲",
     "Rose = „Wie bitte?!“ · Fingerherz = Hupe · Donut = Applaus",
     "Galaxie = Turbo · 1000 Likes = Herzschlag 💓",
-    "Folge dem Kanal – so verpasst du keine Show 🦁"
+    "Diese Woche: Herz-Leiter jeden Abend, Freitag wird gekrönt 👑"
   ],
   "werbung": [
     "Der Demenz-Alltagsretter: 12 Vorlagen für leichtere Tage – Link im Profil"
   ],
   "einspieler": [
-    "Tipp-Dienstag: Licht an, Stolperfallen weg",
-    "Früh dunkel – was hilft bei der Orientierung?",
-    "Kleine Tricks für lange Abende",
-    "Wer holt sich am Freitag die Krone?",
+    "Musik-Mittwoch: Lieder zum Kuscheln",
+    "Welches Lied wärmt dich von innen?",
+    "Bergfest: Wie läuft dein Lichtblick?",
+    "Musik erinnert sich, auch wenn wir vergessen",
     "Live bei HerzGedanken – gestört, geil und ganz ehrlich"
   ],
   "programm": {
-    "morgen": "Tipp-Dienstag: Gut durch die dunkle Jahreszeit – Licht, Orientierung, Sicherheit.",
-    "mittag": "Mittagspause: Wenn es abends unruhig wird – was Angehörigen hilft.",
-    "abend": "Herz-Leiter am Dienstagabend mit Stör-Aktionen."
+    "morgen": "Musik-Mittwoch: Lieder zum Kuscheln – Balladen, Schlager und Wiegenlieder für graue Tage.",
+    "mittag": "Bergfest-Mittag: Wie läuft dein Lichtblick vom Montag?",
+    "abend": "Herz-Leiter am Mittwochabend mit Stör-Aktionen."
   }
 }
