@@ -106,3 +106,5 @@ Verkaufsseite-Entwurf: `verkaufsseite/index.html` (alle 4 Produkte + Paket, Knö
 - 2026-11-03: API-Schlüssel weiterhin nicht hinterlegt, keine Antwort. Wartemodus, keine neue Idee (Liste bleibt bei 27). Keine Push-Frage (nächste frühestens 09.11.).
 - 2026-11-04: API-Schlüssel weiterhin nicht hinterlegt, keine Antwort. Wartemodus, keine neue Idee. Keine Push-Frage (nächste frühestens 09.11.).
 - 2026-11-05: API-Schlüssel weiterhin nicht hinterlegt, keine Antwort. Wartemodus, keine neue Idee. Keine Push-Frage (nächste frühestens 09.11.).
+- 2026-11-07 bis 09.11.: Agenten-Läufe ausgefallen (Sitzungs-Neustarts), keine Show-Pläne, keine Prüfung.
+- 2026-11-10: Wochenrückblick KW 45 nachgeholt (0 €). Sicheres Formular für den API-Schlüssel steht jetzt zur Verfügung; Anfrage gestellt, unbeantwortet abgelaufen. Wochen-Push gesendet.
